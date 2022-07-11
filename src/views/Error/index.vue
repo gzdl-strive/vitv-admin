@@ -1,8 +1,8 @@
 <script lang="ts" setup></script>
 <script lang="ts">
 export default {
-  name: 'Error'
-}
+  name: 'ErrorPage'
+};
 </script>
 
 <template>
