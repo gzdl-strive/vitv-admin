@@ -7,7 +7,18 @@
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
     "prepare": "husky install",
-    "eslint": "eslint ./src --fix"
+    "eslint": "eslint ./src --fix",
+    "lint-staged": "lint-staged"
+  },
+  "lint-satged": {
+    "src/**/*.{ts,vue}": [
+      "eslint --fix",
+      "git add ."
+    ],
+    "*.{vue,scss}": [
+      "stylelint --fix --custom-syntax postcss-html",
+      "git add ."
+    ]
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -29,6 +40,8 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.2.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
     "postcss-html": "^1.5.0",
     "prettier": "^2.7.1",
     "sass": "^1.53.0",
@@ -37,7 +50,6 @@
     "stylelint-scss": "^4.3.0",
     "typescript": "^4.5.4",
     "vite": "^2.9.9",
-    "vue-tsc": "^0.34.7",
-    "husky": "^8.0.0"
+    "vue-tsc": "^0.34.7"
   }
 }
