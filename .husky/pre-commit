@@ -1,4 +1,9 @@
 #!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+. "$(dirname "$0")/_/husky.sh"
 
+# 使用lint-staged之前，我们运行package.json中的eslint命令，校验全部的文件
+# npm run eslint #++ 校验所有的.js .ts .vue文件
+# git add . #++ 用于自动修复后改变的文件添加到暂存区
+
+# 使用lint-staged只校验新增的文件或修改过的文件
 npm run lint-staged

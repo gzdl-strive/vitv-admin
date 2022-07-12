@@ -2,9 +2,14 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import path from 'path';
 
+const createSvg = require('./src/components/SvgIcon');
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    createSvg('./src/assets/icons/svg/')
+  ],
   clearScreen: false, // 设置为false, 可以避免Vite清屏而错过在终端中打印某些关键信息
   server: {
     port: 8080,
