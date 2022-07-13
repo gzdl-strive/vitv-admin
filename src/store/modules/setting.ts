@@ -1,23 +1,24 @@
 import { defineStore } from 'pinia';
-import { Theme } from '@/types/setting';
+import { SystemTheme } from '@/types/setting';
+import { SettingStoreProps } from '../typing';
 import Setting from '@/setting';
 
 const useSettingStore = defineStore({
   id: 'setting',
-  state: () => {
+  state: (): SettingStoreProps => {
     return {
-      theme: 'default'
+      systemTheme: 'default'
     }
   },
   actions: {
-    SET_THEME(theme: Theme) {
+    SET_SYS_THEME(sysTheme: SystemTheme) {
       // 存储新的主题
-      this.theme = theme;
+      this.systemTheme = sysTheme;
       // 变更其他非element组件的主题色
       document.body.setAttribute(
         '--theme-color',
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        Setting.THEME_LIST.find(item => item.name === theme)!.color
+        Setting.SYSTEM_THEME_LIST.find(item => item.name === sysTheme)!.color
       )
     }
   },
@@ -28,7 +29,7 @@ const useSettingStore = defineStore({
         // 自定义名称
         key: 'setting-store',
         storage: localStorage,
-        paths: ['theme']
+        paths: ['sysTheme']
       }
     ]
   }

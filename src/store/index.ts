@@ -1,5 +1,7 @@
-import useSettingStore from "./modules/Setting";
+import useSettingStore from "./modules/setting";
+import useUserStore from "./modules/user";
 
 export {
-  useSettingStore
+  useSettingStore,
+  useUserStore
 }

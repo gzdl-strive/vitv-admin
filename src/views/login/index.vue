@@ -2,8 +2,11 @@
 import { ref, onMounted, reactive } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { User, Lock } from '@element-plus/icons-vue';
-// import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '@/store';
+import { SET_LOGIN_STATUS } from '@/conststant';
 import galaxy from './galaxy';
+import { wait } from '@/utils';
 
 const webgl = ref<HTMLCanvasElement>();
 
@@ -17,8 +20,8 @@ const loginFormData = reactive({
 //表单校验规则
 const loginRules = reactive({
   username: [
-    { required: true, message: '请输入用户名', trigger: 'blur' }
-    // { min: 11, max: 11, message: '用户名长度应为11', trigger: 'blur' }
+    { required: true, message: '请输入用户名', trigger: 'blur' },
+    { min: 3, max: 10, message: '用户名长度应在3-10之间', trigger: 'blur' }
   ],
   password: {
     required: true,
@@ -27,9 +30,7 @@ const loginRules = reactive({
 });
 //按钮加载
 const loading = ref<boolean>(false);
-//是否聚焦与输入框
-const inputFocus = ref<boolean>(false);
-// const router = useRouter();
+const router = useRouter();
 //登录
 const onLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
@@ -37,12 +38,11 @@ const onLogin = async (formEl: FormInstance | undefined) => {
     if (valid) {
       const { username, password } = loginFormData;
       loading.value = true;
-      console.log(username, password);
-      // const userStore = useUserStore();
-      // Utils.wait(500).then(() => {
-      //   router.push('/');
-      //   userStore[SET_LOGIN_STATUS](true);
-      // });
+      const userStore = useUserStore();
+      wait(500).then(() => {
+        router.push('/');
+        userStore[SET_LOGIN_STATUS](true);
+      });
     } else {
       window.$toast('error', '登录失败，请检查输入是否有误');
     }
@@ -78,8 +78,6 @@ export default {
               v-model="loginFormData.username"
               placeholder="请输入用户名"
               :prefix-icon="User"
-              @focus="inputFocus = true"
-              @blur="inputFocus = false"
               @keyup.enter="onLogin(loginFormRef)"
             />
           </el-form-item>
@@ -133,7 +131,25 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba($color: $color-white, $alpha: 10%);
+    /* stylelint-disable-next-line declaration-colon-newline-after */
+    background: radial-gradient(
+      200% 100% at bottom center,
+      rgb(247 247 182 / 90%),
+      rgb(233 111 146 / 90%),
+      rgb(117 81 125 / 90%),
+      rgb(27 41 71 / 90%)
+    );
+    /* stylelint-disable-next-line declaration-colon-newline-after */
+    background: radial-gradient(
+      220% 105% at top center,
+      rgb(27 41 71 / 90%) 10%,
+      rgb(117 81 125 / 90%) 40%,
+      rgb(233 111 146 / 90%) 65%,
+      rgb(247 247 182 / 90%)
+    );
+    background-attachment: fixed;
+    overflow: hidden;
+    color: $color-white;
     transition: all 400ms ease;
     border-radius: 0.3rem;
 
@@ -214,6 +230,7 @@ export default {
       &:deep(.el-button) {
         width: 100%;
         height: 2.5rem;
+        background-image: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
 
         span {
           padding-top: 0.25rem;
