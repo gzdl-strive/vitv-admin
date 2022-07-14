@@ -1,6 +1,8 @@
 // Setting
 export type SettingStoreProps = {
   systemTheme: string;
+  asideBarWidth: number;
+  collapse: boolean;
 };
 
 // User

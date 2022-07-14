@@ -1,5 +1,5 @@
 // 主题色变量
-$theme-color: var(--theme-color, #109eff) !default;
+$system-theme-color: var(--system-theme-color, #109eff) !default;
 
 // 颜色变量
 $color-success: #66d42f;
@@ -9,3 +9,12 @@ $color-info: #909399;
 $color-white: #ffffff;
 $color-black: #000000;
 $color-gray: #707070;
+
+// 主题变量
+// 侧边栏背景
+$aside-bar_bg-color: var(--aside-bar_bg-color, hsl(180, 2%, 9%)) !default;
+$aside-bar_shadow: 0.2rem 0 0.3rem hsla(209, 100%, 8%, 0.349) !default;
+$aside-bar_text-color: hsl(212, 25%, 80%) !default;
+$aside-bar_submenu-item_bg-color: hsl(212, 33%, 18%) !default;
+$aside-bar_submenu-item_bg-color-hover: hsl(209, 100%, 8%) !default;
+$main_text-color: var(--main_text-color, $color-black) !default;

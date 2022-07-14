@@ -1,0 +1,23 @@
+/*** aside-bar-logo-anim  ***/
+.aside-bar-logo-anim-enter-active,
+.aside-bar-logo-anim-leave-active {
+  transition: transform 400ms, opacity 400ms;
+}
+
+.aside-bar-logo-anim-enter-from,
+.aside-bar-logo-anim-leave-to {
+  transform: translateX(50%);
+  opacity: 0;
+}
+
+/*** aside-bar-header-anim  ***/
+.aside-bar-header-anim-enter-active,
+.aside-bar-header-anim-leave-active {
+  transition: transform 400ms, opacity 400ms;
+}
+
+.aside-bar-header-anim-enter-from,
+.aside-bar-header-anim-leave-to {
+  transform: translateX(-50%);
+  opacity: 0;
+}

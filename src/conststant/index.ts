@@ -1,5 +1,7 @@
 // Setting
 export const SET_SYS_THEME = 'SET_SYS_THEME';
+export const CHANGE_ASIDEBAR_WIDTH = 'CHANGE_ASIDEBAR_WIDTH';
+export const CHANGE_COLLAPSE = 'CHANGE_COLLAPSE';
 
 // User
 export const SET_LOGIN_STATUS = 'SET_LOGIN_STATUS';

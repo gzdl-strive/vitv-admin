@@ -7,7 +7,9 @@ const useSettingStore = defineStore({
   id: 'setting',
   state: (): SettingStoreProps => {
     return {
-      systemTheme: 'default'
+      systemTheme: 'default',
+      asideBarWidth: 200,
+      collapse: false,
     }
   },
   actions: {
@@ -16,10 +18,16 @@ const useSettingStore = defineStore({
       this.systemTheme = sysTheme;
       // 变更其他非element组件的主题色
       document.body.setAttribute(
-        '--theme-color',
+        '--system-theme-color',
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         Setting.SYSTEM_THEME_LIST.find(item => item.name === sysTheme)!.color
       )
+    },
+    CHANGE_ASIDEBAR_WIDTH(width: number) {
+      this.asideBarWidth = width;
+    },
+    CHANGE_COLLAPSE(status: boolean) {
+      this.collapse = status;
     }
   },
   persist: {
@@ -29,7 +37,7 @@ const useSettingStore = defineStore({
         // 自定义名称
         key: 'setting-store',
         storage: localStorage,
-        paths: ['sysTheme']
+        paths: ['sysTheme', 'asideBarWidth', 'collapse']
       }
     ]
   }

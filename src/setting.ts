@@ -3,7 +3,7 @@ import { SettingConfig } from './types/setting';
 // 系统的配置
 const Setting: SettingConfig = {
   SYSTEM_NAME: 'vitv-admin',
-  SYSTEM_ICON: 'leaf',
+  SYSTEM_ICON: 'system',
   SYSTEM_THEME_LIST: [
     { name: 'default', color: '#409EFF' },
     { name: 'green', color: '#00B3A1' },

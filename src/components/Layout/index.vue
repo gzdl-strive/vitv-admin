@@ -1,5 +1,12 @@
 <script lang="ts" setup>
+import { computed } from 'vue';
+import { useSettingStore } from '@/store';
 import AsideBar from './components/AsideBar';
+import Setting from '@/setting';
+
+const settingStore = useSettingStore();
+
+const collapse = computed(() => settingStore.collapse);
 </script>
 <script lang="ts">
 export default {
@@ -10,7 +17,11 @@ export default {
 <template>
   <div class="layout-wrapper">
     <el-container class="content-wrapper">
-      <aside-bar></aside-bar>
+      <aside-bar
+        :collapse="collapse"
+        :icon-name="Setting.SYSTEM_ICON"
+        :system-name="Setting.SYSTEM_NAME"
+      ></aside-bar>
       <el-container>
         <el-header>Header</el-header>
         <el-main>
