@@ -6,5 +6,18 @@ export default {
 </script>
 
 <template>
-  <h1>404 Not Found</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
+  <h1>THIS is 错误页面</h1>
 </template>
