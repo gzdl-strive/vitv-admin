@@ -1,3 +1,5 @@
+// 模式变量
+$theme-color: var(--theme-color, #fff) !default;
 // 主题色变量
 $system-theme-color: var(--system-theme-color, #109eff) !default;
 
@@ -12,9 +14,17 @@ $color-gray: #707070;
 
 // 主题变量
 // 侧边栏背景
-$aside-bar_bg-color: var(--aside-bar_bg-color, hsl(180, 2%, 9%)) !default;
+$aside-bar_bg-color: hsl(180, 2%, 9%) !default;
 $aside-bar_shadow: 0.2rem 0 0.3rem hsla(209, 100%, 8%, 0.349) !default;
 $aside-bar_text-color: hsl(212, 25%, 80%) !default;
 $aside-bar_submenu-item_bg-color: hsl(212, 33%, 18%) !default;
 $aside-bar_submenu-item_bg-color-hover: hsl(209, 100%, 8%) !default;
+
+// 头部工具栏
+$header-toolbar-bg-color: $theme-color !default;
+$header-toolbar-height: 7.2rem;
+$header-toolbar-shadow: 0 .2rem .5rem rgba($color: #000, $alpha: 0.09) !default;
+$header-toolbar-toolbox-height: 3.6rem !default;
+$header-toolbar-toolbox-shadow: 0 .2rem .5rem rgba($color: #000, $alpha: 0.09) !default;
+
 $main_text-color: var(--main_text-color, $color-black) !default;

@@ -1,12 +1,10 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { useSettingStore } from '@/store';
 import AsideBar from './components/AsideBar';
+import HeaderToolBar from './components/HeaderToolBar';
+import { useIconClick } from './useIconClick';
 import Setting from '@/setting';
 
-const settingStore = useSettingStore();
-
-const collapse = computed(() => settingStore.collapse);
+const { collapse, IconClick } = useIconClick();
 </script>
 <script lang="ts">
 export default {
@@ -21,9 +19,13 @@ export default {
         :collapse="collapse"
         :icon-name="Setting.SYSTEM_ICON"
         :system-name="Setting.SYSTEM_NAME"
+        @icon-click="IconClick"
       ></aside-bar>
       <el-container>
-        <el-header>Header</el-header>
+        <header-tool-bar
+          :collapse="collapse"
+          @icon-click="IconClick"
+        ></header-tool-bar>
         <el-main>
           <router-view></router-view>
         </el-main>

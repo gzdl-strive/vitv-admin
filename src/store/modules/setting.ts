@@ -1,18 +1,34 @@
 import { defineStore } from 'pinia';
 import { SystemTheme } from '@/types/setting';
 import { SettingStoreProps } from '../typing';
+import { Theme } from '@/types/setting';
 import Setting from '@/setting';
+
+const themeMode = {
+  'light': 'rgba(0, 0, 0, 1)',
+  'dark': 'rgba(21, 21, 21, 1)'
+};
 
 const useSettingStore = defineStore({
   id: 'setting',
   state: (): SettingStoreProps => {
     return {
+      themeMode: 'light',
       systemTheme: 'default',
       asideBarWidth: 200,
       collapse: false,
+      showTagsView: true,
     }
   },
   actions: {
+    SET_THEME_MODE(mode: Theme) {
+      this.themeMode = mode;
+      console.log('===>', themeMode[mode])
+      document.body.setAttribute(
+        '--theme-color',
+        themeMode[mode]
+      )
+    },
     SET_SYS_THEME(sysTheme: SystemTheme) {
       // 存储新的主题
       this.systemTheme = sysTheme;
@@ -28,6 +44,9 @@ const useSettingStore = defineStore({
     },
     CHANGE_COLLAPSE(status: boolean) {
       this.collapse = status;
+    },
+    CHANGE_TAGS_VIEW(status: boolean) {
+      this.showTagsView = status;
     }
   },
   persist: {
@@ -37,7 +56,7 @@ const useSettingStore = defineStore({
         // 自定义名称
         key: 'setting-store',
         storage: localStorage,
-        paths: ['sysTheme', 'asideBarWidth', 'collapse']
+        paths: ['themeMode', 'sysTheme', 'asideBarWidth', 'collapse', 'showTagsView']
       }
     ]
   }

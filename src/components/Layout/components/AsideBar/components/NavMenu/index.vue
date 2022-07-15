@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import Variables from '@/style/Variables.module.scss';
-// import { uuid } from '@/utils';
+import { uuid } from '@/utils';
 import MenuItem from '../MenuItem';
 type Props = {
   collapse: boolean;
@@ -20,6 +20,11 @@ const routeList = computed(() => {
   );
   return indexRoute?.children;
 });
+// 独一无二的key
+const menuKey = ref<string>(uuid());
+const onItemClick = () => {
+  menuKey.value = uuid(); //修改key
+};
 </script>
 <script lang="ts">
 export default {
@@ -29,6 +34,7 @@ export default {
 
 <template>
   <el-menu
+    :key="menuKey"
     :collapse="collapse"
     :collapse-transition="false"
     :background-color="Variables.ASIDE_BAR_BG_COLOR"
@@ -39,7 +45,7 @@ export default {
     class="aside-bar-menu el-menu-vertical-demo"
     :class="collapse ? 'width' : ''"
   >
-    <menu-item :route-list="routeList"></menu-item>
+    <menu-item :route-list="routeList!" @item-click="onItemClick"></menu-item>
   </el-menu>
 </template>
 
@@ -52,15 +58,28 @@ export default {
       color: inherit;
     }
   }
+
+  .el-submenu {
+    li {
+      background-color: $aside-bar_submenu-item_bg-color !important;
+
+      /* stylelint-disable-next-line selector-class-pattern */
+      .el-submenu__title {
+        background-color: $aside-bar_submenu-item_bg-color !important;
+
+        &:hover {
+          background-color: $aside-bar_submenu-item_bg-color-hover !important;
+        }
+      }
+
+      &.el-menu-item:hover {
+        background-color: $aside-bar_submenu-item_bg-color-hover !important;
+      }
+    }
+  }
 }
 
 .width {
   width: 110%;
-}
-
-/* stylelint-disable-next-line selector-class-pattern */
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-  width: 14.6rem;
-  height: 100%;
 }
 </style>

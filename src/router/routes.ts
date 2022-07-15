@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router';
 import Layout from '@/components/Layout';
+import AppMain from '@/components/Layout/components/AppMain';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -25,6 +26,28 @@ const routes: RouteRecordRaw[] = [
           label: '主页',
           icon: 'home'
         }
+      },
+      {
+        name: 'test',
+        path: 'test',
+        component: AppMain,
+        redirect: '/test/test1',
+        meta: {
+          type: 'subPage',
+          label: '测试',
+          icon: 'home'
+        },
+        children: [
+          {
+            name: 'test1',
+            path: 'test1',
+            component: () => import('@/views/pages/test/test1.vue'),
+            meta: {
+              type: 'page',
+              label: '测试11111',
+            },
+          }
+        ]
       }
     ],
     meta: {

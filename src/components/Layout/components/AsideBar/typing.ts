@@ -1,7 +1,7 @@
 import { CommonObject } from '@/types';
 import { RouteRecordRaw } from 'vue-router';
 
-export type MenuItemType = 'item' | 'submenu';
+export type MenuItemType = 'page' | 'subPage';
 
 export interface MenuItemProps extends CommonObject {
   key: string,

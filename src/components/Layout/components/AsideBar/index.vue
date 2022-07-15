@@ -10,6 +10,7 @@ type Props = {
   systemName: string;
 };
 defineProps<Props>();
+defineEmits(['iconClick']);
 
 const settingStore = useSettingStore();
 // 侧边栏宽度--非折叠状态
@@ -28,7 +29,12 @@ export default {
   >
     <system-logo :collapse="collapse">
       <template #logo>
-        <svg-icon width="2.3rem" height="2.3rem" :name="iconName"></svg-icon>
+        <svg-icon
+          width="2.3rem"
+          height="2.3rem"
+          :name="iconName"
+          @click="$emit('iconClick', 'collapse')"
+        ></svg-icon>
       </template>
       <template #label>
         {{ systemName }}
@@ -42,16 +48,17 @@ export default {
 
 <style scoped lang="scss">
 .aside-bar-container {
-  overflow: hidden;
+  overflow: hidden !important;
   background-color: $aside-bar_bg-color;
   color: $color-white;
   box-shadow: $aside-bar_shadow;
   transition: width 400ms ease;
+  z-index: 150;
 }
 
-/* :deep(.el-menu-item) {
+:deep(.el-menu-item) {
   &:hover {
     background-color: rgba($color: $color-gray, $alpha: 60%);
   }
-} */
+}
 </style>

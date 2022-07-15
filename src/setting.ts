@@ -2,6 +2,7 @@ import { SettingConfig } from './types/setting';
 
 // 系统的配置
 const Setting: SettingConfig = {
+  THEME_MODE: 'light',
   SYSTEM_NAME: 'vitv-admin',
   SYSTEM_ICON: 'system',
   SYSTEM_THEME_LIST: [
