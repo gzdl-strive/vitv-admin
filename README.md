@@ -4,4 +4,4 @@
 vitv-admin是一个免费开源的中后台模板项目。通过Vite构建，使用Vue3、TypeScript、ElementPlus等当下流行框架搭建而成，该框架主要用于学习使用。
 
 ## 特性
-- **技术栈**: 使用Vite2进行构建，Vue3搭配TS进行开发。-test-2
+- **技术栈**: 使用Vite2进行构建，Vue3搭配TS进行开发。-test6666666
