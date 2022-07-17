@@ -8,7 +8,7 @@ import App from './App.vue';
 import './style/index.scss'; // 引入全局样式文件
 import router from './router'; // 引入vue-router
 import GlobalComponents from '@/components'; // 全局组件
-import { ShowMessage } from '@/plugins'; // 引入自定义插件
+import { ShowMessage, ThemeColor } from '@/plugins'; // 引入自定义插件
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersist);
@@ -19,6 +19,7 @@ app
   .use(pinia)
   .use(router)
   .use(ShowMessage)
+  .use(ThemeColor)
   .use(ElementPlus, { locale })
   .use(GlobalComponents)
   .mount('#app');

@@ -5,8 +5,8 @@ import { Theme } from '@/types/setting';
 import Setting from '@/setting';
 
 const themeMode = {
-  'light': 'rgba(0, 0, 0, 1)',
-  'dark': 'rgba(21, 21, 21, 1)'
+  'light': 'rgb(255 255 255)',
+  'dark': 'rgb(21 21 21)'
 };
 
 const useSettingStore = defineStore({
@@ -23,17 +23,28 @@ const useSettingStore = defineStore({
   actions: {
     SET_THEME_MODE(mode: Theme) {
       this.themeMode = mode;
-      console.log('===>', themeMode[mode])
-      document.body.setAttribute(
+      document.body.style.setProperty(
         '--theme-color',
         themeMode[mode]
-      )
+      );
+      document.body.style.setProperty(
+        '--theme-text-color',
+        mode === 'light' ? '#000' : 'rgb(201 209 217)'
+      );
+      document.body.style.setProperty(
+        '--aside-bar_bg-color',
+        mode === 'light' ? 'hsl(180, 2%, 9%)' : 'rgb(33 33 33)'
+      );
+      document.body.style.setProperty(
+        '--content-bg-color',
+        mode === 'light' ? 'rgb(255 255 255)' : 'rgb(0 0 0)'
+      );
     },
     SET_SYS_THEME(sysTheme: SystemTheme) {
       // 存储新的主题
       this.systemTheme = sysTheme;
       // 变更其他非element组件的主题色
-      document.body.setAttribute(
+      document.body.style.setProperty(
         '--system-theme-color',
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         Setting.SYSTEM_THEME_LIST.find(item => item.name === sysTheme)!.color

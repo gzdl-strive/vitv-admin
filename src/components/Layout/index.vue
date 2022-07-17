@@ -3,8 +3,9 @@ import AsideBar from './components/AsideBar';
 import HeaderToolBar from './components/HeaderToolBar';
 import { useIconClick } from './useIconClick';
 import Setting from '@/setting';
+import SystemSetting from './components/SystemSetting';
 
-const { collapse, IconClick } = useIconClick();
+const { collapse, IconClick, settingVisible } = useIconClick();
 </script>
 <script lang="ts">
 export default {
@@ -26,12 +27,13 @@ export default {
           :collapse="collapse"
           @icon-click="IconClick"
         ></header-tool-bar>
-        <el-main>
+        <el-main class="content-style">
           <router-view></router-view>
         </el-main>
-        <el-footer>Footer</el-footer>
+        <el-footer class="footer">Footer</el-footer>
       </el-container>
     </el-container>
+    <system-setting v-if="settingVisible" v-model="settingVisible" />
   </div>
 </template>
 
@@ -41,6 +43,14 @@ export default {
 
   .content-wrapper {
     height: 100%;
+  }
+
+  .content-style {
+    background: $content-bg-color;
+  }
+
+  .footer {
+    background: $theme-color;
   }
 }
 </style>

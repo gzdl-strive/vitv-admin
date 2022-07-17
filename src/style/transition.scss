@@ -21,3 +21,23 @@
   transform: translateX(-50%);
   opacity: 0;
 }
+
+/*** breadcrumb ***/
+.breadcrumb-enter-from,
+.breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(50%);
+}
+
+.breadcrumb-move {
+  transition: all .5s ease;
+}
+
+.breadcrumb-leave-active {
+  position: absolute;
+}
+
+.breadcrumb-enter-active,
+.breadcrumb-leave-active {
+  transition: all .5s ease;
+}

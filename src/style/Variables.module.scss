@@ -1,6 +1,8 @@
 @import './variables.scss';
 
 :export {
+  SYSTEM_THEME: $system-theme-color;
+
   // 侧边栏
   ASIDE_BAR_BG_COLOR: $aside-bar_bg-color;
   ASIDE_BAR_TEXT_COLOR: $aside-bar_text-color;

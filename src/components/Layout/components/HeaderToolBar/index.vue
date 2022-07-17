@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { Fold, Expand, Setting } from '@element-plus/icons-vue';
 import Variables from '@/style/Variables.module.scss';
 import { useSettingStore } from '@/store';
+import BreadCrumb from './components/BreadCrumb';
 
 type Props = {
   collapse: boolean;
@@ -41,10 +42,14 @@ export default {
           class="collapse-icon"
           @click="emits('iconClick', 'collapse')"
         />
+        <bread-crumb style="margin-left: 0.8rem"></bread-crumb>
       </div>
       <div class="flex a_center" style="gap: 0.5rem">
         <span>张三</span>
-        <Setting class="collapse-icon"></Setting>
+        <Setting
+          class="collapse-icon"
+          @click="$emit('iconClick', 'showSystemSetting')"
+        ></Setting>
       </div>
     </div>
   </el-header>
@@ -58,6 +63,7 @@ export default {
   background: $header-toolbar-bg-color;
   padding: 0;
   transition: height 0.4s linear;
+  border-bottom: 0.2rem solid rgb(48 46 46);
 
   .header-toolar-toolbox {
     height: $header-toolbar-toolbox-height;
