@@ -1,4 +1,8 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ref } from 'vue';
+
+const str = ref<string>('');
+</script>
 <script lang="ts">
 export default {
   name: 'TestPage'
@@ -6,5 +10,8 @@ export default {
 </script>
 
 <template>
-  <span>test1</span>
+  <div>
+    <span>test1</span>
+    <el-input v-model="str" />
+  </div>
 </template>

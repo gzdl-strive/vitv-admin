@@ -17,7 +17,7 @@ const useSettingStore = defineStore({
       systemTheme: 'default',
       asideBarWidth: 200,
       collapse: false,
-      showTagsView: true,
+      showTagsView: false,
     }
   },
   actions: {
@@ -37,7 +37,7 @@ const useSettingStore = defineStore({
       );
       document.body.style.setProperty(
         '--content-bg-color',
-        mode === 'light' ? 'rgb(255 255 255)' : 'rgb(0 0 0)'
+        mode === 'light' ? 'rgb(240, 242, 245)' : 'rgb(0 0 0)'
       );
     },
     SET_SYS_THEME(sysTheme: SystemTheme) {
@@ -67,7 +67,7 @@ const useSettingStore = defineStore({
         // 自定义名称
         key: 'setting-store',
         storage: localStorage,
-        paths: ['themeMode', 'sysTheme', 'asideBarWidth', 'collapse', 'showTagsView']
+        paths: ['themeMode', 'systemTheme', 'asideBarWidth', 'collapse', 'showTagsView']
       }
     ]
   }

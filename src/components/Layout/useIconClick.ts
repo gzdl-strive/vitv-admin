@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue';
+import { computed, ref, nextTick } from 'vue';
 import { useSettingStore } from '@/store';
 import { CHANGE_COLLAPSE } from '@/conststant';
 
@@ -11,6 +11,15 @@ export function useIconClick() {
   });
   // 系统设置面板
   const settingVisible = ref<boolean>(false);
+  // 刷新标志位，通过v-if配合标志位达到刷新页面的效果
+  const reload = ref<boolean>(true);
+
+  const Reload = () => {
+    reload.value = false;
+    nextTick(() => {
+      reload.value = true;
+    });
+  }
   
   const IconClick = (params = 'collapse') => {
     switch (params) {
@@ -22,6 +31,10 @@ export function useIconClick() {
         settingVisible.value = !settingVisible.value;
         break;
       }
+      case 'reload': {
+        Reload();
+        break;
+      }
       default:
         break;
     }
@@ -30,6 +43,7 @@ export function useIconClick() {
   return {
     collapse,
     IconClick,
-    settingVisible
+    settingVisible,
+    reload
   }
 }

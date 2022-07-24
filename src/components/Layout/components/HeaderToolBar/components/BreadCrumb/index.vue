@@ -48,5 +48,9 @@ export default {
 <style scoped lang="scss">
 .breadcrumb-text {
   color: $theme-text-color;
+
+  &:hover {
+    color: $system-theme-color;
+  }
 }
 </style>

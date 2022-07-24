@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { Fold, Expand, Setting } from '@element-plus/icons-vue';
+import { Fold, Expand, Setting, Refresh } from '@element-plus/icons-vue';
 import Variables from '@/style/Variables.module.scss';
 import { useSettingStore } from '@/store';
 import BreadCrumb from './components/BreadCrumb';
@@ -29,8 +29,12 @@ export default {
         : Variables.HEADER_TOOLBAR_TOOLBOX_HEIGHT
     "
     class="header-tool-bar"
+    :class="settingStore.themeMode === 'dark' ? 'dark-border-bottom' : ''"
   >
-    <div class="flex j_between a_center header-toolar-toolbox">
+    <div
+      class="flex j_between a_center header-toolar-toolbox"
+      :class="settingStore.themeMode === 'dark' ? 'dark-border-bottom' : ''"
+    >
       <div class="flex a_center">
         <Expand
           v-if="collapse"
@@ -45,11 +49,19 @@ export default {
         <bread-crumb style="margin-left: 0.8rem"></bread-crumb>
       </div>
       <div class="flex a_center" style="gap: 0.5rem">
+        <el-tooltip content="刷新">
+          <Refresh
+            class="collapse-icon"
+            @click="$emit('iconClick', 'reload')"
+          />
+        </el-tooltip>
+        <el-tooltip content="设置面板">
+          <Setting
+            class="collapse-icon"
+            @click="$emit('iconClick', 'showSystemSetting')"
+          ></Setting>
+        </el-tooltip>
         <span>张三</span>
-        <Setting
-          class="collapse-icon"
-          @click="$emit('iconClick', 'showSystemSetting')"
-        ></Setting>
       </div>
     </div>
   </el-header>
@@ -62,8 +74,8 @@ export default {
   overflow: hidden;
   background: $header-toolbar-bg-color;
   padding: 0;
+  z-index: 1;
   transition: height 0.4s linear;
-  border-bottom: 0.2rem solid rgb(48 46 46);
 
   .header-toolar-toolbox {
     height: $header-toolbar-toolbox-height;
@@ -73,12 +85,22 @@ export default {
     .collapse-icon {
       height: 1.8rem;
       width: 1.8rem;
+      outline: none;
+      transition: transform 0.5s ease-out;
 
       &:hover {
         cursor: pointer;
         color: $system-theme-color;
       }
+
+      &:active {
+        transform: scale(1.2);
+      }
     }
   }
+}
+
+.dark-border-bottom {
+  border-bottom: 0.2rem solid rgb(48 46 46);
 }
 </style>

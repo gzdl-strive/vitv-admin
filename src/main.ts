@@ -9,6 +9,7 @@ import './style/index.scss'; // 引入全局样式文件
 import router from './router'; // 引入vue-router
 import GlobalComponents from '@/components'; // 全局组件
 import { ShowMessage, ThemeColor } from '@/plugins'; // 引入自定义插件
+import 'animate.css'; // 引入animate.css
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersist);

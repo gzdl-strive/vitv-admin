@@ -5,7 +5,7 @@ import { useIconClick } from './useIconClick';
 import Setting from '@/setting';
 import SystemSetting from './components/SystemSetting';
 
-const { collapse, IconClick, settingVisible } = useIconClick();
+const { collapse, IconClick, settingVisible, reload } = useIconClick();
 </script>
 <script lang="ts">
 export default {
@@ -28,7 +28,18 @@ export default {
           @icon-click="IconClick"
         ></header-tool-bar>
         <el-main class="content-style">
-          <router-view></router-view>
+          <router-view v-slot="{ Component }">
+            <transition
+              enter-active-class="animate__animated animate__fadeInUpBig"
+              leave-active-class="animate__animated animate__bounceOutDown"
+            >
+              <component
+                :is="Component"
+                v-if="reload"
+                :key="$route.name"
+              ></component>
+            </transition>
+          </router-view>
         </el-main>
         <el-footer class="footer">Footer</el-footer>
       </el-container>
@@ -47,10 +58,11 @@ export default {
 
   .content-style {
     background: $content-bg-color;
+    overflow: hidden;
   }
 
   .footer {
-    background: $theme-color;
+    background: $content-bg-color;
   }
 }
 </style>

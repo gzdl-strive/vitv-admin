@@ -5,11 +5,12 @@ export type Theme = 'light' | 'dark';
 
 // * 2、系统主题
 // 系统主题的类型
-export type SystemTheme = 'default' | 'green' | 'pink' | 'purple' | 'brown';
+export type SystemTheme = 'default' | 'green' | 'yellow' | 'pink' | 'purple' | 'brown' | 'orange';
 // 系统主题项
 export interface SystemThemeListItem {
   name: SystemTheme;
   color: string;
+  label: string;
 }
 
 // * 3、头像
