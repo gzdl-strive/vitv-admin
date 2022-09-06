@@ -1,5 +1,6 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from 'vue';
+import App from './App.vue';
+import './style/index.scss'; // 引入全局样式文件
 
-createApp(App).mount('#app')
+const app = createApp(App);
+app.mount('#app');

@@ -1,0 +1,11 @@
+// 主入口样式文件
+@import './reset.scss';
+@import './simplified.scss';
+
+* {
+  font-size: 15px;
+}
+
+#app {
+  height: 100%;
+}
