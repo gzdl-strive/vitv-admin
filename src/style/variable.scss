@@ -1,0 +1,13 @@
+// 样式变量
+// 系统颜色变量
+$color-primary: #228cf6 !default;
+$color-success:  #67c23a !default;
+$color-warning:  #e6a23c !default;
+$color-danger:   #f56c6c !default;
+$color-info:     #909399 !default;
+$color-white:    #ffffff !default;
+$color-black:    #333333 !default;
+$color-gray:     #707070 !default;
+
+// 主题色变量
+$theme-color: var(--theme-color, $color-primary);
