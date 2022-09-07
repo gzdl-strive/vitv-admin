@@ -1,18 +1,10 @@
 <script setup lang="ts">
+import { ElConfigProvider } from 'element-plus';
+import { defaultConfig } from '@/config/element';
 </script>
 
 <template>
-  <h1 class="block">
-    <span class="text">666</span>
-  </h1>
-  <a href="javascript:void(0)">Hello Vitv</a>
+  <el-config-provider v-bind="defaultConfig">
+    <router-view></router-view>
+  </el-config-provider>
 </template>
-
-<style scoped lang="scss">
-.block {
-  .text {
-    color: yellowgreen;
-    background-color: $color-primary;
-  }
-}
-</style>

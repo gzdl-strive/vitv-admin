@@ -1,6 +1,6 @@
 // 主入口样式文件
-@import './reset.scss';
-@import './simplified.scss';
+@use './reset.scss' as *;
+@use './simplified.scss' as *;
 
 * {
   font-size: 15px;

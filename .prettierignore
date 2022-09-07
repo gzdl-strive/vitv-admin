@@ -1,0 +1,10 @@
+# 文件
+*.js
+*.ts
+*.jpg
+*.woff
+*.ttf
+
+# 依赖和bundle目录
+/dist/
+/node_modules/
