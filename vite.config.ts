@@ -5,6 +5,8 @@ import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 
+import createSvg from './src/components/SvgIcon';
+
 export default defineConfig({
   plugins: [
     vue(),
@@ -13,8 +15,10 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver()]
-    })
+    }),
+    createSvg('./src/assets/svg/')
   ],
+  clearScreen: false, // 设置为false, 可以避免Vite清屏而错过在终端中打印某些关键信息
   server: {
     port: 8000,
     open: true
