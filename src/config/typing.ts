@@ -8,3 +8,8 @@ export interface ElementDefaultConfig {
     max: number;
   }
 }
+
+export interface Setting {
+  SYSTEM_NAME: string;
+  LOGO: string;
+}

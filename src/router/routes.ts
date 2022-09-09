@@ -1,5 +1,6 @@
 // 路由表
 import { RouteRecordRaw } from 'vue-router';
+import Layout from '@/components/Layout';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -11,6 +12,7 @@ const routes: RouteRecordRaw[] = [
     name: 'index',
     path: '/',
     redirect: '/home',
+    component: Layout,
     children: [
       {
         name: 'home',
