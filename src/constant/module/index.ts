@@ -1,0 +1,1 @@
+export const CHANGE_ASIDE_WIDTH = 'changeAsideWidth';

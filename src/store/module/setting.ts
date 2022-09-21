@@ -1,19 +1,16 @@
 import { defineStore } from 'pinia';
+import { SettingStoreState } from './typing';
 
 const useSettingStore = defineStore('setting', {
-  state: () => {
+  state: (): SettingStoreState => {
     return {
-      count: 10
+      asideWidth: 200,
     }
   },
-  getters: {
-    count5(state) {
-      return state.count + 5;
-    }
-  },
+  getters: {},
   actions: {
-    changeState() {
-      this.count += 10;
+    changeAsideWidth(width: number) {
+      this.asideWidth = width;
     }
   },
   persist: {
@@ -24,7 +21,7 @@ const useSettingStore = defineStore('setting', {
         // 自定义名称
         key: 'setting-store',
         storage: localStorage,
-        paths: ['count']
+        paths: ['asideWidth']
       }
     ]
   }

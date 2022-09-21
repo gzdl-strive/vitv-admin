@@ -11,3 +11,9 @@ $color-gray:     #707070 !default;
 
 // 主题色变量
 $theme-color: var(--theme-color, $color-primary);
+
+// 侧边栏变量
+$aside-bar_bg-color: hsl(180, 2%, 9%) !default;
+$aside-bar_text-color: hsla(0, 0%, 100%, 0.951) !default;
+$aside-bar-system-title_height: 4.3rem !default;
+$aside-bar_text-color_active: $theme-color !default;

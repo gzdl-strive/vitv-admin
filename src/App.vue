@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ElConfigProvider } from 'element-plus';
 import { defaultConfig } from '@/config/element';
+import useTitle from '@/hooks/useTitle';
+
+useTitle();
 </script>
 
 <template>

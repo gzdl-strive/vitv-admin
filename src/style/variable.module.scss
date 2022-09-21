@@ -1,0 +1,7 @@
+@use './variable.scss' as *;
+
+:export {
+  ASIDE_BAR_BG_COLOR: $aside-bar_bg-color;
+  ASIDE_BAR_COLOR: $aside-bar_text-color;
+  ASIDE_BAR_ACTIVE_COLOR: $aside-bar_text-color_active;
+}
