@@ -11,10 +11,16 @@ export default {
 <template>
   <el-container style="height: 100%">
     <aside-bar></aside-bar>
-    <el-container>
+    <el-container class="flex column">
       <header-com></header-com>
-      <el-main>Main</el-main>
-      <el-footer>Footer</el-footer>
+      <el-main>
+        <router-view v-slot="{ Component }">
+          <transition name="transformFade" mode="out-in">
+            <component :is="Component"></component>
+          </transition>
+        </router-view>
+      </el-main>
+      <!-- <el-footer>Footer</el-footer> -->
     </el-container>
   </el-container>
   <!-- <router-view></router-view> -->
