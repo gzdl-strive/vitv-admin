@@ -5,12 +5,16 @@ const useSettingStore = defineStore('setting', {
   state: (): SettingStoreState => {
     return {
       asideWidth: 200,
+      collapse: false,
     }
   },
   getters: {},
   actions: {
     changeAsideWidth(width: number) {
       this.asideWidth = width;
+    },
+    changeNavExpand(isCollapse: boolean) {
+      this.collapse = isCollapse;
     }
   },
   persist: {
@@ -21,7 +25,7 @@ const useSettingStore = defineStore('setting', {
         // 自定义名称
         key: 'setting-store',
         storage: localStorage,
-        paths: ['asideWidth']
+        paths: ['asideWidth', 'collapse']
       }
     ]
   }

@@ -7,26 +7,27 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AppMain: typeof import('./src/components/Layout/components/AppMain/index.vue')['default']
     AsideBar: typeof import('./src/components/Layout/components/AsideBar/index.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElContainer: typeof import('element-plus/es')['ElContainer']
-    ElFooter: typeof import('element-plus/es')['ElFooter']
     ElHeader: typeof import('element-plus/es')['ElHeader']
-    ElIcon: typeof import('element-plus/es')['ElIcon']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     Header: typeof import('./src/components/Layout/components/Header/index.vue')['default']
+    IEpEdit: typeof import('~icons/ep/edit')['default']
+    IEpExpand: typeof import('~icons/ep/expand')['default']
+    IEpFlod: typeof import('~icons/ep/flod')['default']
+    IEpFold: typeof import('~icons/ep/fold')['default']
     Layout: typeof import('./src/components/Layout/index.vue')['default']
     MenuItem: typeof import('./src/components/Layout/components/AsideBar/components/NavMenu/MenuItem/index.vue')['default']
     NavMenu: typeof import('./src/components/Layout/components/AsideBar/components/NavMenu/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
-    SystemIcon: typeof import('./src/components/Layout/components/AsideBar/components/SystemIcon/index.vue')['default']
     SystemTitle: typeof import('./src/components/Layout/components/AsideBar/components/SystemTitle/index.vue')['default']
   }
 }
