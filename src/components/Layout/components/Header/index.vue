@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { inject } from 'vue';
 import { NavChange } from '@/components/Layout/typing';
+import RouteBreadcrumb from './components/RouteBreadcrumb';
+import UserInfo from './components/userInfo';
+import IconGather from './components/IconGather';
 
 type Props = {
   isCollapse: boolean;
@@ -21,10 +24,21 @@ export default {
 </script>
 
 <template>
-  <el-header class="header-container flex a_center">
-    <section class="flex a_center collapse-icon" @click="changeCollapse">
-      <i-ep-expand v-if="isCollapse" style="width: 2rem; height: 2rem" />
-      <i-ep-fold v-else style="width: 2rem; height: 2rem" />
+  <el-header class="header-container flex a_center j_between">
+    <section class="flex">
+      <section class="flex a_center collapse-icon" @click="changeCollapse">
+        <i-ep-expand
+          v-if="isCollapse"
+          style="width: 1.8rem; height: 1.8rem"
+          class="icon"
+        />
+        <i-ep-fold v-else style="width: 1.8rem; height: 1.8rem" class="icon" />
+      </section>
+      <route-breadcrumb></route-breadcrumb>
+    </section>
+    <section class="flex a_center gap_one">
+      <icon-gather></icon-gather>
+      <user-info></user-info>
     </section>
   </el-header>
 </template>
@@ -37,6 +51,11 @@ export default {
 
   .collapse-icon {
     cursor: pointer;
+    margin-right: 0.8rem;
+
+    .icon:hover {
+      color: $theme-color;
+    }
   }
 }
 </style>

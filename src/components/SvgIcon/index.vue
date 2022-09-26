@@ -38,7 +38,7 @@ export default {
   </svg>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .svg-icon {
   fill: currentcolor;
   outline: none;
