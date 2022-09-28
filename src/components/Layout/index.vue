@@ -3,7 +3,7 @@ import AsideBar from './components/AsideBar/index.vue';
 import HeaderCom from './components/Header/index.vue';
 import useSetting from './useSetting';
 
-const { isCollapse } = useSetting();
+const { isCollapse, fullScreen } = useSetting();
 </script>
 <script lang="ts">
 export default {
@@ -12,7 +12,7 @@ export default {
 </script>
 
 <template>
-  <el-container style="height: 100%">
+  <el-container v-fullscreen="fullScreen" style="height: 100%">
     <aside-bar :is-collapse="isCollapse"></aside-bar>
     <el-container class="flex column">
       <header-com :is-collapse="isCollapse"></header-com>

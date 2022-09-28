@@ -6,6 +6,7 @@ const useSettingStore = defineStore('setting', {
     return {
       asideWidth: 200,
       collapse: false,
+      fullScreen: false,
     }
   },
   getters: {},
@@ -15,6 +16,9 @@ const useSettingStore = defineStore('setting', {
     },
     changeNavExpand(isCollapse: boolean) {
       this.collapse = isCollapse;
+    },
+    changeFullScreen(status: boolean) {
+      this.fullScreen = status;
     }
   },
   persist: {
@@ -26,6 +30,11 @@ const useSettingStore = defineStore('setting', {
         key: 'setting-store',
         storage: localStorage,
         paths: ['asideWidth', 'collapse']
+      },
+      {
+        key: 'setting-session-store',
+        storage: sessionStorage,
+        paths: ['fullScreen']
       }
     ]
   }

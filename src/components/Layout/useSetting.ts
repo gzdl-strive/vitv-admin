@@ -12,10 +12,17 @@ const useSetting = () => {
     settingStore[CHANGE_NAV_EXPAND](val);
   };
 
+  // const changeFullscreen: NavChange = (val: boolean) => {
+  //   settingStore[CHANGE_FULLSCREEN](val);
+  // }
+
+  const fullScreen = computed(() => settingStore.fullScreen);
+
   provide('nav-collapse', changeCollapse);
 
   return {
-    isCollapse
+    isCollapse,
+    fullScreen
   }
 };
 
