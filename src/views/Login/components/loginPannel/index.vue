@@ -110,7 +110,9 @@ export default {
 
 /* stylelint-disable-next-line no-descending-specificity */
 input:-webkit-autofill {
-  /* -webkit-box-shadow: 0 0 0 1000px #2a4e6c inset !important; */
+  box-shadow: 0 0 0 1000px #2a4e6c inset !important;
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-box-shadow: 0 0 0 1000px #2a4e6c inset !important;
   -webkit-text-fill-color: #fff;
 }
 </style>
