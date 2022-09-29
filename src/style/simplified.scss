@@ -4,6 +4,12 @@
   &.column {
     flex-direction: column;
   }
+  &.j_row {
+    flex-direction: row;
+  }
+  &.j_row_reverse {
+    flex-direction: row-reverse;
+  }
   &.wrap {
     flex-wrap: wrap;
   }
