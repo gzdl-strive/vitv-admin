@@ -17,13 +17,15 @@ export default {
 </script>
 
 <template>
-  <el-container
-    class="flex login-container"
-    :class="loginStatus ? 'j_row' : 'j_row_reverse'"
-    @click="changeLoginStatus"
-  >
-    <el-aside class="aside-container">
-      <component :is="loginStatus ? LoginPannel : RegisterPannel" />
+  <el-container class="flex login-container">
+    <el-aside class="aside-container flex j_center a_center">
+      <transition
+        :duration="500"
+        enter-active-class="animate__animated animate__backInUp"
+        leave-active-class="animate__animated animate__bounceOutDown"
+      >
+        <component :is="loginStatus ? LoginPannel : RegisterPannel" />
+      </transition>
     </el-aside>
     <el-main class="main-container">
       <three-model-glb></three-model-glb>
@@ -34,14 +36,19 @@ export default {
 <style scoped lang="scss">
 .login-container {
   height: 100%;
-  transition: all 3s ease-out;
+  background-color: #4682b4;
 
   .aside-container {
     flex: 3;
+    overflow: hidden;
   }
 
   .main-container {
     flex: 4;
+
+    @media (max-width: $screen-md) {
+      display: none;
+    }
   }
 }
 </style>
