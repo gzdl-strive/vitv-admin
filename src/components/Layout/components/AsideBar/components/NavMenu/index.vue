@@ -5,6 +5,12 @@ import useRouteList from './useRouteList';
 import MenuItem from './MenuItem';
 import Variable from '@/style/variable.module.scss';
 
+type Props = {
+  isCollapse: boolean;
+};
+
+defineProps<Props>();
+
 const routeList = useRouteList();
 const route = useRoute();
 
@@ -18,12 +24,15 @@ export default {
 
 <template>
   <el-menu
+    :collapse="isCollapse"
+    :collapse-transition="false"
     :background-color="Variable.ASIDE_BAR_BG_COLOR"
     :text-color="Variable.ASIDE_BAR_COLOR"
     :active-text-color="Variable.ASIDE_BAR_ACTIVE_COLOR"
     :default-active="activeRouteName"
     unique-opened
-    class="aside-bar-menu el-menu-vertical"
+    class="aside-bar-menu"
+    :class="isCollapse ? 'collapse-style' : ''"
   >
     <menu-item :route-list="routeList!"></menu-item>
   </el-menu>
@@ -32,5 +41,21 @@ export default {
 <style scoped lang="scss">
 .aside-bar-menu {
   border-right: 0;
+}
+
+.collapse-style {
+  /* stylelint-disable-next-line selector-class-pattern */
+  :deep(.el-sub-menu__title) {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* stylelint-disable-next-line selector-class-pattern */
+  :deep(.el-menu-item) {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>

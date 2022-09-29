@@ -1,0 +1,1 @@
+export type NavChange = (val: boolean) => void;

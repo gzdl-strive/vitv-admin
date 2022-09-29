@@ -13,3 +13,23 @@
   opacity: 0;
   transform: translateX(10%);
 }
+
+/*** route-breadcrumb  ***/
+.route-breadcrumb-enter-from,
+.route-breadcrumb-leave-active {
+  opacity: 0;
+  transform: translateX(50%);
+}
+
+.route-breadcrumb-move {
+  transition: all .5s ease;
+}
+
+.route-breadcrumb-leave-active {
+  position: absolute;
+}
+
+.route-breadcrumb-enter-active,
+.route-breadcrumb-leave-active {
+  transition: all .5s ease;
+}

@@ -4,6 +4,8 @@ import path from 'path';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
+import Icons from 'unplugin-icons/vite';
+import IconsResolver from 'unplugin-icons/resolver';
 
 import createSvg from './src/components/SvgIcon';
 
@@ -11,10 +13,23 @@ export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [
+        ElementPlusResolver(),
+        // 自动导入图标组件
+        IconsResolver()
+      ],
     }),
     Components({
-      resolvers: [ElementPlusResolver()]
+      resolvers: [
+        ElementPlusResolver(),
+        //自动注册图标组件
+        IconsResolver({
+          enabledCollections: ['ep']
+        })
+      ]
+    }),
+    Icons({
+      autoInstall: true,
     }),
     createSvg('./src/assets/svg/')
   ],

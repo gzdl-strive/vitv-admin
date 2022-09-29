@@ -1,4 +1,22 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { inject } from 'vue';
+import { NavChange } from '@/components/Layout/typing';
+import RouteBreadcrumb from './components/RouteBreadcrumb';
+import UserInfo from './components/userInfo';
+import IconGather from './components/IconGather';
+
+type Props = {
+  isCollapse: boolean;
+};
+
+const props = defineProps<Props>();
+
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const navCollapse = inject<NavChange>('nav-collapse')!;
+const changeCollapse = () => {
+  navCollapse(!props.isCollapse);
+};
+</script>
 <script lang="ts">
 export default {
   name: 'HeaderCom'
@@ -6,13 +24,38 @@ export default {
 </script>
 
 <template>
-  <section class="bg"></section>
+  <el-header class="header-container flex a_center j_between">
+    <section class="flex">
+      <section class="flex a_center collapse-icon" @click="changeCollapse">
+        <i-ep-expand
+          v-if="isCollapse"
+          style="width: 1.8rem; height: 1.8rem"
+          class="icon"
+        />
+        <i-ep-fold v-else style="width: 1.8rem; height: 1.8rem" class="icon" />
+      </section>
+      <route-breadcrumb></route-breadcrumb>
+    </section>
+    <section class="flex a_center gap_one">
+      <icon-gather></icon-gather>
+      <user-info></user-info>
+    </section>
+  </el-header>
 </template>
 
 <style scoped lang="scss">
-.bg {
+.header-container {
   width: 100%;
-  height: 50px;
-  background-color: bisque;
+  height: $header-height;
+  box-shadow: $header_box-shadow;
+
+  .collapse-icon {
+    cursor: pointer;
+    margin-right: 0.8rem;
+
+    .icon:hover {
+      color: $theme-color;
+    }
+  }
 }
 </style>

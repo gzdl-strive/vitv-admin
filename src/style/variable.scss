@@ -15,5 +15,10 @@ $theme-color: var(--theme-color, $color-primary);
 // 侧边栏变量
 $aside-bar_bg-color: hsl(180, 2%, 9%) !default;
 $aside-bar_text-color: hsla(0, 0%, 100%, 0.951) !default;
-$aside-bar-system-title_height: 4.3rem !default;
+$aside-bar_box-shaddow: rgb(38, 57, 77) 0px 20px 30px -10px;
+$aside-bar-system-title_height: 4rem !default;
 $aside-bar_text-color_active: $theme-color !default;
+
+// 头部变量
+$header-height: 3rem;
+$header_box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
