@@ -2,8 +2,9 @@
 import AsideBar from './components/AsideBar/index.vue';
 import HeaderCom from './components/Header/index.vue';
 import useSetting from './useSetting';
+import SettingPane from './components/SettingPane';
 
-const { isCollapse, fullScreen } = useSetting();
+const { isCollapse, fullScreen, settingVisible } = useSetting();
 </script>
 <script lang="ts">
 export default {
@@ -26,5 +27,6 @@ export default {
       <!-- <el-footer>Footer</el-footer> -->
     </el-container>
   </el-container>
+  <setting-pane v-if="settingVisible" v-model="settingVisible" />
   <!-- <router-view></router-view> -->
 </template>

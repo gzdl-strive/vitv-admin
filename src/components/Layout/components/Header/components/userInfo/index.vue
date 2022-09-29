@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { inject } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -26,6 +27,8 @@ const handleLogout = () => {
       });
     });
 };
+
+const changeSettingVisible = inject('setting-pane-visible');
 </script>
 <script lang="ts">
 export default {
@@ -51,6 +54,7 @@ export default {
       width="1.5rem"
       height="1.5rem"
       class="setting-icon"
+      @click="changeSettingVisible"
     ></i-ep-setting>
   </section>
 </template>

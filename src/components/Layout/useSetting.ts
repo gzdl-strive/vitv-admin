@@ -1,4 +1,4 @@
-import { computed, provide } from 'vue';
+import { computed, provide, ref } from 'vue';
 import { useSettingStore } from '@/store';
 import { CHANGE_NAV_EXPAND } from '@/constant/module';
 import { NavChange } from './typing';
@@ -12,17 +12,21 @@ const useSetting = () => {
     settingStore[CHANGE_NAV_EXPAND](val);
   };
 
-  // const changeFullscreen: NavChange = (val: boolean) => {
-  //   settingStore[CHANGE_FULLSCREEN](val);
-  // }
+  const settingVisible = ref<boolean>(false);
+
+  const changeSettingVisible = () => {
+    settingVisible.value = true;
+  }
 
   const fullScreen = computed(() => settingStore.fullScreen);
 
   provide('nav-collapse', changeCollapse);
+  provide('setting-pane-visible', changeSettingVisible);
 
   return {
     isCollapse,
-    fullScreen
+    fullScreen,
+    settingVisible
   }
 };
 
