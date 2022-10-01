@@ -20,11 +20,15 @@ export default {
   <el-container class="flex login-container">
     <el-aside class="aside-container flex j_center a_center">
       <transition
-        :duration="500"
-        enter-active-class="animate__animated animate__backInUp"
-        leave-active-class="animate__animated animate__bounceOutDown"
+        :duration="300"
+        enter-active-class="animate__animated animate__fadeInRightBig"
+        leave-active-class="animate__animated animate__fadeOutLeftBig"
       >
-        <component :is="loginStatus ? LoginPannel : RegisterPannel" />
+        <component
+          :is="loginStatus ? LoginPannel : RegisterPannel"
+          class="flex column"
+          :change-login-status="changeLoginStatus"
+        />
       </transition>
     </el-aside>
     <el-main class="main-container">
