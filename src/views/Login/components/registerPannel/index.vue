@@ -263,7 +263,7 @@ export default {
 
     .submit-btn {
       width: 93%;
-      background-color: #add8e6;
+      background-color: #07d8c7;
       border: 0;
       cursor: pointer;
       padding: 0.6rem;
@@ -284,11 +284,17 @@ export default {
 
       .btn {
         flex: 1;
-        background-color: #b3d3f7;
+        background-color: #225ae7;
+        color: rgba(255 255 255 / 80%);
         border: 0;
         cursor: pointer;
         padding: 0.4rem;
-        border-radius: 0.2rem;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: #0a46e4;
+          border-color: #0a46e4;
+        }
 
         &:active {
           transform: scale(0.98);
