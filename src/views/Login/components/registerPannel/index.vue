@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
+import PwdIntensity from './intensity.vue';
+import { PwdIntensityLevel } from './typing';
 
 type Props = {
   changeLoginStatus: () => void;
@@ -14,6 +16,68 @@ const password = ref<string>('');
 const passwordShow = ref<boolean>(false);
 const confirmPwd = ref<string>('');
 const confirmPwdShow = ref<boolean>(false);
+
+// 密码强度
+const pwd_level = ref<PwdIntensityLevel[]>([]);
+
+// 校验密码强度
+const checkIntensity = () => {
+  pwd_level.value = [];
+  const value = password.value;
+  // 校验是数字
+  const regex1 = /^\d+$/;
+  // 校验字母
+  const regex2 = /^[A-Za-z]+$/;
+  // 校验符号
+  const regex3 =
+    /^[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、]+$/;
+  if (regex1.test(value)) {
+    pwd_level.value.push('low');
+  } else if (regex2.test(value)) {
+    pwd_level.value.push('low');
+  } else if (regex3.test(value)) {
+    pwd_level.value.push('low');
+  } else if (/^[A-Za-z\d]+$/.test(value)) {
+    pwd_level.value.push('low');
+    pwd_level.value.push('middle');
+  } else if (
+    /^[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、\d]+$/.test(
+      value
+    )
+  ) {
+    pwd_level.value.push('low');
+    pwd_level.value.push('middle');
+  } else if (
+    /^[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、A-Za-z]+$/.test(
+      value
+    )
+  ) {
+    pwd_level.value.push('low');
+    pwd_level.value.push('middle');
+  } else if (
+    /^[`~!@#$%^&*()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘'，。、A-Za-z\d]+$/.test(
+      value
+    )
+  ) {
+    if (value.length <= 6) {
+      pwd_level.value.push('low');
+      pwd_level.value.push('middle');
+      pwd_level.value.push('high');
+    } else {
+      pwd_level.value.push('low');
+      pwd_level.value.push('middle');
+      pwd_level.value.push('high');
+      pwd_level.value.push('very-high');
+    }
+  }
+};
+
+watch(
+  () => password.value,
+  () => {
+    checkIntensity();
+  }
+);
 
 const handleSubmit = () => {
   console.log(username.value, password.value);
@@ -63,8 +127,9 @@ export default {
             @click="passwordShow = !passwordShow"
           ></i-ep-hide>
         </div>
-        <div>
+        <div class="intensity">
           <span>密码强度</span>
+          <pwd-intensity :level="pwd_level"></pwd-intensity>
         </div>
         <div class="form-controls">
           <input
@@ -164,6 +229,11 @@ export default {
           color: $theme-color;
         }
       }
+    }
+
+    .intensity {
+      color: rgba(177 201 216 / 80%);
+      margin: -0.5rem 0;
     }
 
     .helper-container {
