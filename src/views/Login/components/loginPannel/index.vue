@@ -176,20 +176,24 @@ export default {
 
     .submit-btn {
       width: 93%;
-      background-color: #07d8c7;
+      background-color: #a8e3f2;
       border: 0;
       cursor: pointer;
       padding: 0.6rem;
       border-radius: 0.2rem;
       font-size: 1.1rem;
-    }
 
-    .submit-btn:focus {
-      outline: none;
-    }
+      &:hover {
+        background-color: #48c5e4;
+      }
 
-    .submit-btn:active {
-      transform: scale(0.98);
+      &:focus {
+        outline: none;
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
     }
 
     .other-btn {
@@ -205,6 +209,10 @@ export default {
 
         &:active {
           transform: scale(0.98);
+        }
+
+        &:hover {
+          background-color: #65a4ec;
         }
       }
     }
