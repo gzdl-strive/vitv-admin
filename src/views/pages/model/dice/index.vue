@@ -1,10 +1,10 @@
 <script lang="ts" setup></script>
 <script lang="ts">
 export default {
-  name: 'Test2Com'
+  name: 'DiceCom'
 };
 </script>
 
 <template>
-  <h1>Test2</h1>
+  <span>骰子</span>
 </template>

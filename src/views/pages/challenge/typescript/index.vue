@@ -1,10 +1,10 @@
 <script lang="ts" setup></script>
 <script lang="ts">
 export default {
-  name: 'Test1Com'
+  name: 'TypescriptChallenge'
 };
 </script>
 
 <template>
-  <h1>Test1</h1>
+  <h1>TS类型挑战</h1>
 </template>
