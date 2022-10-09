@@ -7,3 +7,14 @@ export interface SettingStoreState {
 export interface LoginStoreState {
   remeberMe: boolean;
 }
+
+type ViewList = {
+  name: string;
+  label: string;
+}
+
+export interface TagStoreState {
+  activeView: string;
+  viewList: ViewList[];
+  cacheList: string[];
+}

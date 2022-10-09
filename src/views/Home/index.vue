@@ -20,7 +20,8 @@ const handleMsg = () => {
 </script>
 <script lang="ts">
 export default {
-  name: 'HomePage'
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Home'
 };
 </script>
 
@@ -31,5 +32,6 @@ export default {
     <el-button type="primary" @click="handleMsg">中文</el-button>
     <img :src="ViteLogo" alt="ViteImg" />
     <svg-icon name="avatar"></svg-icon>
+    <el-input v-model="str"></el-input>
   </section>
 </template>

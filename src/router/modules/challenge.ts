@@ -3,7 +3,7 @@ import { RouteRecordRaw } from 'vue-router';
 const ChallengeRoutes: RouteRecordRaw = {
   name: 'challenge',
   path: 'challenge',
-  redirect: '/challenge/typescript',
+  redirect: '/challenge/tsChallenge',
   meta: {
     type: 'sub-menu',
     label: '挑战',
@@ -11,23 +11,23 @@ const ChallengeRoutes: RouteRecordRaw = {
   },
   children: [
     {
-      name: 'typescript',
-      path: 'typescript',
+      name: 'tsChallenge',
+      path: 'tsChallenge',
       component: () => import('@/views/pages/challenge/typescript'),
       meta: {
         type: 'menu-item',
         label: "TS类型挑战",
-        icon: 'ts'
+        icon: 'ts',
       }
     },
     {
-      name: 'development',
-      path: 'development',
+      name: 'frontEndBase',
+      path: 'frontEndBase',
       component: () => import('@/views/pages/challenge/base'),
       meta: {
         type: 'menu-item',
         label: "基础挑战",
-        icon: 'development'
+        icon: 'development',
       }
     }
   ]
