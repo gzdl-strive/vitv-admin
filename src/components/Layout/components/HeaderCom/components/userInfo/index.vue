@@ -31,6 +31,8 @@ const handleLogout = () => {
 };
 const changeSettingVisible = inject('setting-pane-visible');
 const avatar = computed<string>(() => userStore.avatar);
+
+const changeUserVisible = inject('user-pane-visible');
 </script>
 <script lang="ts">
 export default {
@@ -48,6 +50,9 @@ export default {
       </span>
       <template #dropdown>
         <el-dropdown-menu>
+          <el-dropdown-item @click="changeUserVisible">
+            用户信息
+          </el-dropdown-item>
           <el-dropdown-item @click="handleLogout">退出登录</el-dropdown-item>
         </el-dropdown-menu>
       </template>

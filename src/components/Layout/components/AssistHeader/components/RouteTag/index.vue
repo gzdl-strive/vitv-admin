@@ -94,7 +94,7 @@ const onTagRightClick = (
 </script>
 <script lang="ts">
 export default {
-  name: 'RouteTags'
+  name: 'RouteTag'
 };
 </script>
 

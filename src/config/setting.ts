@@ -18,6 +18,7 @@ const defaultSetting: Setting = {
     { name: '金刚狼', icon: 'wm' },
     { name: '格鲁特', icon: 'gt' },
     { name: '雷神', icon: 'tr' },
+    { name: '黑寡妇', icon: 'bwm' },
   ]
 };
 

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { SettingStoreState } from './typing';
-import { THEME_LIST, THEME_NAME } from '@/config/typing';
+import { THEME, THEME_NAME } from '@/config/typing';
 import { defaultSetting } from '@/config/setting';
 
 const useSettingStore = defineStore('setting', {
@@ -29,7 +29,7 @@ const useSettingStore = defineStore('setting', {
       document.body.style.setProperty(
         '--theme-color',
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        defaultSetting.THEME_LIST.find((theme: THEME_LIST) => theme.name === themeName)!.color
+        defaultSetting.THEME_LIST.find((theme: THEME) => theme.name === themeName)!.color
       )
     },
     changeTagStatus(status: boolean) {

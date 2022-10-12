@@ -1,7 +1,4 @@
-<script lang="ts" setup>
-import RouteTags from './components/tags';
-import BtnGroup from './components/btnGroup';
-</script>
+<script lang="ts" setup></script>
 <script lang="ts">
 export default {
   name: 'AssistHelper'
@@ -10,7 +7,7 @@ export default {
 
 <template>
   <section class="assist-container flex j_between a_center">
-    <route-tags></route-tags>
+    <route-tag></route-tag>
     <btn-group></btn-group>
   </section>
 </template>

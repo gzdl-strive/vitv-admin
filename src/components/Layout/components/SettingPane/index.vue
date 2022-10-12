@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { defaultSetting } from '@/config/setting';
-import { THEME_LIST as THEME } from '@/config/typing';
+import { THEME } from '@/config/typing';
 import { useSettingStore } from '@/store';
 import {
   SET_THEME,
@@ -42,7 +42,7 @@ export default {
 
 <template>
   <div class="setting-pane">
-    <el-drawer v-model="visible" :size="400" title="系统设置面板">
+    <el-drawer v-model="visible" :size="300" title="系统设置面板">
       <ul>
         <li class="setting-item" style="width: 80%">
           <h3>
@@ -63,7 +63,7 @@ export default {
           </section>
         </li>
         <el-divider></el-divider>
-        <li class="setting-item" style="width: 65%">
+        <li class="setting-item" style="width: 80%">
           <h3>
             <span>是否展示标签栏</span>
           </h3>
@@ -76,7 +76,7 @@ export default {
           />
         </li>
         <el-divider> </el-divider>
-        <li class="setting-item" style="width: 55%">
+        <li class="setting-item" style="width: 80%">
           <h3>
             <span>侧边栏宽度</span>
           </h3>

@@ -21,7 +21,6 @@ export default {
 </script>
 
 <template>
-  <i-ep-search class="icon-style" width="1.6rem" height="1.6rem"></i-ep-search>
   <el-tooltip content="全屏">
     <svg-icon
       :name="fullScreen ? 'fullScreen-close' : 'fullScreen-open'"

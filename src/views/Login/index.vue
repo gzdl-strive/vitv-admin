@@ -2,7 +2,7 @@
 import { ref, Ref } from 'vue';
 import LoginPannel from './components/loginPannel';
 import RegisterPannel from './components/registerPannel';
-import ThreeModelGlb from './components/model';
+import ThreeModel from './components/model';
 
 const loginStatus: Ref<boolean> = ref(true);
 
@@ -32,7 +32,7 @@ export default {
       </transition>
     </el-aside>
     <el-main class="main-container">
-      <three-model-glb></three-model-glb>
+      <three-model></three-model>
     </el-main>
   </el-container>
 </template>

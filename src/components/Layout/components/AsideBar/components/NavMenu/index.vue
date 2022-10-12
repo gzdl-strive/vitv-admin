@@ -2,7 +2,6 @@
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import useRouteList from './useRouteList';
-import MenuItem from './MenuItem';
 import Variable from '@/style/variable.module.scss';
 
 type Props = {

@@ -2,7 +2,7 @@ import { useSettingStore } from '@/store';
 import { SET_THEME } from '@/constant/module';
 import { THEME_NAME } from '@/config/typing';
 
-const Theme = {
+const ThemeName = {
   install: () => {
     const settingStore = useSettingStore();
     const theme = settingStore.themeName;
@@ -10,4 +10,4 @@ const Theme = {
   }
 }
 
-export default Theme;
+export default ThemeName;

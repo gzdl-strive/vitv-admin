@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 import { inject } from 'vue';
 import { NavChange } from '@/components/Layout/typing';
-import RouteBreadcrumb from './components/RouteBreadcrumb';
-import UserInfo from './components/userInfo';
-import IconGather from './components/IconGather';
 
 type Props = {
   isCollapse: boolean;

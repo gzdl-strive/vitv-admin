@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, nextTick, provide } from 'vue';
-import AsideBar from './components/AsideBar/index.vue';
-import HeaderCom from './components/Header/index.vue';
-import AssistHeader from './components/Assist';
 import useSetting from './useSetting';
-import SettingPane from './components/SettingPane';
+import useUser from './useUser';
 import { useTagStore } from '@/store';
 
 const { isCollapse, fullScreen, settingVisible } = useSetting();
@@ -23,6 +20,8 @@ function Reload() {
 }
 
 provide('page-reload', Reload);
+
+const { userVisible } = useUser();
 </script>
 <script lang="ts">
 export default {
@@ -49,4 +48,5 @@ export default {
     </el-container>
   </el-container>
   <setting-pane v-if="settingVisible" v-model="settingVisible" />
+  <user-pane v-if="userVisible" v-model="userVisible"></user-pane>
 </template>
