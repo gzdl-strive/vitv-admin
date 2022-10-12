@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 import { inject } from 'vue';
 import { NavChange } from '@/components/Layout/typing';
-import RouteBreadcrumb from './components/RouteBreadcrumb';
-import UserInfo from './components/userInfo';
-import IconGather from './components/IconGather';
 
 type Props = {
   isCollapse: boolean;
@@ -37,8 +34,8 @@ export default {
       <route-breadcrumb></route-breadcrumb>
     </section>
     <section class="flex a_center gap_one">
-      <icon-gather></icon-gather>
-      <user-info></user-info>
+      <icon-gather />
+      <user-info />
     </section>
   </el-header>
 </template>

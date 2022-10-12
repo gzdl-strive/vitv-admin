@@ -28,7 +28,12 @@ const fullScreen = (element: HTMLElement, action: FullScreenAction) => {
   window.$toast('warning', '浏览器不支持全屏，请使用谷歌浏览器!')
 }
 
+const capitalize = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export {
   uuid,
-  fullScreen
+  fullScreen,
+  capitalize
 }

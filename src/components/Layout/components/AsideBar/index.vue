@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import { useSettingStore } from '@/store';
-import SystemTitle from './components/SystemTitle';
-import NavMenu from './components/NavMenu';
 
 type Props = {
   isCollapse: boolean;

@@ -57,7 +57,7 @@ export default {
               height="1.6rem"
               class="item-icon"
             ></svg-icon>
-            <span>{{ item.label }}</span>
+            <span style="user-select: none">{{ item.label }}</span>
           </template>
           <template v-if="item.children && item.children.length > 0">
             <menu-item :route-list="item.children"></menu-item>

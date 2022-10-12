@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 import { SettingStoreState } from './typing';
+import { THEME, THEME_NAME } from '@/config/typing';
+import { defaultSetting } from '@/config/setting';
 
 const useSettingStore = defineStore('setting', {
   state: (): SettingStoreState => {
@@ -7,6 +9,8 @@ const useSettingStore = defineStore('setting', {
       asideWidth: 200,
       collapse: false,
       fullScreen: false,
+      themeName: '蓝',
+      showTag: true
     }
   },
   getters: {},
@@ -19,6 +23,17 @@ const useSettingStore = defineStore('setting', {
     },
     changeFullScreen(status: boolean) {
       this.fullScreen = status;
+    },
+    setTheme(themeName: THEME_NAME) {
+      this.themeName = themeName;
+      document.body.style.setProperty(
+        '--theme-color',
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        defaultSetting.THEME_LIST.find((theme: THEME) => theme.name === themeName)!.color
+      )
+    },
+    changeTagStatus(status: boolean) {
+      this.showTag = status;
     }
   },
   persist: {
@@ -29,12 +44,12 @@ const useSettingStore = defineStore('setting', {
         // 自定义名称
         key: 'setting-store',
         storage: localStorage,
-        paths: ['asideWidth', 'collapse']
+        paths: ['asideWidth', 'themeName']
       },
       {
         key: 'setting-session-store',
         storage: sessionStorage,
-        paths: ['fullScreen']
+        paths: ['fullScreen', 'collapse', 'showTag']
       }
     ]
   }

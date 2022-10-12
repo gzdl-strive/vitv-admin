@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import routes from './routes';
 import nProgress from '@/utils/progress';
+import routes from './routes';
 import routeFlat from './routeFlat';
+import { useTagStore } from '@/store';
+import { CHANGE_ACTIVE_NAME, ADD_VIEW, ADD_CACHE } from '@/constant/module';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -18,6 +20,17 @@ const router = createRouter({
 
 router.beforeEach((to, from ,next) => {
   nProgress.start();
+
+  const tagStore = useTagStore();
+
+  // 判断是否需要缓存
+  if (!to.meta.noKeepAlive) {
+    tagStore[ADD_VIEW](to);
+    tagStore[ADD_CACHE](to.name as string);
+  } else {
+    tagStore[CHANGE_ACTIVE_NAME]('');
+  }
+
   routeFlat(to);
   next();
 });

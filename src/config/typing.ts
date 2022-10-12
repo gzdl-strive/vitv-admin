@@ -9,7 +9,21 @@ export interface ElementDefaultConfig {
   }
 }
 
+export type THEME_NAME = '蓝' | '绿' | '粉' | '紫' | '棕';
+
+export interface THEME {
+  name: THEME_NAME;
+  color: string;
+}
+
+export interface AVATAR {
+  name: string;
+  icon: string;
+}
+
 export interface Setting {
   SYSTEM_NAME: string;
   LOGO: string;
+  THEME_LIST: THEME[];
+  AVATAR_LIST: AVATAR[];
 }

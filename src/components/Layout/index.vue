@@ -1,10 +1,27 @@
 <script lang="ts" setup>
-import AsideBar from './components/AsideBar/index.vue';
-import HeaderCom from './components/Header/index.vue';
+import { computed, ref, nextTick, provide } from 'vue';
 import useSetting from './useSetting';
-import SettingPane from './components/SettingPane';
+import useUser from './useUser';
+import { useTagStore } from '@/store';
 
 const { isCollapse, fullScreen, settingVisible } = useSetting();
+
+const tagStore = useTagStore();
+const cacheList = computed(() => tagStore.cacheList);
+
+const reload = ref<boolean>(true);
+
+//刷新: 通过修改vue-router的标志位，使用v-if,来达到刷新的效果
+function Reload() {
+  reload.value = false;
+  nextTick(() => {
+    reload.value = true;
+  });
+}
+
+provide('page-reload', Reload);
+
+const { userVisible } = useUser();
 </script>
 <script lang="ts">
 export default {
@@ -13,14 +30,17 @@ export default {
 </script>
 
 <template>
-  <el-container v-fullscreen="fullScreen" style="height: 100%">
+  <el-container id="container" v-fullscreen="fullScreen" style="height: 100%">
     <aside-bar :is-collapse="isCollapse"></aside-bar>
-    <el-container class="flex column">
+    <el-container class="flex column" style="overflow: hidden">
       <header-com :is-collapse="isCollapse"></header-com>
-      <el-main>
+      <assist-header></assist-header>
+      <el-main style="overflow-x: hidden">
         <router-view v-slot="{ Component }">
           <transition name="transformFade" mode="out-in">
-            <component :is="Component"></component>
+            <keep-alive v-if="reload" :include="cacheList">
+              <component :is="Component" :key="$route.name"></component>
+            </keep-alive>
           </transition>
         </router-view>
       </el-main>
@@ -28,5 +48,5 @@ export default {
     </el-container>
   </el-container>
   <setting-pane v-if="settingVisible" v-model="settingVisible" />
-  <!-- <router-view></router-view> -->
+  <user-pane v-if="userVisible" v-model="userVisible"></user-pane>
 </template>

@@ -40,6 +40,7 @@ specifiers:
   unplugin-vue-components: ^0.22.4
   vite: ^3.1.0
   vue: ^3.2.37
+  vue-draggable-next: ^2.1.1
   vue-router: ^4.1.5
   vue-tsc: ^0.40.4
 
@@ -54,6 +55,7 @@ dependencies:
   pinia-plugin-persist: 1.0.0_pinia@2.0.22+vue@3.2.39
   three: 0.145.0
   vue: 3.2.39
+  vue-draggable-next: 2.1.1_vue@3.2.39
   vue-router: 4.1.5_vue@3.2.39
 
 devDependencies:
@@ -3702,6 +3704,15 @@ packages:
     peerDependenciesMeta:
       '@vue/composition-api':
         optional: true
+    dependencies:
+      vue: 3.2.39
+    dev: false
+
+  /vue-draggable-next/2.1.1_vue@3.2.39:
+    resolution: {integrity: sha512-f5lmA7t6LMaL4viR7dU30zzvqJzaKQs0ymL0Jy9UDT9uiZ2tXF3MzPzEvpTH2UODXZJkT+SnjeV1fXHMsgXLYA==}
+    peerDependencies:
+      sortablejs: ^1.14.0
+      vue: ^3.2.2
     dependencies:
       vue: 3.2.39
     dev: false

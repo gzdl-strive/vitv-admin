@@ -1,7 +1,7 @@
 <script lang="ts" setup></script>
 <script lang="ts">
 export default {
-  name: 'DiceCom'
+  name: 'DiceModel'
 };
 </script>
 
