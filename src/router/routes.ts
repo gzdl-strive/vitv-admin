@@ -17,7 +17,8 @@ const routes: RouteRecordRaw[] = [
     meta: {
       type: 'menu-item',
       label: '登录页',
-      icon: 'login'
+      icon: 'login',
+      noKeepAlive: true
     }
   },
   {

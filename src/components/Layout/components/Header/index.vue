@@ -37,8 +37,8 @@ export default {
       <route-breadcrumb></route-breadcrumb>
     </section>
     <section class="flex a_center gap_one">
-      <icon-gather></icon-gather>
-      <user-info></user-info>
+      <icon-gather />
+      <user-info />
     </section>
   </el-header>
 </template>

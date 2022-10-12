@@ -1,10 +1,6 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { useTagStore } from '@/store';
-
-const tagStore = useTagStore();
-
-const activeName = computed(() => tagStore.activeView);
+import RouteTags from './components/tags';
+import BtnGroup from './components/btnGroup';
 </script>
 <script lang="ts">
 export default {
@@ -14,8 +10,8 @@ export default {
 
 <template>
   <section class="assist-container flex j_between a_center">
-    <span>{{ activeName }}</span>
-    <span>右</span>
+    <route-tags></route-tags>
+    <btn-group></btn-group>
   </section>
 </template>
 
@@ -25,6 +21,7 @@ export default {
   background: $color-white;
   border: $assist-header_border;
   box-shadow: $assist-header_box-shadow;
-  padding: 0 0.5rem 0 1.5rem;
+  padding: 0 1.5rem;
+  overflow: hidden;
 }
 </style>

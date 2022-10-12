@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { inject } from 'vue';
+import { inject, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { useUserStore } from '@/store';
 
 const router = useRouter();
+const userStore = useUserStore();
 const handleLogout = () => {
   window
     .$confirm({
@@ -27,8 +29,8 @@ const handleLogout = () => {
       });
     });
 };
-
 const changeSettingVisible = inject('setting-pane-visible');
+const avatar = computed<string>(() => userStore.avatar);
 </script>
 <script lang="ts">
 export default {
@@ -38,7 +40,7 @@ export default {
 
 <template>
   <section class="flex a_center gap_half">
-    <svg-icon name="avatar" width="2.2rem" height="2.2rem" circle="50%" />
+    <svg-icon :name="avatar" width="2.2rem" height="2.2rem" circle="50%" />
     <el-dropdown>
       <span class="user-style flex a_center">
         张三

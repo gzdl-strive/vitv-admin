@@ -31,7 +31,6 @@ export default {
     <h1>{{ str }}</h1>
     <el-button type="primary" @click="handleMsg">中文</el-button>
     <img :src="ViteLogo" alt="ViteImg" />
-    <svg-icon name="avatar"></svg-icon>
     <el-input v-model="str"></el-input>
   </section>
 </template>
