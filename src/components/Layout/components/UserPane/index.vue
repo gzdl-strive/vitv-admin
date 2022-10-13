@@ -36,6 +36,8 @@ const signature = computed<string>({
   get: () => userStore.personalSignature,
   set: (newSign: string) => userStore[CHANGEPERSONALSIGNATURE](newSign)
 });
+
+const city = computed(() => userStore.baseCity);
 </script>
 <script lang="ts">
 export default {
@@ -76,6 +78,12 @@ export default {
         type="textarea"
         :autosize="{ minRows: 2, maxRows: 4 }"
       />
+      <el-divider content-position="left">
+        <section class="flex a_center gap_half">
+          <i-ep-location-filled />城市
+        </section>
+      </el-divider>
+      <el-input v-model="city" :disabled="true" placeholder="请输入城市" />
     </el-drawer>
   </div>
 </template>

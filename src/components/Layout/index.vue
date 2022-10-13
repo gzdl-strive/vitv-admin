@@ -35,7 +35,7 @@ export default {
     <el-container class="flex column" style="overflow: hidden">
       <header-com :is-collapse="isCollapse"></header-com>
       <assist-header></assist-header>
-      <el-main style="overflow-x: hidden">
+      <el-main class="main-container">
         <router-view v-slot="{ Component }">
           <transition name="transformFade" mode="out-in">
             <keep-alive v-if="reload" :include="cacheList">
@@ -50,3 +50,10 @@ export default {
   <setting-pane v-if="settingVisible" v-model="settingVisible" />
   <user-pane v-if="userVisible" v-model="userVisible"></user-pane>
 </template>
+
+<style scoped lang="scss">
+.main-container {
+  background-color: $content-bg;
+  overflow-x: hidden;
+}
+</style>
