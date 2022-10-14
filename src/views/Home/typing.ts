@@ -26,3 +26,14 @@ export type WeatherRes = {
     weather: CurWeather[]
   }
 }
+
+export type NavParam = {
+  path: string;
+  query?: {
+    name: string;
+  }
+}
+
+export type NavList = Record<'id' | 'title' | 'icon' | 'iconColor' | 'path', string> & {
+  query?: string;
+};
