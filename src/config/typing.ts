@@ -21,9 +21,18 @@ export interface AVATAR {
   icon: string;
 }
 
+type TechnicalData = {
+  name: string;
+  value: number;
+  selected?: boolean;
+}
+
 export interface Setting {
   SYSTEM_NAME: string;
   LOGO: string;
   THEME_LIST: THEME[];
   AVATAR_LIST: AVATAR[];
+  TECHNICALTYPE: string[];
+  TECHNICALINNERDATA: TechnicalData[];
+  TECHNICALOUTTERDATA: TechnicalData[];
 }

@@ -25,4 +25,5 @@ export interface UserStoreState {
   avatar: string;
   username: string;
   personalSignature: string;
+  baseCity: string;
 }

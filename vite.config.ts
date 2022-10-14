@@ -36,7 +36,14 @@ export default defineConfig({
   clearScreen: false, // 设置为false, 可以避免Vite清屏而错过在终端中打印某些关键信息
   server: {
     port: 8000,
-    open: true
+    open: true,
+    proxy: {
+      '/asilu': {
+        target: 'http://query.asilu.com',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/asilu/, '')
+      }
+    }
   },
   resolve: {
     alias: {
