@@ -9,6 +9,11 @@ import IconsResolver from 'unplugin-icons/resolver';
 
 import createSvg from './src/components/SvgIcon';
 
+const generateSvg = (path_arr: string[]) => {
+  const response = path_arr.map(path => createSvg(`./src/assets/${path}/`));
+  return response;
+}
+
 export default defineConfig({
   plugins: [
     vue(),
@@ -31,7 +36,7 @@ export default defineConfig({
     Icons({
       autoInstall: true,
     }),
-    createSvg('./src/assets/svg/')
+    [...generateSvg(['svg', 'svg-copy'])]
   ],
   clearScreen: false, // 设置为false, 可以避免Vite清屏而错过在终端中打印某些关键信息
   server: {
