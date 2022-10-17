@@ -47,7 +47,7 @@ export default {
     font-size: 10.5rem;
     letter-spacing: 1.5rem;
     /* stylelint-disable-next-line string-quotes */
-    background: url('@/assets/svg/avatar.svg') no-repeat center;
+    background: url('@/assets/svg/dm.svg') no-repeat center;
     background-size: cover;
     background-clip: text;
     /* stylelint-disable-next-line property-no-vendor-prefix */

@@ -17,16 +17,10 @@ const handleLogout = () => {
     })
     .then(() => {
       router.push('/login');
-      ElMessage({
-        type: 'success',
-        message: '退出登录成功'
-      });
+      window.$toast('success', '退出登录成功');
     })
     .catch(() => {
-      ElMessage({
-        type: 'info',
-        message: '取消退出'
-      });
+      window.$toast('info', '取消退出');
     });
 };
 const changeSettingVisible = inject('setting-pane-visible');
