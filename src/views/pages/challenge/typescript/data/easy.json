@@ -1,0 +1,67 @@
+[
+  {
+    "order": 4,
+    "label": "pick",
+    "describe": "Constructs a type by picking the set of properties K from T"
+  },
+  {
+    "order": 7,
+    "label": "readonly",
+    "describe": "Constructs a type with all properties of T set to readonly, meaning the properties of the constructed type cannot be reassigned."
+  },
+  {
+    "order": 11,
+    "label": "tuple to object",
+    "describe": "Give an array, transform into an object type and the key/value must in the given array."
+  },
+  {
+    "order": 14,
+    "label": "first of array",
+    "describe": "Implement a generic `First<T>` that takes an Array `T` and returns it's first element's type."
+  },
+  {
+    "order": 18,
+    "label": "length of tuple",
+    "describe": "For given a tuple, you need create a generic `Length`, pick the length of the tuple"
+  },
+  {
+    "order": 43,
+    "label": "exclude",
+    "describe": "Implement the built-in Exclude<T, U> Exclude from T those types that are assignable to U"
+  },
+  {
+    "order": 189,
+    "label": "awaited",
+    "describe": "If we have a type which is wrapped type like Promise. How we can get a type which is inside the wrapped type?"
+  },
+  {
+    "order": 268,
+    "label": "if",
+    "describe": "Implement a utils `If` which accepts condition `C`, a truthy return type `T`, and a falsy return type `F`. `C` is expected to be either `true` or `false` while `T` and `F` can be any type."
+  },
+  {
+    "order": 533,
+    "label": "concat",
+    "describe": "Implement the JavaScript `Array.concat` function in the type system. A type takes the two arguments. The output should be a new array that includes inputs in ltr order"
+  },
+  {
+    "order": 898,
+    "label": "includes",
+    "describe": "Implement the JavaScript `Array.includes` function in the type system. A type takes the two arguments. The output should be a boolean `true` or `false`."
+  },
+  {
+    "order": 3057,
+    "label": "push",
+    "describe": "Implement the generic version of ```Array.push```"
+  },
+  {
+    "order": 3060,
+    "label": "unshift",
+    "describe": "Implement the type version of ```Array.unshift```"
+  },
+  {
+    "order": 3312,
+    "label": "parameters",
+    "describe": "Implement the built-in Parameters<T> generic without using it."
+  }
+]
