@@ -19,6 +19,5 @@ export default {
   border: $assist-header_border;
   box-shadow: $assist-header_box-shadow;
   padding: 0 1.5rem;
-  overflow: hidden;
 }
 </style>

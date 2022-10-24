@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue';
 
 const canvasRef = ref();
 // 固定画线宽度
-const lineWidth = ref<number>(5);
+const lineWidth = ref<number>(10);
 
 const canvasChart = () => {
   const canvas = canvasRef.value;
@@ -13,13 +13,12 @@ const canvasChart = () => {
   ctx.strokeStyle = '#BADA55';
   ctx.lineJoin = 'round';
   ctx.lineCap = 'round';
-  ctx.lineWidth = 10;
+  ctx.lineWidth = lineWidth.value;
 
   let isDrawing = false;
   let lastX = 0;
   let lastY = 0;
   let hue = 0;
-  let direction = true;
 
   function draw(e: { offsetX: number; offsetY: number }) {
     if (!isDrawing) return;
@@ -36,19 +35,7 @@ const canvasChart = () => {
       hue = 0;
     }
 
-    if (ctx.lineWidth >= 20 || ctx.lineWidth <= 5) {
-      direction = !direction;
-    }
-
-    if (lineWidth.value === 0) {
-      if (direction) {
-        ctx.lineWidth++;
-      } else {
-        ctx.lineWidth--;
-      }
-    } else {
-      ctx.lineWidth = lineWidth.value;
-    }
+    ctx.lineWidth = lineWidth.value;
   }
 
   canvas.addEventListener(
