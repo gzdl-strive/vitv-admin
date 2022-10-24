@@ -19,7 +19,7 @@ const useTitle = (): void => {
     {
       immediate: true
     }
-  )
+  );
 }
 
 export default useTitle;

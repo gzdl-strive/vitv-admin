@@ -1,5 +1,5 @@
 import type { RouteLocationNormalized } from 'vue-router';
-import { BreadcrumbItemProps } from '@/components/Layout/components/Header/typing';
+import { BreadcrumbItemProps } from '@/components/Layout/components/HeaderCom/typing';
 import { MenuItemType } from '@/components/Layout/components/AsideBar/typing';
 
 const routeFlat = (to: RouteLocationNormalized) => {
