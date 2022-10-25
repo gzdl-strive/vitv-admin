@@ -21,6 +21,17 @@ const Model: RouteRecordRaw = {
         noKeepAlive: true
       }
     },
+    {
+      name: 'yjcModel',
+      path: 'yjcModel',
+      component: () => import('@/views/pages/model/yjc'),
+      meta: {
+        type: 'menu-item',
+        label: "羊角锤",
+        icon: 'yjc',
+        noKeepAlive: true
+      }
+    }
   ]
 };
 
