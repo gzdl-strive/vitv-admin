@@ -5,3 +5,9 @@ export type TypeCardItem = {
   label: string;
   describe?: string;
 }
+
+export type ResolveItem = {
+  title: string;
+  code: string;
+  example: string;
+}

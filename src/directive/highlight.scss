@@ -1,5 +1,5 @@
 /* 语法高亮 */
-.hljs-container {
+div[class*='hljs-container'] {
   position: relative;
   display: flex;
   // width: max-content;
@@ -17,7 +17,7 @@
 }
 
 /** 3个点 */
-.hljs-container::before {
+div[class*='hljs-container']::before {
   position: absolute;
   top: 10px;
   left: 15px;

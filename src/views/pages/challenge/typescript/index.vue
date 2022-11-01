@@ -1,15 +1,32 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { ChallengeLevel } from './typing';
+import { ref, reactive } from 'vue';
+import { ChallengeLevel, ResolveItem } from './typing';
 import TypeCard from './components/typeCard.vue';
 import QuestionShow from './components/questionShow.vue';
 import CodeShow from './components/codeShow.vue';
 import easyData from './data/easy.json';
 import mediumData from './data/medium.json';
+import CodeResolving from './components/codeResolving.vue';
 
 const activeName = ref<ChallengeLevel>('warm-up');
-
+// warn-up-slove-code
 let code = `type HelloWorld = string // expected to be a string`;
+
+const solveVisible = ref<boolean>(false);
+const solveData = reactive<ResolveItem>({
+  title: '',
+  code: '',
+  example: ''
+});
+
+const handleClick = (label: string, example: string, code: string) => {
+  solveData.example = '';
+  solveData.code = '';
+  solveVisible.value = true;
+  solveData.title = label;
+  example && (solveData.example = example);
+  code && (solveData.code = code);
+};
 </script>
 <script lang="ts">
 export default {
@@ -38,7 +55,11 @@ export default {
                 note="// expected to be string"
                 content="type HelloWorld = any;"
               />
-              <code-show :code="code" language="TypeScript" />
+              <code-show
+                :code="code"
+                language="TypeScript"
+                container-cls="hljs-container"
+              />
             </section>
           </template>
         </type-card>
@@ -55,6 +76,13 @@ export default {
             :order="easy.order"
             :describe="easy.describe"
             color="#7ba918"
+            :style="{
+              cursor: 'pointer',
+              border: easy?.example && easy?.code ? '1px solid #7ba918' : ''
+            }"
+            @click="
+              handleClick(easy.label, easy?.example || '', easy?.code || '')
+            "
           />
         </section>
       </el-tab-pane>
@@ -86,6 +114,11 @@ export default {
         <span>extreme</span>
       </el-tab-pane>
     </el-tabs>
+    <code-resolving
+      v-if="solveVisible"
+      v-model="solveVisible"
+      :data="solveData"
+    ></code-resolving>
   </el-card>
 </template>
 

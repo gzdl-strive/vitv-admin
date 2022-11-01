@@ -62,6 +62,16 @@ onMounted(() => {
   scene.background = environmentMap;
   scene.environment = environmentMap;
 
+  // Textures
+  const bakedTexture = textureLoader.load(`/image/room_baked.jpg`);
+  bakedTexture.flipY = false;
+  bakedTexture.encoding = THREE.sRGBEncoding;
+
+  //Baked material
+  const bakedMaterial = new THREE.MeshBasicMaterial({
+    map: bakedTexture
+  });
+
   /**
    * Models
    */
@@ -70,15 +80,20 @@ onMounted(() => {
   dracoLoader.setDecoderPath('/draco/');
   gltfLoader.setDRACOLoader(dracoLoader);
 
-  gltfLoader.load('/models/Fox.glb', gltf => {
+  gltfLoader.load('/models/room.glb', gltf => {
     // Model
-    gltf.scene.scale.set(0.02, 0.02, 0.02);
+    gltf.scene.scale.set(0.5, 0.5, 0.5);
+    gltf.scene.rotateY((-Math.PI / 2) * 3);
+    gltf.scene.traverse(child => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (child as any).material = bakedMaterial;
+    });
     scene.add(gltf.scene);
 
     // Animation
-    foxMixer = new THREE.AnimationMixer(gltf.scene);
-    const foxAction = foxMixer.clipAction(gltf.animations[2]);
-    foxAction.play();
+    // foxMixer = new THREE.AnimationMixer(gltf.scene);
+    // const foxAction = foxMixer.clipAction(gltf.animations[2]);
+    // foxAction.play();
 
     // Update materials
     updateAllMaterials();
@@ -218,17 +233,17 @@ onMounted(() => {
   }
 
   const tick = () => {
-    const elapsedTime = clock.getElapsedTime();
-    const deltaTime = elapsedTime - previousTime;
-    previousTime = elapsedTime;
+    // const elapsedTime = clock.getElapsedTime();
+    // const deltaTime = elapsedTime - previousTime;
+    // previousTime = elapsedTime;
 
     // Update controls
     controls.update();
 
     // Fox animation
-    if (foxMixer) {
-      foxMixer.update(deltaTime);
-    }
+    // if (foxMixer) {
+    //   foxMixer.update(deltaTime);
+    // }
 
     // Render
     renderer.render(scene, camera);

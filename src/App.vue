@@ -16,6 +16,7 @@ useTitle();
 /* 滚动条 */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
   background-color: #f5f5f5;
 }
 
