@@ -21,6 +21,39 @@ const Model: RouteRecordRaw = {
         noKeepAlive: true
       }
     },
+    {
+      name: 'yjcModel',
+      path: 'yjcModel',
+      component: () => import('@/views/pages/model/yjc'),
+      meta: {
+        type: 'menu-item',
+        label: "羊角锤",
+        icon: 'yjc',
+        noKeepAlive: true
+      }
+    },
+    {
+      name: 'roomModel',
+      path: 'roomModel',
+      component: () => import('@/views/pages/model/room'),
+      meta: {
+        type: 'menu-item',
+        label: "ROOM IN 3D",
+        icon: 'dice',
+        noKeepAlive: true
+      }
+    },
+    {
+      name: 'lsdModel',
+      path: 'lsdModel',
+      component: () => import('@/views/pages/model/screw'),
+      meta: {
+        type: 'menu-item',
+        label: "螺丝钉",
+        icon: 'dice',
+        noKeepAlive: true
+      }
+    },
   ]
 };
 

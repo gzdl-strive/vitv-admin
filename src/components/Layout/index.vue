@@ -2,6 +2,7 @@
 import { computed, ref, nextTick, provide } from 'vue';
 import useSetting from './useSetting';
 import useUser from './useUser';
+import useFixHmr from './useFixHmr';
 import { useTagStore } from '@/store';
 
 const { isCollapse, fullScreen, settingVisible } = useSetting();
@@ -22,6 +23,8 @@ function Reload() {
 provide('page-reload', Reload);
 
 const { userVisible } = useUser();
+
+const { wrap } = useFixHmr();
 </script>
 <script lang="ts">
 export default {
@@ -36,10 +39,13 @@ export default {
       <header-com :is-collapse="isCollapse"></header-com>
       <assist-header></assist-header>
       <el-main class="main-container">
-        <router-view v-slot="{ Component }">
+        <router-view v-slot="{ Component, route }">
           <transition name="transformFade" mode="out-in">
             <keep-alive v-if="reload" :include="cacheList">
-              <component :is="Component" :key="$route.name"></component>
+              <component
+                :is="wrap(route.fullPath, Component)"
+                :key="route.fullPath"
+              ></component>
             </keep-alive>
           </transition>
         </router-view>

@@ -1,0 +1,42 @@
+[
+  {
+    "order": 2,
+    "label": "Get Return Type",
+    "describe": "Implement the built-in `ReturnType<T>` generic without using it."
+  },
+  {
+    "order": 3,
+    "label": "Omit",
+    "describe": "Implement the built-in `Omit<T, K>` generic without using it."
+  },
+  {
+    "order": 8,
+    "label": "Readonly 2",
+    "describe": "Implement a generic `MyReadonly2<T, K>` which takes two type argument `T` and `K`."
+  },
+  {
+    "order": 9,
+    "label": "Deep Readonly",
+    "describe": "Implement a generic `DeepReadonly<T>` which make every parameter of an object - and its sub-objects recursively - readonly."
+  },
+  {
+    "order": 10,
+    "label": "Tuple to Union",
+    "describe": "Implement a generic `TupleToUnion<T>` which covers the values of a tuple to its values union."
+  },
+  {
+    "order": 12,
+    "label": "Chainable Options",
+    "describe": "In this challenge, you need to type an object or a class - whatever you like - to provide two function `option(key, value)` and `get()`. In `option`, you can extend the current config type by the given key and value. We should about to access the final result via `get`."
+  },
+  {
+    "order": 15,
+    "label": "Last of Array",
+    "describe": "Implement a generic `Last<T>` that takes an Array `T` and returns its last element."
+  },
+  {
+    "order": 16,
+    "label": "Pop",
+    "describe": "Implement a generic `Pop<T>` that takes an Array `T` and returns an Array without it's last element."
+  }
+]

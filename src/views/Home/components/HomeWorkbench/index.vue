@@ -16,7 +16,9 @@ const getWeatherMsg = (city: string) => {
         const weatherType = {
           晴: 'weather_sunny',
           阴: 'weather_overcast',
-          雨: 'weather_rain',
+          小雨: 'weather_rain',
+          大雨: 'weather_rain',
+          雷阵雨: 'weather_rain',
           雪: 'weather_snow',
           风: 'weather_wind',
           多云: 'weather_cloudy'
@@ -43,7 +45,6 @@ const getWeatherMsg = (city: string) => {
           });
           arr.push(obj);
         });
-
         curWeather.value = arr;
       } else {
         window.$toast('error', res.statusText || '未找到数据');
