@@ -6,6 +6,7 @@ import QuestionShow from './components/questionShow.vue';
 import CodeShow from './components/codeShow.vue';
 import easyData from './data/easy.json';
 import mediumData from './data/medium.json';
+import knowledgeData from './data/knowledge.json';
 import CodeResolving from './components/codeResolving.vue';
 
 const activeName = ref<ChallengeLevel>('warm-up');
@@ -27,6 +28,17 @@ const handleClick = (label: string, example: string, code: string) => {
   example && (solveData.example = example);
   code && (solveData.code = code);
 };
+
+const knowledgeContent = ref<string>('');
+// 知识点
+if (knowledgeData.length) {
+  knowledgeContent.value = '';
+  let res = '';
+  knowledgeData.map(k => {
+    res += `${k.order}、${k.item}\n`;
+  });
+  knowledgeContent.value = res;
+}
 </script>
 <script lang="ts">
 export default {
@@ -37,6 +49,12 @@ export default {
 <template>
   <el-card>
     <el-tabs v-model="activeName" type="card">
+      <el-tab-pane name="knowledge">
+        <template #label>
+          <span>知识点</span>
+        </template>
+        <question-show note="// 知识点" :content="knowledgeContent" />
+      </el-tab-pane>
       <el-tab-pane name="warm-up">
         <template #label>
           <span>warm-up</span>

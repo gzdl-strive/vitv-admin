@@ -33,7 +33,3 @@ export type NavParam = {
     name: string;
   }
 }
-
-export type NavList = Record<'id' | 'title' | 'icon' | 'iconColor' | 'path', string> & {
-  query?: string;
-};

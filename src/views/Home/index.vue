@@ -3,38 +3,7 @@ import HeaderWorkbench from './components/HomeWorkbench';
 import QuickNav from './components/QuickNav';
 import TechnicalComposition from './components/TechnicalComposition';
 import DevelopProgress from './components/DevelopProgress';
-import { NavList } from './typing';
-
-const navList: NavList[] = [
-  {
-    id: '001',
-    title: 'TS类型挑战',
-    icon: 'ts',
-    iconColor: '#00d8ff',
-    path: '/challenge/tsChallenge'
-  },
-  {
-    id: '002',
-    title: '基础挑战',
-    icon: 'development',
-    iconColor: '#ebad6c',
-    path: '/challenge/frontEndBase'
-  },
-  {
-    id: '003',
-    title: '骰子模型',
-    icon: 'dice',
-    iconColor: '#59e3d7',
-    path: '/model/diceModel'
-  },
-  {
-    id: '004',
-    title: '系统介绍',
-    icon: 'system-intro',
-    iconColor: '#e89176',
-    path: '/about/systemIntro'
-  }
-];
+import { defaultSetting } from '@/config/setting';
 </script>
 <script lang="ts">
 export default {
@@ -49,7 +18,7 @@ export default {
     <el-card style="width: 100%">
       <div class="flex">
         <quick-nav
-          v-for="nav in navList"
+          v-for="nav in defaultSetting.QUICK_NAV_LIST"
           :key="nav.id"
           :title="nav.title"
           :icon="nav.icon"
@@ -76,7 +45,7 @@ export default {
             <el-tag type="success" effect="dark">贰</el-tag>
           </section>
         </template>
-        <develop-progress></develop-progress>
+        <develop-progress :data="defaultSetting.DEVELOPMENT_PROCESS" />
       </el-card>
     </section>
   </section>

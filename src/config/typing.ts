@@ -27,6 +27,10 @@ type TechnicalData = {
   selected?: boolean;
 }
 
+type NavList = Record<'id' | 'title' | 'icon' | 'iconColor' | 'path', string> & {
+  query?: string;
+};
+
 export interface Setting {
   SYSTEM_NAME: string;
   LOGO: string;
@@ -35,4 +39,6 @@ export interface Setting {
   TECHNICALTYPE: string[];
   TECHNICALINNERDATA: TechnicalData[];
   TECHNICALOUTTERDATA: TechnicalData[];
+  QUICK_NAV_LIST: NavList[];
+  DEVELOPMENT_PROCESS: number;
 }

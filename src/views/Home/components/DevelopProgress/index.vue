@@ -4,6 +4,11 @@ import * as echarts from 'echarts/core';
 import { GaugeChart, GaugeSeriesOption } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 
+type Props = {
+  data: number;
+};
+const props = defineProps<Props>();
+
 echarts.use([GaugeChart, CanvasRenderer]);
 
 type EChartsOption = echarts.ComposeOption<GaugeSeriesOption>;
@@ -64,7 +69,7 @@ const renderCharts = () => {
         },
         data: [
           {
-            value: 35,
+            value: props.data,
             name: '当前进度'
           }
         ]

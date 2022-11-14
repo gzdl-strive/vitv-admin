@@ -1,12 +1,21 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import useModel from '@/hooks/useModel';
+import { Vec3 } from '../typing';
 
 const canvasRef = ref<HTMLCanvasElement>();
 
+const cameraPos: Vec3 = {
+  x: -20,
+  y: 7,
+  z: 3
+};
+
 onMounted(() => {
   if (!canvasRef.value) return;
-  useModel(canvasRef.value, 'room_baked', 'room');
+  useModel(canvasRef.value, 'room_baked', 'room', {
+    cameraPosition: cameraPos
+  });
 });
 </script>
 <script lang="ts">

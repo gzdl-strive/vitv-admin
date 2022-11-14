@@ -84,7 +84,7 @@ export default {
             <svg-icon name="mole" width="1.8rem" height="1.8rem"></svg-icon>
           </section>
         </template>
-        <whack-a-mole></whack-a-mole>
+        <whack-a-mole v-if="activeName === 'whackAMole'"></whack-a-mole>
       </el-tab-pane>
     </el-tabs>
   </el-card>

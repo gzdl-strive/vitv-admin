@@ -38,56 +38,56 @@
     "order": 43,
     "label": "exclude",
     "describe": "Implement the built-in Exclude<T, U> Exclude from T those types that are assignable to U",
-    "example": "",
-    "code": ""
+    "example": "type T = MyExclude<'a' | 'b' | 'c', 'a' | 'b'>; // 'c'",
+    "code": "type MyExclude<T, U> = T extends U ? never : T;//从T中排除那些可分配给U的类型"
   },
   {
     "order": 189,
     "label": "awaited",
     "describe": "If we have a type which is wrapped type like Promise. How we can get a type which is inside the wrapped type?",
-    "example": "",
-    "code": ""
+    "example": "type X = Promise<string>;\ntype Y = Promise<{ field: number }>;\ntype Z = Promise<Promise<string | number>>; type cases = [\n Expect<Equal<MyAwaited<x>, string>>,\n Expect<Equal<MyAwaited<Y>, { field: number }>>,\n Expect<Equal<MyAwaited<Z>, string | number>>,\n]",
+    "code": "type MyAwaited<T extends Promise<unknown>> =\n T extends Promise<infer U>\n  ? U extends Promise<unknown>\n   ? MyAwaited<U>\n   : U\n  : never;"
   },
   {
     "order": 268,
     "label": "if",
     "describe": "Implement a utils `If` which accepts condition `C`, a truthy return type `T`, and a falsy return type `F`. `C` is expected to be either `true` or `false` while `T` and `F` can be any type.",
-    "example": "",
-    "code": ""
+    "example": "type cases = [\n Expect<Equal<If<true, 'a', 'b'>, 'a>>,\n Expect<Equal<If<false, 'a', 2>, 2>>,\n]",
+    "code": "type If<C extends boolean, T, F> = C extends true ? T : F;\n//需要配置一下tsconfig.json开启严格模式，否则(null和undefined)类型会默认是所有类型的子类型"
   },
   {
     "order": 533,
     "label": "concat",
     "describe": "Implement the JavaScript `Array.concat` function in the type system. A type takes the two arguments. The output should be a new array that includes inputs in ltr order",
-    "example": "",
-    "code": ""
+    "example": "type Result = Concat<[1], [2]>; //expected to be [1, 2]",
+    "code": "type Concat<T extends unknown[], U extends unknown []> = [...T, ...U];"
   },
   {
     "order": 898,
     "label": "includes",
     "describe": "Implement the JavaScript `Array.includes` function in the type system. A type takes the two arguments. The output should be a boolean `true` or `false`.",
-    "example": "",
-    "code": ""
+    "example": "type isPillarMen = Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'> // expected to be `false`",
+    "code": "type MyEqual<X, Y> =\n (<T>() => T extends X ? 1 : 2) extends \n (<T>() => T extends Y ? 1 : 2) ? true : false; \n\ntype Includes<T extends readonly unknown[], U> =\n T extends [infer First, ...infer Rest]\n  ? (MyEqual<FIrst, U> extends true\n   ? true\n   Includes<Rest, U>)\n  : false;"
   },
   {
     "order": 3057,
     "label": "push",
     "describe": "Implement the generic version of ```Array.push```",
-    "example": "",
-    "code": ""
+    "example": "type Result = Push<[1, 2], '3'> // [1, 2, '3']",
+    "code": "type Push<T extends unknown[], U> = [...T, U];"
   },
   {
     "order": 3060,
     "label": "unshift",
     "describe": "Implement the type version of ```Array.unshift```",
-    "example": "",
-    "code": ""
+    "example": "type Result = Unshift<[1, 2], 0> // [0, 1, 2];",
+    "code": "type Unshift<T extends unknown[], U> = [U, ...T];"
   },
   {
     "order": 3312,
     "label": "parameters",
     "describe": "Implement the built-in Parameters<T> generic without using it.",
-    "example": "",
-    "code": ""
+    "example": "const foo = (arg1: string, arg2: number): void => {};\nconst bar = (arg1: boolean, arg2: { a: 'A' }): void => {}\nconst baz = (): void => {}\ntype cases = [\n Expect<Equal<MyParameters<typeof foo>, [string, number]>>,\n Expect<Equal<MyParameters<typeof bar>, [boolean, { a: 'A' }]>>,\n Expect<Equal<MyParameters<typeof baz>, []>>,\n]",
+    "code": "type MyParameters<T extends (...args: any[]) => any> =\n T extends (...args: infer X) => any\n  ? X\n  : never;"
   }
 ]

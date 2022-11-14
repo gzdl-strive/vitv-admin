@@ -46,7 +46,38 @@ const defaultSetting: Setting = {
     { value: 50, name: 'Element-Plus' },
     { value: 20, name: 'ThreeJS' },
     { value: 30, name: 'Echarts' }
-  ]
+  ],
+  QUICK_NAV_LIST: [
+    {
+      id: '001',
+      title: 'TS类型挑战',
+      icon: 'ts',
+      iconColor: '#00d8ff',
+      path: '/challenge/tsChallenge'
+    },
+    {
+      id: '002',
+      title: '基础挑战',
+      icon: 'development',
+      iconColor: '#ebad6c',
+      path: '/challenge/frontEndBase'
+    },
+    {
+      id: '003',
+      title: '房子模型',
+      icon: 'room',
+      iconColor: '#59e3d7',
+      path: '/model/roomModel'
+    },
+    {
+      id: '004',
+      title: '系统介绍',
+      icon: 'system-intro',
+      iconColor: '#e89176',
+      path: '/about/systemIntro'
+    }
+  ],
+  DEVELOPMENT_PROCESS: 50
 };
 
 export {

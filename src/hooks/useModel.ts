@@ -1,11 +1,30 @@
 import * as THREE from 'three';
+import * as dat from 'dat.gui';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
-const useModel = (canvas: HTMLCanvasElement, bakedImgName: string, modelName: string) => {
+const useModel = (
+  canvas: HTMLCanvasElement,
+  bakedImgName: string,
+  modelName: string,
+  variable = {
+    cameraPosition: {
+      x: 4,
+      y: 2,
+      z: 4
+    }
+  }
+) => {
   // Scene 
   const scene = new THREE.Scene();
+
+  // DebugObj
+  // const debugObject = {
+  //   x: position.cameraPosition.x,
+  //   y: position.cameraPosition.y,
+  //   z: position.cameraPosition.z
+  // }
 
   // Loaders
   // Texture loader
@@ -28,7 +47,7 @@ const useModel = (canvas: HTMLCanvasElement, bakedImgName: string, modelName: st
   const bakedMaterial = new THREE.MeshBasicMaterial({
     map: bakedTexture
   });
-  
+
   /**
    * Model
    */
@@ -58,9 +77,7 @@ const useModel = (canvas: HTMLCanvasElement, bakedImgName: string, modelName: st
     0.1,
     100
   );
-  camera.position.x = 4;
-  camera.position.y = 2;
-  camera.position.z = 4;
+  camera.position.set(variable.cameraPosition.x, variable.cameraPosition.y, variable.cameraPosition.z);
   scene.add(camera);
 
   // Controls
@@ -102,6 +119,31 @@ const useModel = (canvas: HTMLCanvasElement, bakedImgName: string, modelName: st
     // Call tick again on the next frame
     window.requestAnimationFrame(tick);
   };
+
+  // 判断是否开启debug面板
+  const active: boolean = window.location.hash === '#debug';
+  if (active) {
+    // Debug
+    const gui = new dat.GUI();
+
+    active &&
+      gui
+        .add(camera.position, 'x')
+        .min(-20)
+        .max(20)
+        .step(0.01)
+        .name('摄像机位置X');
+      gui.add(camera.position, 'y')
+        .min(-20)
+        .max(20)
+        .step(0.01)
+        .name('摄像机位置Y');
+      gui.add(camera.position, 'z')
+        .min(-20)
+        .max(20)
+        .step(0.01)
+        .name('摄像机位置Z');
+  }
 
   tick();
 };
