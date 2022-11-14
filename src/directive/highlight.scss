@@ -73,6 +73,8 @@ div[class*='hljs-container']::before {
 
 /** 行数样式 */
 .hljs-code-number {
+  white-space: nowrap;
+  text-align: center;
   padding: 2rem 0.8rem 0;
   color: $theme-color;
   font-size: 0.8rem;

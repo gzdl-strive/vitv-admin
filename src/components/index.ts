@@ -1,5 +1,6 @@
 import { App } from 'vue';
 import Contextmenu from './Contextmenu';
+import ScorePanel from './ScorePanel';
 
 type Commons = {
   name: string;
@@ -19,6 +20,16 @@ const commons: Commons[] = [
       document.body.appendChild(rootNode);
     }
   },
+  {
+    name: 'score-panel',
+    component: ScorePanel,
+    register: () => {
+      //创建根节点
+      const rootNode = document.createElement('div');
+      rootNode.id = 'scorepanel';
+      document.body.appendChild(rootNode);
+    }
+  }
 ];
 
 // 全局组件
