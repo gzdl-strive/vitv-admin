@@ -1,14 +1,16 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import * as dat from 'dat.gui';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 onMounted(() => {
   const debugObject = {
-    envMapIntensity: 0.4
+    envMapIntensity: 0.4,
+    cameraPosX: 5.55,
+    cameraPosY: 5.13,
+    cameraPosZ: 4.21
   };
 
   /**
@@ -16,7 +18,6 @@ onMounted(() => {
    */
   const gltfLoader = new GLTFLoader();
   const textureLoader = new THREE.TextureLoader();
-  const cubeTextureLoader = new THREE.CubeTextureLoader();
 
   /**
    * Base
@@ -45,23 +46,6 @@ onMounted(() => {
     });
   };
 
-  /**
-   * Environment map
-   */
-  const environmentMap = cubeTextureLoader.load([
-    '/textures/environmentMap/px.jpg',
-    '/textures/environmentMap/nx.jpg',
-    '/textures/environmentMap/py.jpg',
-    '/textures/environmentMap/ny.jpg',
-    '/textures/environmentMap/pz.jpg',
-    '/textures/environmentMap/nz.jpg'
-  ]);
-
-  environmentMap.encoding = THREE.sRGBEncoding;
-
-  scene.background = environmentMap;
-  scene.environment = environmentMap;
-
   // Textures
   const bakedTexture = textureLoader.load(`/image/room_baked.jpg`);
   bakedTexture.flipY = false;
@@ -75,29 +59,33 @@ onMounted(() => {
   /**
    * Models
    */
-  let foxMixer: THREE.AnimationMixer | null = null;
   const dracoLoader = new DRACOLoader();
   dracoLoader.setDecoderPath('/draco/');
   gltfLoader.setDRACOLoader(dracoLoader);
 
-  gltfLoader.load('/models/room.glb', gltf => {
-    // Model
-    gltf.scene.scale.set(0.5, 0.5, 0.5);
-    gltf.scene.rotateY((-Math.PI / 2) * 3);
-    gltf.scene.traverse(child => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (child as any).material = bakedMaterial;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let topChairModel: any = null;
+
+  function loadModel(modelName: string) {
+    gltfLoader.load(`/models/${modelName}.glb`, gltf => {
+      // Model
+      gltf.scene.traverse(child => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (child as any).material = bakedMaterial;
+      });
+      gltf.scene.position.set(-2, 0, 0);
+      scene.add(gltf.scene);
+
+      if (modelName === 'topChair') {
+        topChairModel = gltf.scene.children[0];
+      }
+
+      // Update materials
+      updateAllMaterials();
     });
-    scene.add(gltf.scene);
-
-    // Animation
-    // foxMixer = new THREE.AnimationMixer(gltf.scene);
-    // const foxAction = foxMixer.clipAction(gltf.animations[2]);
-    // foxAction.play();
-
-    // Update materials
-    updateAllMaterials();
-  });
+  }
+  loadModel('room');
+  loadModel('topChair');
 
   /**
    * Floor
@@ -113,12 +101,13 @@ onMounted(() => {
   floorNormalTexture.wrapS = THREE.RepeatWrapping;
   floorNormalTexture.wrapT = THREE.RepeatWrapping;
 
-  const floorGeometry = new THREE.CircleGeometry(5, 64);
+  const floorGeometry = new THREE.CircleGeometry(10, 64);
   const floorMaterial = new THREE.MeshStandardMaterial({
     map: floorColorTexture,
     normalMap: floorNormalTexture
   });
   const floor = new THREE.Mesh(floorGeometry, floorMaterial);
+  floor.position.x = -2;
   floor.rotation.x = -Math.PI * 0.5;
   scene.add(floor);
 
@@ -165,12 +154,99 @@ onMounted(() => {
     0.1,
     100
   );
-  camera.position.set(6, 4, 8);
   scene.add(camera);
 
-  // Controls
-  const controls = new OrbitControls(camera, canvas as HTMLElement);
-  controls.enableDamping = true;
+  const spherical = {
+    value: new THREE.Spherical(25, Math.PI * 0.35, -Math.PI * 0.25),
+    smoothed: new THREE.Spherical(25, Math.PI * 0.35, -Math.PI * 0.25),
+    smoothing: 0.005,
+    onMouseDown: (_event: MouseEvent) => {
+      method.down(_event.clientX, _event.clientY);
+      (canvas as HTMLElement).addEventListener('mouseup', spherical.onMouseUp);
+      (canvas as HTMLElement).addEventListener(
+        'mousemove',
+        spherical.onMouseMove
+      );
+    },
+    onMouseUp: (_event: MouseEvent) => {
+      _event.preventDefault();
+      method.up();
+      (canvas as HTMLElement).removeEventListener(
+        'mouseup',
+        spherical.onMouseUp
+      );
+      (canvas as HTMLElement).removeEventListener(
+        'mousemove',
+        spherical.onMouseMove
+      );
+    },
+    onMouseMove: (_event: MouseEvent) => {
+      method.move(_event.clientX, _event.clientY);
+    }
+  };
+  const drag = {
+    delta: {
+      x: 0,
+      y: 0
+    },
+    previous: {
+      x: 0,
+      y: 0
+    },
+    sensitivity: 0.001
+  };
+  const method = {
+    down: (_x: number, _y: number) => {
+      drag.previous.x = _x;
+      drag.previous.y = _y;
+    },
+    move: (_x: number, _y: number) => {
+      drag.delta.x += _x - drag.previous.x;
+      drag.delta.y += _y - drag.previous.y;
+
+      drag.previous.x = _x;
+      drag.previous.y = _y;
+    },
+    up: () => {
+      console.log('up');
+    }
+  };
+
+  // 初始化视图
+  function initView(elapsedTime: number) {
+    if (!canvas) return;
+    const target = new THREE.Vector3(0, 2, 0);
+    // Drag
+    spherical.value.theta -= drag.delta.x * drag.sensitivity;
+    spherical.value.phi -= drag.delta.y * drag.sensitivity;
+
+    drag.delta.x = 0;
+    drag.delta.y = 0;
+
+    // Smoothing
+    spherical.smoothed.phi +=
+      (spherical.value.phi - spherical.smoothed.phi) *
+      spherical.smoothing *
+      elapsedTime;
+    spherical.smoothed.theta +=
+      (spherical.value.theta - spherical.smoothed.theta) *
+      spherical.smoothing *
+      elapsedTime;
+    spherical.smoothed.radius +=
+      (spherical.value.radius - spherical.smoothed.radius) *
+      spherical.smoothing *
+      elapsedTime;
+
+    const viewPosition = new THREE.Vector3();
+    viewPosition.setFromSpherical(spherical.smoothed);
+
+    camera.position.copy(viewPosition);
+    camera.lookAt(target);
+    (canvas as HTMLElement).addEventListener(
+      'mousedown',
+      spherical.onMouseDown
+    );
+  }
 
   /**
    * Renderer
@@ -193,7 +269,7 @@ onMounted(() => {
    * Animate
    */
   const clock = new THREE.Clock();
-  let previousTime = 0;
+  // let previousTime = 0;
   let active: boolean = window.location.hash === '#debug';
   if (active) {
     // Debug
@@ -230,20 +306,37 @@ onMounted(() => {
       .max(5)
       .step(0.001)
       .name('lightZ');
+    gui
+      .add(camera.position, 'x')
+      .min(-20)
+      .max(20)
+      .step(0.01)
+      .name('摄像机位置X');
+    gui
+      .add(camera.position, 'y')
+      .min(-20)
+      .max(20)
+      .step(0.01)
+      .name('摄像机位置Y');
+    gui
+      .add(camera.position, 'z')
+      .min(-20)
+      .max(20)
+      .step(0.01)
+      .name('摄像机位置Z');
   }
 
   const tick = () => {
-    // const elapsedTime = clock.getElapsedTime();
+    const elapsedTime = clock.getElapsedTime();
     // const deltaTime = elapsedTime - previousTime;
     // previousTime = elapsedTime;
 
-    // Update controls
-    controls.update();
+    initView(elapsedTime);
 
-    // Fox animation
-    // if (foxMixer) {
-    //   foxMixer.update(deltaTime);
-    // }
+    // Animation
+    if (topChairModel) {
+      topChairModel.rotation.y = Math.sin(elapsedTime * 0.5) * 0.5;
+    }
 
     // Render
     renderer.render(scene, camera);
