@@ -6,8 +6,15 @@ export interface SettingStoreState {
   showTag: boolean;
 }
 
+type loginInfo = {
+  username: string;
+  password: string;
+  count: number;
+}
+
 export interface LoginStoreState {
   remeberMe: boolean;
+  loginInfoList: loginInfo[];
 }
 
 export type ViewList = {
@@ -24,6 +31,7 @@ export interface TagStoreState {
 export interface UserStoreState {
   avatar: string;
   username: string;
+  password: string;
   personalSignature: string;
   baseCity: string;
 }

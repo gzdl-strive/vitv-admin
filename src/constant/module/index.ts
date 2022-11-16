@@ -21,5 +21,6 @@ export const REMOVE_OTHER_VIEW = 'removeOtherView';
 // user
 export const CHANGE_AVATAR = 'changeAvatar';
 export const CHANGE_USERNAME = 'changeUsername';
+export const CHANGE_PWD = 'changePwd';
 export const CHANGEPERSONALSIGNATURE = 'changePersonalSignature';
 export const CHANGE_CITY = 'changeCity';

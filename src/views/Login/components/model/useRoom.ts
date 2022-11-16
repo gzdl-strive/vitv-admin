@@ -10,7 +10,7 @@ const useRoom = (canvas: HTMLCanvasElement) => {
   // debug-active
   const active: boolean = window.location.hash === '#debug';
   // Debug
-  const gui = new dat.GUI();
+  const gui = active ? new dat.GUI() : null;
 
   // Loaders
   const gltfLoader = new GLTFLoader();
@@ -108,8 +108,8 @@ const useRoom = (canvas: HTMLCanvasElement) => {
   function setAnimation(btnArr: any) {
     const colors = ['#196aff', '#ff0000', '#00ff00', '#0000ff'];
 
-    if (active) {
-      for(const _colorIndex in colors) {
+    if (gui) {
+      for (const _colorIndex in colors) {
         gui.addColor(
           colors,
           _colorIndex,
@@ -428,14 +428,13 @@ const useRoom = (canvas: HTMLCanvasElement) => {
   const clock = new THREE.Clock();
   // let previousTime = 0;
 
-  if (active) {
-    active &&
-      gui
-        .add(directionalLight, 'intensity')
-        .min(0)
-        .max(10)
-        .step(0.001)
-        .name('lightIntensity');
+  if (gui) {
+    gui
+      .add(directionalLight, 'intensity')
+      .min(0)
+      .max(10)
+      .step(0.001)
+      .name('lightIntensity');
     gui
       .add(directionalLight.position, 'x')
       .min(-5)

@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
-import { useLoginStore } from '@/store';
-import { CHANGE_REMEBER } from '@/constant/module';
+import { useRouter } from 'vue-router';
+import { useLoginStore, useUserStore } from '@/store';
+import { CHANGE_REMEBER, CHANGE_USERNAME, CHANGE_PWD } from '@/constant/module';
 
 type Props = {
   changeLoginStatus: () => void;
@@ -10,20 +11,29 @@ type Props = {
 defineProps<Props>();
 
 const loginStore = useLoginStore();
+const userStore = useUserStore();
+const router = useRouter();
 
 const username = ref<string>('');
 // 用于解决浏览器自动填充问题
 const readonlyFlag = ref<boolean>(true);
 const password = ref<string>('');
 
-const remeberMe = computed({
+const remeberMe = computed<boolean>({
   get: () => loginStore.remeberMe,
   set: (status: boolean) => loginStore[CHANGE_REMEBER](status)
 });
 
+if (remeberMe.value) {
+  userStore.username && (readonlyFlag.value = false);
+  userStore.username && (username.value = userStore.username);
+  userStore.password && (password.value = userStore.password);
+}
+
 const handleSubmit = () => {
-  console.log(username.value, password.value);
-  return false;
+  userStore[CHANGE_USERNAME](username.value);
+  userStore[CHANGE_PWD](password.value);
+  router.push('/');
 };
 </script>
 <script lang="ts">
@@ -35,7 +45,7 @@ export default {
 <template>
   <div class="login-pannel flex column gap_half a_center">
     <header class="pannel-header flex a_center gap_half">
-      <svg-icon name="logo" width="2.4rem" height="2.4rem"></svg-icon>
+      <svg-icon name="logo" width="2rem" height="2rem"></svg-icon>
       <span>Vitv-Admin</span>
     </header>
     <section class="pannel-main flex column a_center gap_one">

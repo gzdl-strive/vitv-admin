@@ -5,7 +5,8 @@ const useUserStore = defineStore('user', {
   state: (): UserStoreState => {
     return {
       avatar: 'dm',
-      username: '张三',
+      username: '',
+      password: '',
       personalSignature: "Life was like a box of chocolates. You never know what you're gonna get.",
       baseCity: '杭州'
     }
@@ -16,6 +17,9 @@ const useUserStore = defineStore('user', {
     },
     changeUsername(name: string) {
       this.username = name;
+    },
+    changePwd(pwd: string) {
+      this.password = pwd;
     },
     changePersonalSignature(signature: string) {
       this.personalSignature = signature;
@@ -30,7 +34,7 @@ const useUserStore = defineStore('user', {
       {
         key: 'user-store',
         storage: localStorage,
-        paths: ['username', 'avatar', 'personalSignature', 'baseCity']
+        paths: ['username', 'avatar', 'personalSignature', 'baseCity', 'password']
       },
     ]
   }
