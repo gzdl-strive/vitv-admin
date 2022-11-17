@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { UserStoreState } from './typing';
+import { useLoginStore } from '@/store';
 
 const useUserStore = defineStore('user', {
   state: (): UserStoreState => {
@@ -15,8 +16,14 @@ const useUserStore = defineStore('user', {
     changeAvatar(avatar: string) {
       this.avatar = avatar;
     },
-    changeUsername(name: string) {
+    changeUsername(name: string, oldName = '', changeLocalStorage = false) {
       this.username = name;
+      if (changeLocalStorage) {
+        const loginStore = useLoginStore();
+        loginStore.loginInfo.forEach(info => {
+          info.username === oldName && (info.username = name);
+        });
+      }
     },
     changePwd(pwd: string) {
       this.password = pwd;

@@ -1,17 +1,19 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { useLoginStore, useUserStore } from '@/store';
 import { CHANGE_REMEBER, CHANGE_USERNAME, CHANGE_PWD } from '@/constant/module';
+import { LoginInfoItem } from '@/store/module/typing';
 
 type Props = {
   changeLoginStatus: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  loginStore: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  userStore: any;
 };
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
-const loginStore = useLoginStore();
-const userStore = useUserStore();
 const router = useRouter();
 
 const username = ref<string>('');
@@ -20,21 +22,64 @@ const readonlyFlag = ref<boolean>(true);
 const password = ref<string>('');
 
 const remeberMe = computed<boolean>({
-  get: () => loginStore.remeberMe,
-  set: (status: boolean) => loginStore[CHANGE_REMEBER](status)
+  get: () => props.loginStore.remeberMe,
+  set: (status: boolean) => props.loginStore[CHANGE_REMEBER](status)
 });
 
 if (remeberMe.value) {
-  userStore.username && (readonlyFlag.value = false);
-  userStore.username && (username.value = userStore.username);
-  userStore.password && (password.value = userStore.password);
+  props.userStore.username && (readonlyFlag.value = false);
+  props.userStore.username &&
+    (username.value = props.userStore.username as string);
+  props.userStore.password &&
+    (password.value = props.userStore.password as string);
 }
 
+// 登录提交
 const handleSubmit = () => {
-  userStore[CHANGE_USERNAME](username.value);
-  userStore[CHANGE_PWD](password.value);
+  const loginInfoList = props.loginStore.loginInfo;
+  if (loginInfoList.length) {
+    // 判断是否存在已经注册好的账号密码
+    const match = loginInfoList.some(
+      (info: LoginInfoItem) =>
+        info.username === username.value && info.password === password.value
+    );
+    if (match) {
+      props.userStore[CHANGE_USERNAME](username.value);
+      props.userStore[CHANGE_PWD](password.value);
+      router.push('/');
+    } else {
+      window.$toast('error', '账号密码错误,请重新输入');
+    }
+  } else {
+    // 前往注册板块
+    window
+      .$confirm({
+        title: '切换至注册版块进行注册',
+        message: '当前未存在注册过的账号信息，是否切换？',
+        type: 'warning',
+        center: true,
+        showCancelButton: true,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      })
+      .then(() => {
+        props.changeLoginStatus();
+      })
+      .catch(() => {
+        window.$toast('info', '取消成功!');
+      });
+  }
+};
+// 游客登录
+const loginByVisitor = () => {
   router.push('/');
 };
+
+onMounted(() => {
+  // 进入页面，将用户名，密码置为空
+  props.userStore[CHANGE_USERNAME]('');
+  props.userStore[CHANGE_PWD]('');
+});
 </script>
 <script lang="ts">
 export default {
@@ -82,7 +127,7 @@ export default {
       </form>
       <footer class="other-btn flex gap_half">
         <button class="btn" @click="changeLoginStatus">注册</button>
-        <button class="btn">游客登录</button>
+        <button class="btn" @click="loginByVisitor">游客登录</button>
       </footer>
     </section>
   </div>

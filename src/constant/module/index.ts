@@ -7,6 +7,7 @@ export const CHANGE_TAG_STATUS = 'changeTagStatus';
 
 // login
 export const CHANGE_REMEBER = 'changeRemeber';
+export const CHANGE_LOGIN_INFO = 'changeLoginInfo';
 
 // tag
 export const CHANGE_ACTIVE_NAME = 'changeActiveName';

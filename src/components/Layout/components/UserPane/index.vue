@@ -24,7 +24,9 @@ const visible = computed<boolean>({
 
 const username = computed<string>({
   get: () => userStore.username,
-  set: (newName: string) => userStore[CHANGE_USERNAME](newName)
+  set: (newName: string) => {
+    userStore[CHANGE_USERNAME](newName, userStore.username, true);
+  }
 });
 
 const handleAvatar = (avatar: AVATAR) => {

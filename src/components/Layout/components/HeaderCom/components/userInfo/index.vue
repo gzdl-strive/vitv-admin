@@ -39,7 +39,7 @@ export default {
     <svg-icon :name="avatar" width="2.2rem" height="2.2rem" circle="50%" />
     <el-dropdown>
       <span class="user-style flex a_center">
-        张三
+        {{ userStore.username }}
         <i-ep-arrow-down class="dropdown" />
       </span>
       <template #dropdown>

@@ -1,13 +1,17 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import PwdIntensity from './intensity.vue';
 import { PwdIntensityLevel } from './typing';
+import { CHANGE_LOGIN_INFO } from '@/constant/module';
+import { LoginInfoItem } from '@/store/module/typing';
 
 type Props = {
   changeLoginStatus: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  loginStore: any;
 };
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const username = ref<string>('');
 // 用于解决浏览器自动填充问题
@@ -72,6 +76,12 @@ const checkIntensity = () => {
   }
 };
 
+// 标志位——用于判断密码和确认密码是否一致
+const confirmFlag = computed<boolean>(() => {
+  if (!confirmPwd.value) return false;
+  return password.value !== confirmPwd.value;
+});
+
 watch(
   () => password.value,
   () => {
@@ -80,8 +90,52 @@ watch(
 );
 
 const handleSubmit = () => {
-  console.log(username.value, password.value);
-  return false;
+  if (confirmFlag.value) {
+    window.$toast('error', '两次密码输入不一致，请确认!');
+    return;
+  }
+  // 先判断是否已经存在
+  const loginInfoList = props.loginStore.loginInfo;
+  if (!loginInfoList.length) {
+    // 直接将当前用户名，密码推入即可
+    props.loginStore[CHANGE_LOGIN_INFO](username.value, password.value);
+    props.changeLoginStatus();
+  } else {
+    // 如果存在已注册过的账号信息，需要判断当前新增加的是否和之前的一致
+    const index = loginInfoList.findIndex(
+      (info: LoginInfoItem) => info.username === username.value
+    );
+    if (index === -1) {
+      // 没找到，直接加入
+      props.loginStore[CHANGE_LOGIN_INFO](username.value, password.value);
+      props.changeLoginStatus();
+    } else {
+      // 找到之前存在过的账号信息，如果账号密码相同，则不变
+      // 如果账号密码不相同，则弹窗是否需要更新密码
+      if (loginInfoList[index].password !== password.value) {
+        window
+          .$confirm({
+            boxType: 'prompt',
+            title: '提示',
+            message: '当前注册的用户名之前已存在，是否更新为当前密码？',
+            showInput: true,
+            inputPattern: /admin/,
+            inputPlaceholder: '请输入管理员密码!',
+            inputErrorMessage: '管理员密码错误',
+            showCancelButton: true,
+            confirmButtonText: '更新',
+            cancelButtonText: '取消'
+          })
+          .then(() => {
+            props.loginStore[CHANGE_LOGIN_INFO](username.value, password.value);
+            props.changeLoginStatus();
+          })
+          .catch(() => {
+            window.$toast('info', '取消更新!');
+          });
+      }
+    }
+  }
 };
 </script>
 <script lang="ts">
@@ -134,7 +188,7 @@ export default {
         <div class="form-controls">
           <input
             v-model="confirmPwd"
-            placeholder="密码"
+            placeholder="确认密码"
             :type="confirmPwdShow ? 'text' : 'password'"
             required
           />
@@ -149,13 +203,8 @@ export default {
             @click="confirmPwdShow = !confirmPwdShow"
           ></i-ep-hide>
         </div>
-        <button
-          type="submit"
-          class="submit-btn"
-          @click="passwordShow = !passwordShow"
-        >
-          注册
-        </button>
+        <p v-show="confirmFlag" class="confirm-tip">两次密码输入不一致</p>
+        <button type="submit" class="submit-btn">注册</button>
       </form>
       <footer class="other-btn flex gap_half">
         <button class="btn" @click="changeLoginStatus">回到登录</button>
@@ -229,6 +278,11 @@ export default {
           color: $theme-color;
         }
       }
+    }
+
+    .confirm-tip {
+      margin: -1.2rem 0 1rem;
+      color: $color-danger;
     }
 
     .intensity {

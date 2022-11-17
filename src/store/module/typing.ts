@@ -6,15 +6,15 @@ export interface SettingStoreState {
   showTag: boolean;
 }
 
-type loginInfo = {
+export type LoginInfoItem = {
   username: string;
   password: string;
   count: number;
 }
 
-export interface LoginStoreState {
+export type LoginStoreState = {
   remeberMe: boolean;
-  loginInfoList: loginInfo[];
+  loginInfo: LoginInfoItem[];
 }
 
 export type ViewList = {
