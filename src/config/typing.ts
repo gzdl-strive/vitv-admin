@@ -1,3 +1,5 @@
+import { AuthorityLevel } from '@/store/module/typing';
+
 export interface ElementDefaultConfig {
   readonly size?: 'small' | 'default' | 'large',
   readonly zIndex?: number;
@@ -41,4 +43,6 @@ export interface Setting {
   TECHNICALOUTTERDATA: TechnicalData[];
   QUICK_NAV_LIST: NavList[];
   DEVELOPMENT_PROCESS: number;
+  USER_PANNEL_LIMIT: Record<'USERNAME' | 'AVATAR' | 'SIGNATURE' | 'CITY', AuthorityLevel>;
+  REGISTER_ADMIN_PWD: string;
 }

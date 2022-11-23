@@ -55,13 +55,15 @@ export default {
         <el-dropdown-menu>
           <el-dropdown-item @click="reload">重新刷新</el-dropdown-item>
           <el-dropdown-item
-            :disabled="activeIndex === 0"
+            :disabled="activeIndex <= 0"
             @click="activeIndex !== 0 && closeTagView('current')"
           >
             关闭当前标签页
           </el-dropdown-item>
           <el-dropdown-item
-            :disabled="activeIndex === tagStore.viewList.length - 1"
+            :disabled="
+              activeIndex === tagStore.viewList.length - 1 || activeIndex < 0
+            "
             @click="
               activeIndex !== tagStore.viewList.length - 1 &&
                 closeTagView('right')
@@ -70,7 +72,7 @@ export default {
             关闭右侧标签页
           </el-dropdown-item>
           <el-dropdown-item
-            :disabled="tagStore.viewList.length === 1"
+            :disabled="tagStore.viewList.length === 1 || activeIndex < 0"
             @click="tagStore.viewList.length > 1 && closeTagView('all')"
           >
             关闭所有标签页
@@ -78,7 +80,8 @@ export default {
           <el-dropdown-item
             :disabled="
               tagStore.viewList.length === 1 ||
-              (activeIndex === 1 && tagStore.viewList.length === 2)
+              (activeIndex === 1 && tagStore.viewList.length === 2) ||
+              activeIndex < 0
             "
             @click="closeTagView('other')"
           >
@@ -93,11 +96,11 @@ export default {
 <style scoped lang="scss">
 .btn-container {
   height: 100%;
+  overflow-y: hidden;
 
   .icon-style {
     cursor: pointer;
     width: 1.1rem;
-    height: 100%;
     padding: 0.8rem;
     border-left: 1px solid #ccc;
 

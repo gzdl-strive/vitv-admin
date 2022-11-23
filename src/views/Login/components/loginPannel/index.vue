@@ -1,29 +1,92 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
-import { useLoginStore } from '@/store';
-import { CHANGE_REMEBER } from '@/constant/module';
+import { useRouter } from 'vue-router';
+import {
+  CHANGE_REMEBER,
+  CHANGE_USERNAME,
+  CHANGE_PWD,
+  CHANGE_LOGIN_STATUS,
+  CHANGE_LOGIN_INFO,
+  SET_LIMIT_AUTHORITY
+} from '@/constant/module';
+import { LoginInfoItem } from '@/store/module/typing';
 
 type Props = {
   changeLoginStatus: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  loginStore: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  userStore: any;
 };
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
-const loginStore = useLoginStore();
+const router = useRouter();
 
 const username = ref<string>('');
 // 用于解决浏览器自动填充问题
 const readonlyFlag = ref<boolean>(true);
 const password = ref<string>('');
 
-const remeberMe = computed({
-  get: () => loginStore.remeberMe,
-  set: (status: boolean) => loginStore[CHANGE_REMEBER](status)
+const remeberMe = computed<boolean>({
+  get: () => props.loginStore.remeberMe,
+  set: (status: boolean) => props.loginStore[CHANGE_REMEBER](status)
 });
 
+if (remeberMe.value) {
+  props.userStore.username && (readonlyFlag.value = false);
+  props.userStore.username &&
+    (username.value = props.userStore.username as string);
+  props.userStore.password &&
+    (password.value = props.userStore.password as string);
+}
+
+// 登录提交
 const handleSubmit = () => {
-  console.log(username.value, password.value);
-  return false;
+  const loginInfoList = props.loginStore.loginInfo;
+  if (loginInfoList.length) {
+    // 判断是否存在已经注册好的账号密码
+    const match = loginInfoList.find(
+      (info: LoginInfoItem) =>
+        info.username === username.value && info.password === password.value
+    );
+    if (match) {
+      props.userStore[CHANGE_USERNAME](username.value);
+      props.userStore[CHANGE_PWD](password.value);
+      props.loginStore[CHANGE_LOGIN_STATUS](true);
+      props.loginStore[CHANGE_LOGIN_INFO](match.username, match.password);
+      props.userStore[SET_LIMIT_AUTHORITY](2);
+      router.push('/');
+    } else {
+      window.$toast('error', '账号密码错误,请重新输入');
+    }
+  } else {
+    // 前往注册板块
+    window
+      .$confirm({
+        title: '切换至注册版块进行注册',
+        message: '当前未存在注册过的账号信息，是否切换？',
+        type: 'warning',
+        center: true,
+        showCancelButton: true,
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      })
+      .then(() => {
+        props.changeLoginStatus();
+      })
+      .catch(() => {
+        window.$toast('info', '取消成功!');
+      });
+  }
+};
+// 游客登录
+const loginByVisitor = () => {
+  props.userStore[CHANGE_USERNAME]('游客访问');
+  props.userStore[CHANGE_PWD]('');
+  props.userStore[SET_LIMIT_AUTHORITY](1);
+  props.loginStore[CHANGE_LOGIN_STATUS](true);
+  router.push('/');
 };
 </script>
 <script lang="ts">
@@ -35,7 +98,7 @@ export default {
 <template>
   <div class="login-pannel flex column gap_half a_center">
     <header class="pannel-header flex a_center gap_half">
-      <svg-icon name="logo" width="2.4rem" height="2.4rem"></svg-icon>
+      <svg-icon name="logo" width="2rem" height="2rem"></svg-icon>
       <span>Vitv-Admin</span>
     </header>
     <section class="pannel-main flex column a_center gap_one">
@@ -72,7 +135,7 @@ export default {
       </form>
       <footer class="other-btn flex gap_half">
         <button class="btn" @click="changeLoginStatus">注册</button>
-        <button class="btn">游客登录</button>
+        <button class="btn" @click="loginByVisitor">游客登录</button>
       </footer>
     </section>
   </div>

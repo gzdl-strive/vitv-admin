@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { RouteRecordRaw, useRouter } from 'vue-router';
+import { useUserStore } from '@/store';
 import { MenuItemProps } from '../../../typing';
 
 type Props = {
@@ -27,7 +28,13 @@ const menuItems = computed(() => {
 });
 // 是否展示
 const isShowItem = computed(() => {
-  return (item: MenuItemProps): boolean => item.hidden || false;
+  return (item: MenuItemProps): boolean => {
+    const userStore = useUserStore();
+    // 当目录隐藏，或当前用户权限不够时隐藏目录
+    return (
+      item.hidden || userStore.limitOfAuthority < (item.limitOfAuthority || 0)
+    );
+  };
 });
 
 // 点击回调

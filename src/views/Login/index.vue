@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import { ref, Ref } from 'vue';
+import { ref } from 'vue';
 import LoginPannel from './components/loginPannel';
 import RegisterPannel from './components/registerPannel';
 import ThreeModel from './components/model';
+import { useLoginStore, useUserStore } from '@/store';
 
-const loginStatus: Ref<boolean> = ref(true);
+const loginStatus = ref<boolean>(true);
+
+const loginStore = useLoginStore();
+const userStore = useUserStore();
 
 const changeLoginStatus = () => {
   loginStatus.value = !loginStatus.value;
@@ -28,6 +32,8 @@ export default {
           :is="loginStatus ? LoginPannel : RegisterPannel"
           class="flex column"
           :change-login-status="changeLoginStatus"
+          :login-store="loginStore"
+          :user-store="loginStatus ? userStore : ''"
         />
       </transition>
     </el-aside>

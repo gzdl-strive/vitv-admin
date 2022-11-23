@@ -1,0 +1,66 @@
+{
+  "codeReferenceList": [
+    {
+      "id": "001",
+      "name": "multi-tab",
+      "address": "https: //github.com/wyb199877/multi-tab",
+      "homePage": "https: //wyb199877.github.io/multi-tab/"
+    },
+    {
+      "id": "002",
+      "name": "vue-vben-admin",
+      "address": "https: //github.com/vbenjs/vue-vben-admin",
+      "homePage": "https: //vben.vvbin.cn/"
+    }
+  ],
+  "packageReferenceList": [
+    {
+      "id": "101",
+      "name": "Vue",
+      "address": "https://cn.vuejs.org/",
+      "describe": "渐进式JavaScript框架"
+    },
+    {
+      "id": "102",
+      "name": "Vite",
+      "address": "https://vitejs.cn/",
+      "describe": "前端开发与构建工具"
+    },
+    {
+      "id": "103",
+      "name": "TypeScript",
+      "address": "https://www.typescriptlang.org/",
+      "describe": "JS的超集(带有类型语法的JavaScript)"
+    },
+    {
+      "id": "104",
+      "name": "Vue-Router",
+      "address": "https://router.vuejs.org/zh/",
+      "describe": "Vue.js官方路由"
+    },
+    {
+      "id": "105",
+      "name": "Pinia",
+      "address": "https://pinia.vuejs.org/",
+      "describe": "Vue状态管理工具"
+    },
+    {
+      "id": "106",
+      "name": "Element-Plus",
+      "address": "https://element-plus.gitee.io/zh-CN/",
+      "describe": "Vue3组件库"
+    },
+    {
+      "id": "107",
+      "name": "Axios",
+      "address": "https://www.axios-http.cn/",
+      "describe": "基于Promise的网络请求库"
+    },
+    {
+      "id": "108",
+      "name": "ThreeJS",
+      "address": "https://threejs.org/",
+      "describe": "使用JavaScript编写的WebGL第三方库"
+    }
+  ]
+}

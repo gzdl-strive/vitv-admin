@@ -50,7 +50,6 @@ export default {
           </transition>
         </router-view>
       </el-main>
-      <!-- <el-footer>Footer</el-footer> -->
     </el-container>
   </el-container>
   <setting-pane v-if="settingVisible" v-model="settingVisible" />

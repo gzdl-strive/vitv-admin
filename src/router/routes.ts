@@ -18,7 +18,8 @@ const routes: RouteRecordRaw[] = [
       type: 'menu-item',
       label: '登录页',
       icon: 'login',
-      noKeepAlive: true
+      noKeepAlive: true, // keep-alive缓存: true不需要，false需要(默认)
+      limitOfAuthority: 0 // 访问所需要的权限等级 0-所有人都可以访问 1-游客权限 2-用户权限 3-管理员权限
     }
   },
   {
@@ -34,7 +35,8 @@ const routes: RouteRecordRaw[] = [
         meta: {
           type: 'menu-item',
           label: '主页',
-          icon: 'home'
+          icon: 'home',
+          limitOfAuthority: 0
         }
       },
       ...modules

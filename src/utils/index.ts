@@ -60,9 +60,26 @@ function debounce (func: (...args: any[]) => any, delay: number) {
   }
 }
 
+// Map TO List
+const map2List = (_dependencies: Record<string, string>) => {
+  return Object.keys(_dependencies).map(dep => {
+    return {
+      name: dep,
+      value: _dependencies[dep]
+    };
+  });
+};
+
+// 正则
+const reg = {
+  getFileNameReg: () => /(.*\/)*([^.]+).*/,
+}
+
 export {
   uuid,
   fullScreen,
   capitalize,
-  debounce
+  debounce,
+  map2List,
+  reg
 }

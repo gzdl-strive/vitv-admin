@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { simpleWeather } from '@/api/module';
 import { WeatherRes, CurWeatherType, CurWeather } from '../../typing';
 import { useUserStore } from '@/store';
@@ -17,6 +17,7 @@ const getWeatherMsg = (city: string) => {
           晴: 'weather_sunny',
           阴: 'weather_overcast',
           小雨: 'weather_rain',
+          中雨: 'weather_rain',
           大雨: 'weather_rain',
           雷阵雨: 'weather_rain',
           雪: 'weather_snow',
@@ -41,6 +42,12 @@ const getWeatherMsg = (city: string) => {
             if (item === type || item.includes(type)) {
               obj.type = item;
               obj.icon = weatherType[item as keyof typeof weatherType];
+            } else if (type.includes('雨')) {
+              obj.type = '小雨';
+              obj.icon = weatherType['小雨'];
+            } else if (type.includes('雪')) {
+              obj.type = '雪';
+              obj.icon = weatherType['雪'];
             }
           });
           arr.push(obj);
@@ -55,7 +62,7 @@ const getWeatherMsg = (city: string) => {
     });
 };
 
-onMounted(() => {
+watchEffect(() => {
   getWeatherMsg(userStore.baseCity);
 });
 </script>
