@@ -1,6 +1,7 @@
 import { h, VNode } from 'vue';
 import { Wrapper } from './typing';
 
+// 修复开发环境下HMT报错问题
 const useFixHmr = () => {
   // 自定义name的壳的集合
   const wrapperMap = new Map();
@@ -28,6 +29,5 @@ const useFixHmr = () => {
     wrap
   }
 }
-
 
 export default useFixHmr;

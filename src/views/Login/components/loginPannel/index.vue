@@ -1,7 +1,14 @@
 <script lang="ts" setup>
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { CHANGE_REMEBER, CHANGE_USERNAME, CHANGE_PWD } from '@/constant/module';
+import {
+  CHANGE_REMEBER,
+  CHANGE_USERNAME,
+  CHANGE_PWD,
+  CHANGE_LOGIN_STATUS,
+  CHANGE_LOGIN_INFO,
+  SET_LIMIT_AUTHORITY
+} from '@/constant/module';
 import { LoginInfoItem } from '@/store/module/typing';
 
 type Props = {
@@ -39,13 +46,16 @@ const handleSubmit = () => {
   const loginInfoList = props.loginStore.loginInfo;
   if (loginInfoList.length) {
     // 判断是否存在已经注册好的账号密码
-    const match = loginInfoList.some(
+    const match = loginInfoList.find(
       (info: LoginInfoItem) =>
         info.username === username.value && info.password === password.value
     );
     if (match) {
       props.userStore[CHANGE_USERNAME](username.value);
       props.userStore[CHANGE_PWD](password.value);
+      props.loginStore[CHANGE_LOGIN_STATUS](true);
+      props.loginStore[CHANGE_LOGIN_INFO](match.username, match.password);
+      props.userStore[SET_LIMIT_AUTHORITY](2);
       router.push('/');
     } else {
       window.$toast('error', '账号密码错误,请重新输入');
@@ -72,14 +82,12 @@ const handleSubmit = () => {
 };
 // 游客登录
 const loginByVisitor = () => {
+  props.userStore[CHANGE_USERNAME]('游客访问');
+  props.userStore[CHANGE_PWD]('');
+  props.userStore[SET_LIMIT_AUTHORITY](1);
+  props.loginStore[CHANGE_LOGIN_STATUS](true);
   router.push('/');
 };
-
-onMounted(() => {
-  // 进入页面，将用户名，密码置为空
-  props.userStore[CHANGE_USERNAME]('');
-  props.userStore[CHANGE_PWD]('');
-});
 </script>
 <script lang="ts">
 export default {

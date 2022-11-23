@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { inject, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import { useUserStore } from '@/store';
+import { useUserStore, useLoginStore } from '@/store';
+import { CHANGE_LOGIN_STATUS } from '@/constant/module';
 
 const router = useRouter();
 const userStore = useUserStore();
+const loginStore = useLoginStore();
 const handleLogout = () => {
   window
     .$confirm({
@@ -17,6 +19,7 @@ const handleLogout = () => {
     })
     .then(() => {
       router.push('/login');
+      loginStore[CHANGE_LOGIN_STATUS](false);
       window.$toast('success', '退出登录成功');
     })
     .catch(() => {

@@ -8,6 +8,7 @@ const ChallengeRoutes: RouteRecordRaw = {
     type: 'sub-menu',
     label: '挑战',
     icon: 'challenge',
+    limitOfAuthority: 2
   },
   children: [
     {
@@ -18,6 +19,7 @@ const ChallengeRoutes: RouteRecordRaw = {
         type: 'menu-item',
         label: "TS类型挑战",
         icon: 'ts',
+        limitOfAuthority: 2
       }
     },
     {
@@ -28,6 +30,7 @@ const ChallengeRoutes: RouteRecordRaw = {
         type: 'menu-item',
         label: "基础挑战",
         icon: 'development',
+        limitOfAuthority: 2
       }
     }
   ]

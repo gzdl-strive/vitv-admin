@@ -139,6 +139,7 @@ export default {
     </div>
     <button class="start-btn" @click="startGame">Start!</button>
     <score-panel
+      v-if="scorepanel.list.length"
       v-model="scorepanel.show"
       :style="scorepanel.style"
       :list="scorepanel.list"

@@ -4,6 +4,7 @@ import PwdIntensity from './intensity.vue';
 import { PwdIntensityLevel } from './typing';
 import { CHANGE_LOGIN_INFO } from '@/constant/module';
 import { LoginInfoItem } from '@/store/module/typing';
+import { defaultSetting } from '@/config/setting';
 
 type Props = {
   changeLoginStatus: () => void;
@@ -112,6 +113,7 @@ const handleSubmit = () => {
     } else {
       // 找到之前存在过的账号信息，如果账号密码相同，则不变
       // 如果账号密码不相同，则弹窗是否需要更新密码
+      const reg = new RegExp(defaultSetting.REGISTER_ADMIN_PWD);
       if (loginInfoList[index].password !== password.value) {
         window
           .$confirm({
@@ -119,7 +121,7 @@ const handleSubmit = () => {
             title: '提示',
             message: '当前注册的用户名之前已存在，是否更新为当前密码？',
             showInput: true,
-            inputPattern: /admin/,
+            inputPattern: reg,
             inputPlaceholder: '请输入管理员密码!',
             inputErrorMessage: '管理员密码错误',
             showCancelButton: true,
@@ -133,6 +135,8 @@ const handleSubmit = () => {
           .catch(() => {
             window.$toast('info', '取消更新!');
           });
+      } else {
+        window.$toast('info', '该账号密码已存在!');
       }
     }
   }

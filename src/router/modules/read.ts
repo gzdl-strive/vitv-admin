@@ -8,6 +8,7 @@ const Read: RouteRecordRaw = {
     type: 'sub-menu',
     label: '阅读',
     icon: 'read',
+    limitOfAuthority: 2
   },
   children: [
     {
@@ -18,7 +19,8 @@ const Read: RouteRecordRaw = {
         type: 'menu-item',
         label: "JS高级程序设计",
         icon: 'js',
-        noKeepAlive: true
+        noKeepAlive: true,
+        limitOfAuthority: 2
       }
     },
   ]

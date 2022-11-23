@@ -5,12 +5,17 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 import normalizeWheel from 'normalize-wheel-es';
 import gsap from 'gsap';
+import firefilesVertex from './shader/firefile/vertex.glsl?raw';
+import firefilesFragment from './shader/firefile/fragment.glsl?raw';
 
 const useRoom = (canvas: HTMLCanvasElement) => {
   // debug-active
   const active: boolean = window.location.hash === '#debug';
   // Debug
-  const gui = active ? new dat.GUI() : null;
+  const gui = active ? new dat.GUI({
+    width: 400,
+  }) : null;
+  gui && (gui.domElement.setAttribute('style', 'position: absolute;top: 0; left: 0'));
 
   // Loaders
   const gltfLoader = new GLTFLoader();
@@ -157,12 +162,142 @@ const useRoom = (canvas: HTMLCanvasElement) => {
     }
     window.setInterval(play, 5000);
   }
+  // 加载需要播放动画的模型
+  function loadVideoModel(modelName: string) {
+    gltfLoader.load(`/models/${modelName}.glb`, gltf => {
+      const element = document.createElement('video');
+      element.muted = true;
+      element.loop = true;
+      element.controls = true;
+      element.playsInline = true;
+      element.autoplay = true;
+      element.setAttribute('style', 'position: fixed; left: 0; top: 0;transform: rotateY(180deg); width: 0; height: 0')
+      element.src = '/video/test.mp4';
+      document.body.append(element);
+      // Model
+      const pcTexture = new THREE.VideoTexture(element);
+      pcTexture.encoding = THREE.sRGBEncoding;
+      const pcMaterial = new THREE.MeshBasicMaterial({
+        map: pcTexture
+      });
+      gltf.scene.traverse(child => {
+        (child as any).material = pcMaterial;
+      });
+      gltf.scene.position.set(-2, 0, 0);
+      scene.add(gltf.scene);
+    });
+  }
   // 加载room模型
   loadModel('room');
   // 加载需要旋转的椅子上半部分模型
   loadModel('topChair');
+  // 加载PC屏幕
+  loadVideoModel('pc_screen');
   // 小屏幕按钮
   setModel('screen_btn');
+
+  // 加载Logo图片
+  const logoImgAnimations = {
+    y: 0,
+    z: 0,
+    limits: {
+      y: {
+        min: -2.3,
+        max: 1
+      },
+      z: {
+        min: -3, 
+        max: 1.4
+      },
+    },
+    speed: {
+      y: 0.3,
+      z: 1,
+    }
+  }
+  const logoTexture = textureLoader.load(`/image/logo-img.png`);
+  logoTexture.encoding = THREE.sRGBEncoding;
+  const logoGeometry = new THREE.PlaneGeometry(4, 1, 1, 1);
+  logoGeometry.rotateY(- Math.PI * 0.5);
+
+  const logoGroup = new THREE.Group();
+  logoGroup.position.x = 1.99;
+  logoGroup.position.y = 3.6;
+  logoGroup.position.z = 2.6;
+  logoGroup.scale.set(0.5, 0.5, 0.5);
+  scene.add(logoGroup);
+
+  const logoMaterial = new THREE.MeshBasicMaterial({
+    transparent: true,
+    map: logoTexture,
+  });
+  const logoMesh = new THREE.Mesh(logoGeometry, logoMaterial);
+  logoGroup.add(logoMesh);
+
+  if (gui) {
+    gui.add(logoGroup.position, 'x').min(-5).max(5).step(0.001).name('logoPositionX');
+    gui.add(logoGroup.position, 'y').min(-5).max(5).step(0.001).name('logoPositionY');
+    gui.add(logoGroup.position, 'z').min(-5).max(5).step(0.001).name('logoPositionZ');
+    gui.add(logoMesh.scale, 'z').min(0.001).max(1).step(0.001).name('logoScaleZ');
+    gui.add(logoMesh.scale, 'y').min(0.001).max(1).step(0.001).name('logoScaleY');
+    gui.add(logoImgAnimations.limits.y, 'min').min(-3).max(1).step(0.001).name('logoLimitYMin');
+    gui.add(logoImgAnimations.limits.y, 'max').min(1).max(3).step(0.001).name('logoLimitYMax');
+    gui.add(logoImgAnimations.limits.z, 'min').min(-5).max(1).step(0.001).name('logoLimitZMin');
+    gui.add(logoImgAnimations.limits.z, 'max').min(1).max(3).step(0.001).name('logoLimitZMax');
+    gui.add(logoImgAnimations.speed, 'y').min(0.1).max(1).step(0.001).name('logoSpeedY');
+    gui.add(logoImgAnimations.speed, 'z').min(0.1).max(2).step(0.001).name('logoSpeedZ');
+  }
+
+  // logo动画
+  function logoAnimation(deltaTime: number) {
+    logoImgAnimations.y += logoImgAnimations.speed.y * deltaTime;
+    logoImgAnimations.z += logoImgAnimations.speed.z * deltaTime;
+
+    if (logoImgAnimations.z > logoImgAnimations.limits.z.max || logoImgAnimations.z < logoImgAnimations.limits.z.min) {
+      logoImgAnimations.speed.z *= -1;
+    }
+    if (logoImgAnimations.y > logoImgAnimations.limits.y.max || logoImgAnimations.y < logoImgAnimations.limits.y.min) {
+      logoImgAnimations.speed.y *= -1;
+    }
+
+    logoMesh.position.y = logoImgAnimations.y;
+    logoMesh.position.z = logoImgAnimations.z;
+  }
+
+  // FireFiles
+  const firefilesGeometry = new THREE.BufferGeometry();
+  const firefilesCount = 30;
+  const positionArray = new Float32Array(firefilesCount * 3);
+  const scaleArray = new Float32Array(firefilesCount * 1);
+
+  for (let i = 0; i < firefilesCount; i++) {
+    positionArray[i * 3 + 0] = (Math.random() - 0.5) * 8
+    positionArray[i * 3 + 1] = Math.random() * 10 + 1
+    positionArray[i * 3 + 2] = (Math.random() - 0.5) * 10
+  
+    scaleArray[i] = Math.random() * 3;
+  }
+  
+  firefilesGeometry.setAttribute('position', new THREE.BufferAttribute(positionArray, 3))
+  firefilesGeometry.setAttribute('aScale', new THREE.BufferAttribute(scaleArray, 1))
+
+  // Material
+  const firefilesMaterial = new THREE.ShaderMaterial({
+    uniforms: {
+      uTime: { value: 0 },
+      uPixelRatio: { value: Math.min(window.devicePixelRatio, 2) },
+      uSize: { value: 100 }
+    },
+    vertexShader: firefilesVertex,
+    fragmentShader: firefilesFragment,
+    transparent: true,
+    depthWrite: false,
+    blending: THREE.AdditiveBlending
+  });
+
+  // Points 
+  const firefiles = new THREE.Points(firefilesGeometry, firefilesMaterial);
+  scene.add(firefiles);
 
   // Lights
   const directionalLight = new THREE.DirectionalLight('#ff0000', 50);
@@ -426,7 +561,7 @@ const useRoom = (canvas: HTMLCanvasElement) => {
 
   // Animate
   const clock = new THREE.Clock();
-  // let previousTime = 0;
+  let previousTime = 0;
 
   if (gui) {
     gui
@@ -457,8 +592,11 @@ const useRoom = (canvas: HTMLCanvasElement) => {
 
   const tick = () => {
     const elapsedTime = clock.getElapsedTime();
-    // const deltaTime = elapsedTime - previousTime;
-    // previousTime = elapsedTime;
+    const deltaTime = elapsedTime - previousTime;
+    previousTime = elapsedTime;
+
+    // Logo动起来
+    logoAnimation(deltaTime);
 
     initView(elapsedTime);
 
@@ -467,6 +605,9 @@ const useRoom = (canvas: HTMLCanvasElement) => {
     if (topChairModel) {
       topChairModel.rotation.y = Math.sin(elapsedTime * 0.5) * 0.5;
     }
+
+    // 萤火虫
+    firefilesMaterial.uniforms.uTime.value = elapsedTime;
 
     // Render
     renderer.render(scene, camera);

@@ -8,6 +8,7 @@ const Model: RouteRecordRaw = {
     type: 'sub-menu',
     label: 'Blender模型',
     icon: 'blender',
+    limitOfAuthority: 2
   },
   children: [
     {
@@ -18,18 +19,8 @@ const Model: RouteRecordRaw = {
         type: 'menu-item',
         label: "模型合集",
         icon: 'model',
-        noKeepAlive: true
-      }
-    },
-    {
-      name: 'roomModel',
-      path: 'roomModel',
-      component: () => import('@/views/pages/model/room'),
-      meta: {
-        type: 'menu-item',
-        label: "ROOM IN 3D",
-        icon: 'room',
-        noKeepAlive: true
+        noKeepAlive: true,
+        limitOfAuthority: 2
       }
     }
   ]

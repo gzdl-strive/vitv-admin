@@ -5,7 +5,8 @@ import { useUserStore } from '@/store';
 import {
   CHANGE_USERNAME,
   CHANGE_AVATAR,
-  CHANGEPERSONALSIGNATURE
+  CHANGEPERSONALSIGNATURE,
+  CHANGE_CITY
 } from '@/constant/module';
 import { AVATAR } from '@/config/typing';
 
@@ -16,12 +17,12 @@ const props = defineProps<Props>();
 const emits = defineEmits(['update:modelValue']);
 
 const userStore = useUserStore();
-
+// 弹窗visible
 const visible = computed<boolean>({
   get: () => props.modelValue,
   set: (newVal: boolean) => emits('update:modelValue', newVal)
 });
-
+// 用户名
 const username = computed<string>({
   get: () => userStore.username,
   set: (newName: string) => {
@@ -33,13 +34,31 @@ const handleAvatar = (avatar: AVATAR) => {
   if (avatar.icon === userStore.avatar) return;
   userStore[CHANGE_AVATAR](avatar.icon);
 };
-
+// 个性签名
 const signature = computed<string>({
   get: () => userStore.personalSignature,
   set: (newSign: string) => userStore[CHANGEPERSONALSIGNATURE](newSign)
 });
 
-const city = computed(() => userStore.baseCity);
+// 城市
+const city = computed({
+  get: () => userStore.baseCity,
+  set: (newVal: string) => {
+    userStore[CHANGE_CITY](newVal);
+  }
+});
+
+// 权限
+const limit = computed(() => {
+  const levelCheck = (level: number): boolean =>
+    userStore.limitOfAuthority >= level ? false : true;
+  return {
+    username: levelCheck(defaultSetting.USER_PANNEL_LIMIT.USERNAME),
+    avatar: levelCheck(defaultSetting.USER_PANNEL_LIMIT.AVATAR),
+    signature: levelCheck(defaultSetting.USER_PANNEL_LIMIT.SIGNATURE),
+    city: levelCheck(defaultSetting.USER_PANNEL_LIMIT.CITY)
+  };
+});
 </script>
 <script lang="ts">
 export default {
@@ -53,7 +72,11 @@ export default {
       <el-divider content-position="left">
         <section class="flex a_center gap_half"><i-ep-user />用户名</section>
       </el-divider>
-      <el-input v-model="username" placeholder="请输入用户名" />
+      <el-input
+        v-model="username"
+        :disabled="limit.username"
+        placeholder="请输入用户名"
+      />
       <el-divider content-position="center">
         <section class="flex a_center gap_half"><i-ep-avatar />头像</section>
       </el-divider>
@@ -66,6 +89,7 @@ export default {
           height="4rem"
           class="avatar-item"
           :circle="avatar.icon === userStore.avatar ? '50%' : '0%'"
+          :style="{ 'pointer-events': limit.avatar ? 'none' : '' }"
           @click="handleAvatar(avatar)"
         ></svg-icon>
       </section>
@@ -78,6 +102,7 @@ export default {
         v-model="signature"
         placeholder="个性签名"
         type="textarea"
+        :disabled="limit.signature"
         :autosize="{ minRows: 2, maxRows: 4 }"
       />
       <el-divider content-position="left">
@@ -85,7 +110,11 @@ export default {
           <i-ep-location-filled />城市
         </section>
       </el-divider>
-      <el-input v-model="city" :disabled="true" placeholder="请输入城市" />
+      <el-input
+        v-model="city"
+        :disabled="limit.city"
+        placeholder="请输入城市"
+      />
     </el-drawer>
   </div>
 </template>

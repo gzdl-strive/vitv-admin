@@ -8,6 +8,7 @@ export const CHANGE_TAG_STATUS = 'changeTagStatus';
 // login
 export const CHANGE_REMEBER = 'changeRemeber';
 export const CHANGE_LOGIN_INFO = 'changeLoginInfo';
+export const CHANGE_LOGIN_STATUS = 'changeLoginStatus';
 
 // tag
 export const CHANGE_ACTIVE_NAME = 'changeActiveName';
@@ -25,3 +26,4 @@ export const CHANGE_USERNAME = 'changeUsername';
 export const CHANGE_PWD = 'changePwd';
 export const CHANGEPERSONALSIGNATURE = 'changePersonalSignature';
 export const CHANGE_CITY = 'changeCity';
+export const SET_LIMIT_AUTHORITY = 'setLimitOfAuthority';

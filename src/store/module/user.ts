@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { UserStoreState } from './typing';
+import { UserStoreState, AuthorityLevel } from './typing';
 import { useLoginStore } from '@/store';
 
 const useUserStore = defineStore('user', {
@@ -9,7 +9,8 @@ const useUserStore = defineStore('user', {
       username: '',
       password: '',
       personalSignature: "Life was like a box of chocolates. You never know what you're gonna get.",
-      baseCity: '杭州'
+      baseCity: '杭州',
+      limitOfAuthority: 0
     }
   },
   actions: {
@@ -17,13 +18,19 @@ const useUserStore = defineStore('user', {
       this.avatar = avatar;
     },
     changeUsername(name: string, oldName = '', changeLocalStorage = false) {
-      this.username = name;
       if (changeLocalStorage) {
         const loginStore = useLoginStore();
+        // 判断用户名新的用户名是否已经存在
+        const user = loginStore.loginInfo.find(info => info.username === name);
+        if (user) {
+          window.$toast('error', '该用户名已存在!');
+          return;
+        }
         loginStore.loginInfo.forEach(info => {
           info.username === oldName && (info.username = name);
         });
       }
+      this.username = name;
     },
     changePwd(pwd: string) {
       this.password = pwd;
@@ -33,6 +40,9 @@ const useUserStore = defineStore('user', {
     },
     changeCity(city: string) {
       this.baseCity = city;
+    },
+    setLimitOfAuthority(level: AuthorityLevel) {
+      this.limitOfAuthority = level;
     }
   },
   persist: {
@@ -41,7 +51,7 @@ const useUserStore = defineStore('user', {
       {
         key: 'user-store',
         storage: localStorage,
-        paths: ['username', 'avatar', 'personalSignature', 'baseCity', 'password']
+        paths: ['username', 'avatar', 'personalSignature', 'baseCity', 'password', 'limitOfAuthority']
       },
     ]
   }

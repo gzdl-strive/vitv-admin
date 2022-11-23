@@ -64,10 +64,10 @@ const defaultSetting: Setting = {
     },
     {
       id: '003',
-      title: '房子模型',
-      icon: 'room',
+      title: '模型合集',
+      icon: 'model',
       iconColor: '#59e3d7',
-      path: '/model/roomModel'
+      path: '/model/commonModel'
     },
     {
       id: '004',
@@ -77,7 +77,14 @@ const defaultSetting: Setting = {
       path: '/about/systemIntro'
     }
   ],
-  DEVELOPMENT_PROCESS: 50
+  DEVELOPMENT_PROCESS: 80,
+  USER_PANNEL_LIMIT: {
+    USERNAME: 2,
+    AVATAR: 1,
+    SIGNATURE: 2,
+    CITY: 2
+  },
+  REGISTER_ADMIN_PWD: 'admin123'
 };
 
 export {
