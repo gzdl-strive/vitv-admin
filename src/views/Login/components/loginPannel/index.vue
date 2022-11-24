@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { ref, computed, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import {
   CHANGE_REMEBER,
@@ -10,6 +10,8 @@ import {
   SET_LIMIT_AUTHORITY
 } from '@/constant/module';
 import { LoginInfoItem } from '@/store/module/typing';
+import GetVerifyCode from '@/utils/getVerifyCode';
+import { ForgotData } from './typing';
 
 type Props = {
   changeLoginStatus: () => void;
@@ -88,13 +90,58 @@ const loginByVisitor = () => {
   props.loginStore[CHANGE_LOGIN_STATUS](true);
   router.push('/');
 };
+
+// 忘记密码
+const forgotData = reactive<ForgotData>({
+  step: 0,
+  verifyCode: '',
+  g: null,
+  checkLoading: false,
+  viewPwd: false
+});
+const beforePop = () => {
+  forgotData.g = new GetVerifyCode({
+    id: 'verify',
+    parentId: 'container',
+    width: 200,
+    height: 60
+  });
+};
+const afterPop = () => {
+  forgotData.step = 0;
+  forgotData.verifyCode = '';
+  forgotData.checkLoading = false;
+  forgotData.viewPwd = false;
+};
+// 点击校验
+const handleCheck = () => {
+  forgotData.checkLoading = true;
+  if (!forgotData.g) {
+    window.$toast('error', '出现未知错误,验证码获取失败');
+    forgotData.checkLoading = false;
+    return;
+  }
+  const validate = forgotData.g.validate(forgotData.verifyCode);
+  if (!validate) {
+    forgotData.verifyCode = '';
+    window.$toast('warning', '验证码错误');
+    forgotData.g.refresh();
+  } else {
+    forgotData.step = 1;
+  }
+  forgotData.checkLoading = false;
+};
+
+// handleStep
+const handleStep = (type: 'view' | 'edit') => {
+  window.$toast('info', '功能暂无开发,敬请期待!');
+};
 </script>
 <script lang="ts">
 export default {
   name: 'LoginPannel'
 };
 </script>
-
 <template>
   <div class="login-pannel flex column gap_half a_center">
     <header class="pannel-header flex a_center gap_half">
@@ -128,7 +175,62 @@ export default {
             <label for="remeber">记住我</label>
           </section>
           <section class="helper-right">
-            <a>忘记密码?</a>
+            <el-popover
+              :width="220"
+              trigger="click"
+              placement="right-start"
+              @before-enter="beforePop"
+              @after-leave="afterPop"
+            >
+              <template #reference>
+                <a>忘记密码?</a>
+              </template>
+              <template #default>
+                <el-steps :active="forgotData.step" align-center>
+                  <el-step title="验证" />
+                  <el-step title="查看/修改" />
+                </el-steps>
+                <section
+                  v-if="forgotData.step === 0"
+                  class="flex column a_center gap_half"
+                >
+                  <section id="container"></section>
+                  <section class="flex a_center gap_half">
+                    <el-input
+                      v-model="forgotData.verifyCode"
+                      placeholder="请输入验证码"
+                    />
+                    <el-button
+                      type="primary"
+                      :disabled="forgotData.verifyCode.length !== 4"
+                      :loading="forgotData.checkLoading"
+                      @click="handleCheck"
+                    >
+                      校验
+                    </el-button>
+                  </section>
+                </section>
+                <section v-else class="flex gap_half j_center">
+                  <section
+                    class="forgot-pwd-step2-item"
+                    @click="handleStep('view')"
+                  >
+                    <i-ep-view
+                      class="forgot-pwd-step-icon"
+                      @click="forgotData.viewPwd = !forgotData.viewPwd"
+                    ></i-ep-view>
+                    查看
+                  </section>
+                  <section
+                    class="forgot-pwd-step2-item"
+                    @click="handleStep('edit')"
+                  >
+                    <i-ep-edit class="forgot-pwd-step-icon"></i-ep-edit>
+                    编辑
+                  </section>
+                </section>
+              </template>
+            </el-popover>
           </section>
         </section>
         <button type="submit" class="submit-btn">登录</button>
@@ -288,5 +390,30 @@ input:-webkit-autofill {
   /* stylelint-disable-next-line property-no-vendor-prefix */
   -webkit-box-shadow: 0 0 0 1000px #2a4e6c inset !important;
   -webkit-text-fill-color: #fff;
+}
+
+/* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+:global(.forgot-pwd-step2-item) {
+  width: 5rem;
+  height: 5rem;
+  background-color: $theme-color;
+  color: $color-black;
+  border-radius: 1rem;
+  text-align: center;
+  user-select: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+/* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+:global(.forgot-pwd-step2-item:active) {
+  transform: scale(0.95);
+}
+/* stylelint-disable-next-line selector-pseudo-class-no-unknown */
+:global(.forgot-pwd-step-icon) {
+  width: 1.5rem;
+  height: 1.5rem;
 }
 </style>

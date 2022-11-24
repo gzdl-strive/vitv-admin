@@ -84,7 +84,7 @@ const defaultSetting: Setting = {
     SIGNATURE: 2,
     CITY: 2
   },
-  REGISTER_ADMIN_PWD: 'admin123'
+  REGISTER_ADMIN_PWD: 'admin'
 };
 
 export {
