@@ -1,4 +1,5 @@
 import { ElementDefaultConfig } from './typing';
+import zhCn from 'element-plus/lib/locale/lang/zh-cn';
 
 const defaultConfig: ElementDefaultConfig = {
   size: 'default',
@@ -8,7 +9,8 @@ const defaultConfig: ElementDefaultConfig = {
   },
   message: {
     max: 2
-  }
+  },
+  locale: zhCn
 }
 
 export {

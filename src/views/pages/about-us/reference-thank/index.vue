@@ -106,7 +106,9 @@ export default {
           My Room In 3D
         </el-descriptions-item>
         <el-descriptions-item label="系统介绍页背景" align="center">
-          <a href="https://threejs-journey.com/">three.js journey</a>
+          <a href="https://threejs-journey.com/" target="_blank"
+            >three.js journey</a
+          >
         </el-descriptions-item>
         <el-descriptions-item label="作者" align="center">
           Bruno Simon
@@ -115,6 +117,9 @@ export default {
           <a href="https://github.com/brunosimon"
             >https://github.com/brunosimon</a
           >
+        </el-descriptions-item>
+        <el-descriptions-item label="基础挑战" align="center" target="_blank">
+          <a href="https://github.com/wesbos/JavaScript30">JavaScript30</a>
         </el-descriptions-item>
       </el-descriptions>
     </el-card>

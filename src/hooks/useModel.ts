@@ -39,7 +39,7 @@ const useModel = (
   gltfLoader.setDRACOLoader(dracoLoader);
 
   // Textures
-  const bakedTexture = textureLoader.load(`/image/${bakedImgName}.jpg`);
+  const bakedTexture = textureLoader.load(`/image/model_common/${bakedImgName}.jpg`);
   bakedTexture.flipY = false;
   bakedTexture.encoding = THREE.sRGBEncoding;
 
@@ -51,11 +51,21 @@ const useModel = (
   /**
    * Model
    */
-  gltfLoader.load(`/models/${modelName}.glb`, gltf => {
+  gltfLoader.load(`/models/model_common/${modelName}.glb`, gltf => {
     gltf.scene.traverse(child => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (child as any).material = bakedMaterial;
     });
+
+    gltf.scene.position.set(-8, -2, 0);
+    // const box = new THREE.Box3().setFromObject(gltf.scene);
+    // const mdlen = box.max.x - box.min.x;
+    // const mdwid = box.max.z - box.min.z;
+    // const mdhei = box.max.y - box.min.y;
+    // const x1 = box.min.x + mdlen / 2;
+    // const y1 = box.min.y + mdhei / 2;
+    // const z1 = box.min.z + mdwid / 2;
+    // gltf.scene.position.set(-x1, -y1, -z1);
     scene.add(gltf.scene);
   });
 
@@ -123,6 +133,12 @@ const useModel = (
   // 判断是否开启debug面板
   const active: boolean = window.location.hash === '#debug';
   if (active) {
+    const dg = document.querySelector('.dg .main');
+    if (dg) {
+      // 用于解决，切换模型，产生多个gui面板问题，需要清除上一个面板
+      dg.remove();
+    }
+
     // Debug
     const gui = new dat.GUI();
 

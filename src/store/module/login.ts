@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { LoginStoreState, LoginInfoItem } from './typing';
+import getCurDate from '@/utils/date';
 
 const useLoginStore = defineStore('login', {
   state: (): LoginStoreState => {
@@ -20,9 +21,13 @@ const useLoginStore = defineStore('login', {
       const info = this.loginInfo.find(info => {
         return info.username === username;
       });
+      const { currentDate } = getCurDate(new Date());
       if (info) {
         info.password === password && (info.count += 1);
-        info.password !== password && (info.password = password) && (info.count = 1);
+        info.password !== password 
+          && (info.password = password) 
+          && (info.count = 1) 
+          && (info.createTime = currentDate);
       } else {
         // 2、不一致添加到loginInfoList末尾
         // 调整
@@ -30,7 +35,8 @@ const useLoginStore = defineStore('login', {
         this.loginInfo.push({
           username,
           password,
-          count: 1
+          count: 1,
+          createTime: currentDate,
         });
         this.loginInfo.length > 5 && this.loginInfo.shift();
       }

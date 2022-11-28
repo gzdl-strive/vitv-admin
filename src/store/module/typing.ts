@@ -10,6 +10,7 @@ export type LoginInfoItem = {
   username: string;
   password: string;
   count: number;
+  createTime: string;
 }
 
 export type LoginStoreState = {

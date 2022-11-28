@@ -1,4 +1,5 @@
 import { AuthorityLevel } from '@/store/module/typing';
+import { CommonObject } from '@/typing';
 
 export interface ElementDefaultConfig {
   readonly size?: 'small' | 'default' | 'large',
@@ -8,7 +9,8 @@ export interface ElementDefaultConfig {
   };
   readonly message?: {
     max: number;
-  }
+  },
+  locale: CommonObject;
 }
 
 export type THEME_NAME = '蓝' | '绿' | '粉' | '紫' | '棕';

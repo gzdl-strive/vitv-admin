@@ -85,6 +85,11 @@ const generateRandomColor = (min = 0, max = 255) => {
   return `rgb(${generateRandomNum(min, max)}, ${generateRandomNum(min, max)}, ${generateRandomNum(min, max)})`;
 }
 
+// 处理空数据
+const handleNullData = (data: any) => {
+  return (data === 'null' || data === undefined || data === null) ? '' : data;
+}
+
 export {
   uuid,
   fullScreen,
@@ -93,5 +98,6 @@ export {
   map2List,
   reg,
   generateRandomNum,
-  generateRandomColor
+  generateRandomColor,
+  handleNullData
 }
