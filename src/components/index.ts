@@ -1,6 +1,7 @@
 import { App } from 'vue';
 import Contextmenu from './Contextmenu';
 import ScorePanel from './ScorePanel';
+import FloatBall from './FloatBall';
 import ElementPlusComponent from './Element-Plus';
 
 type Commons = {
@@ -28,6 +29,16 @@ const commons: Commons[] = [
       //创建根节点
       const rootNode = document.createElement('div');
       rootNode.id = 'scorepanel';
+      document.body.appendChild(rootNode);
+    }
+  },
+  {
+    name: 'float-ball',
+    component: FloatBall,
+    register: () => {
+      //创建根节点
+      const rootNode = document.createElement('div');
+      rootNode.id = 'floatball';
       document.body.appendChild(rootNode);
     }
   },

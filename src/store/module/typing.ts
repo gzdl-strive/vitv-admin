@@ -13,6 +13,8 @@ export type LoginInfoItem = {
   createTime: string;
 }
 
+export type EditLoginInfoItem = Pick<LoginInfoItem, 'username' | 'password'>;
+
 export type LoginStoreState = {
   remeberMe: boolean;
   loginInfo: LoginInfoItem[];

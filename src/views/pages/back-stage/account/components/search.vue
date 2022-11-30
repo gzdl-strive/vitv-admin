@@ -6,7 +6,12 @@ type Props = {
   count: string;
 };
 const props = defineProps<Props>();
-const emits = defineEmits(['update:username', 'update:count', 'handleSearch']);
+const emits = defineEmits([
+  'update:username',
+  'update:count',
+  'handleSearch',
+  'handleAdd'
+]);
 
 const username = computed({
   get: () => props.username,
@@ -49,6 +54,7 @@ export default {
         >查询</el-button
       >
       <el-button @click="reset">重置</el-button>
+      <el-button type="primary" @click="emits('handleAdd')">新增</el-button>
     </el-row>
   </el-card>
 </template>

@@ -10,11 +10,11 @@ export async function getAccount({
   const promiseResult = new Promise((resolve) => {
     const dataList = loginStore.loginInfo.filter(item => {
       if (username && count) {
-        return item.username === username && item.count === parseInt(count);
+        return item.username.includes(username) && item.count >= parseInt(count);
       } else if (username && !count) {
-        return item.username === username;
+        return item.username.includes(username);
       } else if (count && !username) {
-        return item.count === parseInt(count);
+        return item.count >= parseInt(count);
       } else {
         return item;
       }
