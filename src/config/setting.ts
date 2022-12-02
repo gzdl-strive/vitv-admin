@@ -71,13 +71,20 @@ const defaultSetting: Setting = {
     },
     {
       id: '004',
+      title: '账号管理',
+      icon: 'account',
+      iconColor: '#386bf3',
+      path: '/backStage/account'
+    },
+    {
+      id: '005',
       title: '系统介绍',
       icon: 'system-intro',
       iconColor: '#e89176',
       path: '/about/systemIntro'
     }
   ],
-  DEVELOPMENT_PROCESS: 80,
+  DEVELOPMENT_PROCESS: 90,
   USER_PANNEL_LIMIT: {
     USERNAME: 2,
     AVATAR: 1,

@@ -32,7 +32,7 @@ export default {
 <style scoped lang="scss">
 .code-show-container {
   &:deep(pre code.hljs) {
-    padding: 1em 0 1em 1em;
+    padding: 1em 2rem 1em 1em;
   }
 }
 </style>

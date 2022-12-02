@@ -10,7 +10,7 @@ export interface ElementDefaultConfig {
   readonly message?: {
     max: number;
   },
-  locale: CommonObject;
+  language: CommonObject;
 }
 
 export type THEME_NAME = '蓝' | '绿' | '粉' | '紫' | '棕';

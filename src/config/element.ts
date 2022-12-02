@@ -10,7 +10,7 @@ const defaultConfig: ElementDefaultConfig = {
   message: {
     max: 2
   },
-  locale: zhCn
+  language: zhCn
 }
 
 export {
