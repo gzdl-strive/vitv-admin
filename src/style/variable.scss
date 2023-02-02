@@ -1,0 +1,40 @@
+// 样式变量
+// 系统颜色变量
+$color-primary: #228cf6 !default;
+$color-success:  #67c23a !default;
+$color-warning:  #e6a23c !default;
+$color-danger:   #f44141 !default;
+$color-info:     #909399 !default;
+$color-white:    #ffffff !default;
+$color-black:    #333333 !default;
+$color-gray:     #707070 !default;
+
+// 主题色变量
+$theme-color: var(--theme-color, $color-primary);
+
+// 侧边栏变量
+$aside-bar_bg-color: hsl(180, 2%, 9%) !default;
+$aside-bar_text-color: hsla(0, 0%, 100%, 0.951) !default;
+$aside-bar_box-shaddow: rgb(38, 57, 77) 0px 20px 30px -10px;
+$aside-bar-system-title_height: 4rem !default;
+$aside-bar_text-color_active: $theme-color !default;
+
+// 头部变量
+$header-height: 3rem;
+$header_box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+
+// 辅助头部变量
+$assist-header-height: 1.8rem;
+$assist-header_box-shadow: rgba(0, 0, 0, 0.3) 0px 3px 5px -3px;
+$assist-header_border: 1px solid rgb(230, 229, 229);
+
+// 内容区域变量
+$content-bg: #f0f2f5 !default;
+
+// 屏幕宽度
+$screen-xs: 32rem;
+$screen-sm: 38.4rem;
+$screen-md: 51.2rem;
+$screen-lg: 66.2rem;
+$screen-xl: 80rem;
+$screen-2xl: 106rem;

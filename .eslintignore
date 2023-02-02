@@ -1,0 +1,15 @@
+# 忽略文件和文件夹
+node_modules
+*.sh
+*.md
+*.woff
+*.ttf
+.vscode
+.idea
+dist
+/public
+/docs
+.husky
+.local
+/bin
+.json

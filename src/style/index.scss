@@ -1,0 +1,12 @@
+// 主入口样式文件
+@use './reset.scss' as *;
+@use './simplified.scss' as *;
+@use './transition.scss' as *;
+
+* {
+  font-size: 15px;
+}
+
+#app {
+  height: 100%;
+}

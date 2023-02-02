@@ -1,0 +1,86 @@
+[
+  {
+    "order": 2,
+    "label": "Get Return Type",
+    "describe": "Implement the built-in `ReturnType<T>` generic without using it.",
+    "example": "Expect<Equal<string, MyReturnType<() => string>>>",
+    "code": "type MyReturnType<T> = T extends (...args: any[]) => infer X ? X : never;"
+  },
+  {
+    "order": 3,
+    "label": "Omit",
+    "describe": "Implement the built-in `Omit<T, K>` generic without using it.",
+    "example": "interface Todo {\n title: string;\n description: string;\n completed: boolean;\n}\ntype TodoPreview = MyOmit<Todo, 'description' | 'title'>;\nconst todo: TodoPreview = {\n completed: false\n}",
+    "code": "type MyOmit<T, U extends keyof T> = { [P in keyof MyExclude<keyof T, U>]: T[P]; }"
+  },
+  {
+    "order": 8,
+    "label": "Readonly 2",
+    "describe": "Implement a generic `MyReadonly2<T, K>` which takes two type argument `T` and `K`.",
+    "example": "interface Todo {\n title: string;\n description: string;\n completed: boolean;\n}\ntype Test = MyReadonly2<Todo, 'title' | 'description'>",
+    "code": "type MyReadonly2<T, K extends keyof T = keyof T> = {\n readonly [P in K]: T[P];\n} & {\n [P in MyExclude<keyof T, K>]: T[P];\n}"
+  },
+  {
+    "order": 9,
+    "label": "Deep Readonly",
+    "describe": "Implement a generic `DeepReadonly<T>` which make every parameter of an object - and its sub-objects recursively - readonly.",
+    "example": "type X = {\n x: {\n  a: 1,\n  b: 'hi'\n },\n y: 'hey'\n}\ntype Expected = {\n readonly x: { readonly a: 1, readonly b: 'hi'},\n readonly y: 'hey'\n}",
+    "code": "type DeepReadonly<T> =\n T extends any\n  ? { readonly[P in keyof T]: keyof T[P] extends object ? T[P] : DeepReadonly<T[P]>; }\n  : never;"
+  },
+  {
+    "order": 10,
+    "label": "Tuple to Union",
+    "describe": "Implement a generic `TupleToUnion<T>` which covers the values of a tuple to its values union.",
+    "example": "type Arr = ['1', '2', '3'];\ntype Test = TupleToUnion<Arr>; // expected to be '1' | '2' | '3'",
+    "code": "type TupleToUnion<T extends readonly any[]> = T[number];"
+  },
+  {
+    "order": 12,
+    "label": "Chainable Options",
+    "describe": "In this challenge, you need to type an object or a class - whatever you like - to provide two function `option(key, value)` and `get()`. In `option`, you can extend the current config type by the given key and value. We should about to access the final result via `get`.",
+    "example": "declare const config: Chainable;\nconst result = config.option('foo', 123).option('name', 'type-challenges').option('bar', { value: 'Hello World' }).get()\n//expect the type of result to be:\ninterface Result {\n foo: number;\n name: string;\n bar: {\n  value: string;\n }\n}",
+    "code": "type Chainable<T = {}> = {\n option<K extends string, V>(key: MyExclude<K, keyof T, value: V>): Chainable<T & Record<K, V>>;\n get(): T;\n}"
+  },
+  {
+    "order": 15,
+    "label": "Last of Array",
+    "describe": "Implement a generic `Last<T>` that takes an Array `T` and returns its last element.",
+    "example": "type Arr1 = ['a', 'b', 'c'];\n type tail1 = Last<Arr1>; // expected to be 'c'",
+    "code": "type Last<T extends readonly unknown[]> = T extends [...infer Rest, infer Y] ? Y : never;"
+  },
+  {
+    "order": 16,
+    "label": "Pop",
+    "describe": "Implement a generic `Pop<T>` that takes an Array `T` and returns an Array without it's last element.",
+    "example": "type arr1 = ['a', 'b', 'c'];\n type res1 = Pop<arr1>; // expected to be ['a', 'b']",
+    "code": "type Pop<T extends readonly unknown[]> = T extends [...infer Rest, infer Last] ? Rest : never;"
+  },
+  {
+    "order": 20,
+    "label": "promise-all",
+    "describe": "Type the function `PromiseAll` that accepts an array of PromiseLike objects, the returning value should be `Promise<T>` where `T` is the resolved result array.",
+    "example": "const promise1 = Promise.resolve(3);\n const promise2 = new Promise<string>((resolve, reject) => { setTimeout(resolve, 100, 'foo'); });\n const p = Promise.all([promise1, promise2] as const); // expected to be`Promise<[number, string]>`",
+    "code": "declare function PromiseAll<T extends unknown[]>(values: readonly [...T]): Promise<{\n [P in keyof T]: T[P] extends Promise<infer X> ? X : T[P];\n}>"
+  },
+  {
+    "order": 62,
+    "label": "type-lookup",
+    "describe": "Sometimes, you may want to lookup for a type in a union to by their attributes",
+    "example": "interface Cat { type: 'cat' };\ninterface Dog { type: 'dog' };\ntype Animal = Cat | Dog;\ntype cases = [\n Expect<Equal<LookUp<Animal, 'dog'>, Dog>>,\n Expect<Equal<LookUp<Animal, 'cat'>, Cat>>,\n]",
+    "code": "type LookUp<U, T> = U extends { type: T } ? U : never;"
+  },
+  {
+    "order": 106,
+    "label": "trim-left",
+    "describe": "Implement `TrimLeft<T>` which takes an exact string type and returns a new string with the whitespace beginning removed",
+    "example": "type trimed = TrimLeft<'  Hello World  '> // expected to be 'Hello World  '",
+    "code": "type typeCode = ' ' | '\n' | '\t';\ntype TrimLeft<S extends string> = S extends `${typeCode}${infer Rest}` ? TrimLeft<Rest> : S"
+  },
+  {
+    "order": 108,
+    "label": "trim",
+    "describe": "Implement `Trim<T>` which takes an exact string type and returns a new string with the whitespace from both ends removed.",
+    "example": "type trimmed = Trim<'  Hello World  '> // expected to be 'Hello World'",
+    "code": "type TrimRight<S extends string> = S extends `${infer Rest}${typeCode}` ? trimRight<Rest> : S;\ntype Trim<S extends string> = TrimeRight<TrimLeft<S>>;"
+  }
+]

@@ -1,0 +1,1 @@
+export type PwdIntensityLevel = 'low' | 'middle' | 'high' | 'very-high';

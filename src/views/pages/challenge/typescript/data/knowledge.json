@@ -1,0 +1,38 @@
+[
+  {
+    "order": 1,
+    "item": "TypeScript是JavaScript的超集，它对JS进行了扩展。TS需要通过编译器编译为JS代码。TS完全兼容JS(任何JS代码都可以直接当成TS使用)。TS可以在代码执行前完成代码的检查，减少错误。"
+  },
+  {
+    "order": 2,
+    "item": "类型安全：如果能保证对某种类型只做该类型允许的操作，叫做类型安全。"
+  },
+  {
+    "order": 3,
+    "item": "类型检查就是为了保证类型安全的"
+  },
+  {
+    "order": 4,
+    "item": "类型体操？：支持类型编程的类型系统。对传入的类型参数（泛型）做各种逻辑运算，产生新的类型，这就是类型编程。"
+  },
+  {
+    "order": 5,
+    "item": "类型\n 5.1、基础类型: TS复用了JS中的基础类型和它们的包装类型(Number、Boolean...)。\n 5.2、引用类型：除了JS所支持的那些引用类型外，TS还新增了元组(Tuple)、接口(interface)以及枚举(Enum)\n  5.2.1、元组：元素的个数和元素的类型都固定的数组类型\n  5.2.2、接口：用于描述对象、函数、构造器的结构\n  5.2.3、枚举：一系列值的复合\n 5.3、特殊类型--void、never、any、unknown\n  5.3.1、never：代表不可达\n  5.3.2、void：代表空\n  5.3.3、any：任意类型，任何类型都可以赋值给它，它页可以赋值给任何类型(除了never)\n  5.3.4、unknown: 未知类型，任何类型都可以赋值给它，但它却不能赋值给任何类型.\n 5.4、类型装饰：除了描述类型的结构外，TypeScript的类型系统还支持描述类型的属性，比如是否可选，是否只读等"
+  },
+  {
+    "order": 6,
+    "item": "条件extends ? :  TS中的条件判断使用的是extends ? : ,叫做条件类型(Conditional Type)"
+  },
+  {
+    "order": 7,
+    "item": "推导infer: 用于提取类型的一部分，例如：type First<T extends unknown[]> = T extends [infer First, ...infer Rest] ? T : never;"
+  },
+  {
+    "order": 8,
+    "item": "联合|、交叉&: 联合类型Union，作用于类型，代表类型可以是几个类型之一，交叉类型Intersection，代表对类型做合并。type Union = 1 | 2 | '3'; type Intersection = { a: number; } & { c: boolean; }(注意，同一类型可以合并，不同类型没法合并，会被舍弃)"
+  },
+  {
+    "order": 9,
+    "item": "映射类型：对象、class 在 TypeScript 对应的类型是索引类型（Index Type），那么如何对索引类型作修改呢？答案是映射类型。\n type MapType<T> = {\n  [Key in keyof T]?: T[Key];\n }\n  9.1、keyof T是查询索引类型中所有的索引，叫做索引查询(keyof T会生成一个联合类型)\n  9.2、T[Key]是取索引类型某个索引的值，叫做索引访问\n  9.3、in用于遍历联合类型的运算符\n  9.4、映射类型就相当于把一个集合映射到另一个集合，这是它名字的由来。\n  9.5、除了值可以变化，索引也可以做变化，用 as 运算符，叫做重映射。\n   type MapType<T> = {\n    [Key in keyof T as `${Key & string}${Key & string}${Key & string}`]: [T[Key], T[Key], T[Key]];\n   }\n   索引类型的key可以是string、number、symbol，使用keyof T取出来就是string | number | symbol,这里使用& string，就是为了只剩下stirng.因为交叉类型会将同一类型进行合并，不同类型舍弃。"
+  }
+]
