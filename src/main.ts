@@ -11,9 +11,9 @@ import GlobalComponents from '@/components'; // 全局组件
 import 'animate.css';
 
 // 引入highlightjs
-import 'highlight.js/styles/atom-one-dark.css'
-import 'highlight.js/lib/common'
-import hljsVuePlugin from '@highlightjs/vue-plugin'
+import 'highlight.js/styles/atom-one-dark.css';
+import 'highlight.js/lib/common';
+import hljsVuePlugin from '@highlightjs/vue-plugin';
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersist);

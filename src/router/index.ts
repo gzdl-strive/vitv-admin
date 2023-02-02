@@ -28,7 +28,6 @@ router.beforeEach((to, from ,next) => {
 
   // 当没有登陆过且要去的页面不是，重定向到登录页
   if (!loginStore.isLogin && to.path !== '/login') {
-    window.$toast('error', '未通过账号登录!');
     router.push('/login');
   }
 

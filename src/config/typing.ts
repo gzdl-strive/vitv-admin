@@ -8,7 +8,7 @@ export interface ElementDefaultConfig {
   };
   readonly message?: {
     max: number;
-  }
+  },
 }
 
 export type THEME_NAME = '蓝' | '绿' | '粉' | '紫' | '棕';

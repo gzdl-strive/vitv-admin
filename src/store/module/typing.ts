@@ -10,7 +10,10 @@ export type LoginInfoItem = {
   username: string;
   password: string;
   count: number;
+  createTime: string;
 }
+
+export type EditLoginInfoItem = Pick<LoginInfoItem, 'username' | 'password'>;
 
 export type LoginStoreState = {
   remeberMe: boolean;

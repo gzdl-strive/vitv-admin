@@ -106,15 +106,37 @@ export default {
           My Room In 3D
         </el-descriptions-item>
         <el-descriptions-item label="系统介绍页背景" align="center">
-          <a href="https://threejs-journey.com/">three.js journey</a>
+          <a href="https://threejs-journey.com/" target="_blank"
+            >three.js journey</a
+          >
         </el-descriptions-item>
         <el-descriptions-item label="作者" align="center">
           Bruno Simon
         </el-descriptions-item>
         <el-descriptions-item label="GitHub" align="center">
-          <a href="https://github.com/brunosimon"
-            >https://github.com/brunosimon</a
+          <a href="https://github.com/brunosimon" target="_blank">
+            https://github.com/brunosimon
+          </a>
+        </el-descriptions-item>
+        <el-descriptions-item label="基础挑战" align="center">
+          <a href="https://github.com/wesbos/JavaScript30" target="_blank"
+            >JavaScript30</a
           >
+        </el-descriptions-item>
+        <el-descriptions-item label="TS类型挑战" align="center">
+          <a
+            href="https://github.com/type-challenges/type-challenges"
+            target="_blank"
+            >Type-Challenges</a
+          >
+        </el-descriptions-item>
+        <el-descriptions-item label="Blender模型合集" align="center">
+          <a
+            href="https://www.bilibili.com/video/BV1US4y1N7xN/?p=1"
+            target="_blank"
+          >
+            新手建模
+          </a>
         </el-descriptions-item>
       </el-descriptions>
     </el-card>
@@ -146,6 +168,8 @@ export default {
 
   .icon-list {
     width: 100%;
+    height: 21.8rem;
+    overflow-y: scroll;
     margin-bottom: 1rem;
 
     .icon {

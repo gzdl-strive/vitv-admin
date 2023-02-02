@@ -4,20 +4,25 @@ import useModel from '@/hooks/useModel';
 import { ModelOption } from '../typing';
 
 const modelOptions: ModelOption[] = [
-  { label: '骰子', value: 'dice' },
   { label: '羊角锤', value: 'yjc' },
-  { label: '垃圾桶', value: 'trash_can' },
-  { label: '螺丝钉', value: 'lsd' }
+  { label: '易拉罐', value: 'ylg' },
+  { label: '匕首🗡', value: 'knife' }
 ];
 
 const canvasRef = ref<HTMLCanvasElement>();
-const model = ref<string>('yjc');
+const model = ref<string>('ylg');
 
 const renderModel = (name: string) => {
   if (!canvasRef.value) return;
   const bakedName = `${name}_baked`;
   const modelName = name;
-  useModel(canvasRef.value, bakedName, modelName);
+  useModel(canvasRef.value, bakedName, modelName, {
+    cameraPosition: {
+      x: 20,
+      y: 20,
+      z: 20
+    }
+  });
 };
 
 onMounted(() => {

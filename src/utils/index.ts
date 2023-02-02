@@ -75,11 +75,29 @@ const reg = {
   getFileNameReg: () => /(.*\/)*([^.]+).*/,
 }
 
+// 随机数——指定范围
+const generateRandomNum = (min = 0, max = 1) => {
+  return Math.floor(Math.random() * (max - min) + min);
+};
+
+// 随机颜色
+const generateRandomColor = (min = 0, max = 255) => {
+  return `rgb(${generateRandomNum(min, max)}, ${generateRandomNum(min, max)}, ${generateRandomNum(min, max)})`;
+}
+
+// 处理空数据
+const handleNullData = (data: any) => {
+  return (data === 'null' || data === undefined || data === null) ? '' : data;
+}
+
 export {
   uuid,
   fullScreen,
   capitalize,
   debounce,
   map2List,
-  reg
+  reg,
+  generateRandomNum,
+  generateRandomColor,
+  handleNullData
 }

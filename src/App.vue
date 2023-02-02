@@ -2,12 +2,13 @@
 import { ElConfigProvider } from 'element-plus';
 import { defaultConfig } from '@/config/element';
 import useTitle from '@/hooks/useTitle';
+import zhCn from 'element-plus/lib/locale/lang/zh-cn';
 
 useTitle();
 </script>
 
 <template>
-  <el-config-provider v-bind="defaultConfig">
+  <el-config-provider v-bind="defaultConfig" :locale="zhCn">
     <router-view></router-view>
   </el-config-provider>
 </template>

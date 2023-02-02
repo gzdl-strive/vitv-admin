@@ -9,6 +9,8 @@ export const CHANGE_TAG_STATUS = 'changeTagStatus';
 export const CHANGE_REMEBER = 'changeRemeber';
 export const CHANGE_LOGIN_INFO = 'changeLoginInfo';
 export const CHANGE_LOGIN_STATUS = 'changeLoginStatus';
+export const REMOVE_LOGIN_INFO_ITEM = 'removeLoginInfoItem';
+export const EDIT_LOGIN_INFO_ITEM = 'editLoginInfoItem';
 
 // tag
 export const CHANGE_ACTIVE_NAME = 'changeActiveName';

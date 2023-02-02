@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
-import { LoginStoreState, LoginInfoItem } from './typing';
+import { LoginStoreState, LoginInfoItem, EditLoginInfoItem } from './typing';
+import getCurDate from '@/utils/date';
 
 const useLoginStore = defineStore('login', {
   state: (): LoginStoreState => {
@@ -20,9 +21,13 @@ const useLoginStore = defineStore('login', {
       const info = this.loginInfo.find(info => {
         return info.username === username;
       });
+      const { currentDate } = getCurDate(new Date());
       if (info) {
         info.password === password && (info.count += 1);
-        info.password !== password && (info.password = password) && (info.count = 1);
+        info.password !== password 
+          && (info.password = password) 
+          && (info.count = 1) 
+          && (info.createTime = currentDate);
       } else {
         // 2、不一致添加到loginInfoList末尾
         // 调整
@@ -30,9 +35,37 @@ const useLoginStore = defineStore('login', {
         this.loginInfo.push({
           username,
           password,
-          count: 1
+          count: 1,
+          createTime: currentDate,
         });
         this.loginInfo.length > 5 && this.loginInfo.shift();
+      }
+    },
+    // 删除账号
+    removeLoginInfoItem(username: string) {
+      this.loginInfo = this.loginInfo.filter(info => info.username !== username);
+    },
+    // 编辑账号
+    editLoginInfoItem(oldUser: EditLoginInfoItem, newUser: EditLoginInfoItem) {
+      const info = this.loginInfo.find(info => {
+        return info.username === oldUser.username;
+      });
+      if (!info) {
+        return {
+          code: '404',
+          success: false,
+          message: '未找到账号',
+        }
+      }
+      info.username = newUser.username;
+      info.password = newUser.password;
+      info.count = 1;
+      const { currentDate } = getCurDate(new Date());
+      info.createTime = currentDate;
+      return {
+        code: '200',
+        success: true,
+        message: '修改成功'
       }
     },
     adjustLoginInfo() {

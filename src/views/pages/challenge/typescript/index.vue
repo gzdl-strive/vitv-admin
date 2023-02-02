@@ -9,7 +9,8 @@ import mediumData from './data/medium.json';
 import knowledgeData from './data/knowledge.json';
 import CodeResolving from './components/codeResolving.vue';
 
-const activeName = ref<ChallengeLevel>('warm-up');
+// const activeName = ref<ChallengeLevel>('warm-up');
+const activeName = ref<ChallengeLevel>('medium');
 // warn-up-slove-code
 let code = `type HelloWorld = string // expected to be a string`;
 
@@ -21,6 +22,10 @@ const solveData = reactive<ResolveItem>({
 });
 
 const handleClick = (label: string, example: string, code: string) => {
+  if (!example && !code) {
+    window.$toast('warning', '暂无数据');
+    return;
+  }
   solveData.example = '';
   solveData.code = '';
   solveVisible.value = true;
@@ -115,11 +120,22 @@ export default {
             :title="medium.label"
             :order="medium.order"
             :describe="medium.describe"
+            :style="{
+              cursor: 'pointer',
+              border: medium?.example && medium?.code ? '1px solid #d49228' : ''
+            }"
             color="#d49228"
+            @click="
+              handleClick(
+                medium.label,
+                medium?.example || '',
+                medium?.code || ''
+              )
+            "
           />
         </section>
       </el-tab-pane>
-      <el-tab-pane name="hard">
+      <!-- <el-tab-pane name="hard">
         <template #label>
           <span>Hard</span>
         </template>
@@ -130,7 +146,7 @@ export default {
           <span>extreme</span>
         </template>
         <span>extreme</span>
-      </el-tab-pane>
+      </el-tab-pane> -->
     </el-tabs>
     <code-resolving
       v-if="solveVisible"
