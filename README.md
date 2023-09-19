@@ -1,18 +1,23 @@
-# Vite3 + Vue 3 + TypeScript
-一个模板项目
+# Vitv-Admin [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/gzdl-strive/vitv-admin/blob/main/LICENSE)
 
-# commit规范
-```js
-// type 指提交的类型
-// subject 指提交的摘要信息
-<type>: <subject>
-```
+English | [中文](README-CN.md)
 
-常用type值如下所示：
-- `feat`: 添加新功能
-- `fix`: 修复Bug
-- `chore`: 一些不影响功能的更改
-- `docs`: 专指文档的修改
-- `perf`: 性能方面的优化
-- `refactor`: 代码重构
-- `test`: 添加一些测试代码等等
+A Small and Medium sized Backend System Built on Vue3+Vite
+
+## Introduce
+- *my target*：
+  - Build a simple template project for learning and quickly building an environment.
+
+## Features
+- Build through Vite(no bundle)
+- Using TypeScript to Ensure Type Safety
+- Standard specifications (Eslint+Prettier+Stylelint+CommitLint)
+- Simple interface and rich functionality
+
+## Author
+* gzdl-strive
+
+## LICENSE
+[MIT](https://github.com/gzdl-strive/vitv-admin/blob/main/LICENSE)
+
+Copyright (c) 2023-present gzdl-strive
