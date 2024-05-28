@@ -18,9 +18,9 @@ const initFunc = () => {
   const video: HTMLVideoElement = videoRef.value!;
   const strip: HTMLDivElement = stripRef.value!;
   window.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.altKey && e.key.toLowerCase() === 't') {
+    if (e.ctrlKey && e.key.toLowerCase() === 't') {
       takePhoto(canvas, strip);
-    } else if (e.altKey && e.key.toLowerCase() === 'v') {
+    } else if (e.ctrlKey && e.key.toLowerCase() === 'v') {
       getVideo();
       video.addEventListener('canplay', () => paintToCanvas(canvas, video));
     }
@@ -167,7 +167,7 @@ const contextmenu = reactive<ContextMenuProps>({
 const handleRightClick = (event: MouseEvent) => {
   const video: HTMLVideoElement = videoRef.value!;
   if (!video.srcObject) {
-    window.$toast('warning', '请按alt+v开启摄像头');
+    window.$toast('warning', '请按ctrl+v开启摄像头');
     return;
   }
   contextmenu.style.top = event.clientY + 'px';
@@ -190,7 +190,7 @@ export default {
   <section class="container">
     <el-alert
       class="alert"
-      title="按住alt + v开启摄像头、按住alt + t进行拍照、右键面板使用更多功能"
+      title="按住ctrl + v开启摄像头、按住ctrl + t进行拍照、右键面板使用更多功能"
       type="info"
     />
     <main class="photobooth bg-wave" @contextmenu.prevent="handleRightClick">
