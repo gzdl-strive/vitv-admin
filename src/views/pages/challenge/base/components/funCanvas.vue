@@ -51,7 +51,7 @@ const canvasChart = () => {
   canvas.addEventListener('mouseout', () => (isDrawing = false));
 
   window.addEventListener('keydown', (e: KeyboardEvent) => {
-    if (e.altKey && e.key.toLowerCase() === 'c') {
+    if (e.ctrlKey && e.key.toLocaleLowerCase() === 'c') {
       canvas.height = canvas.height;
     }
   });
@@ -70,7 +70,7 @@ export default {
 <template>
   <section class="container">
     <section class="control">
-      <el-alert class="alert" title="按住alt + c进行清除画布" type="info" />
+      <el-alert class="alert" title="按住ctrl + c进行清除画布" type="info" />
       <section class="line">
         <span>画笔粗细：</span>
         <el-input-number v-model="lineWidth" :min="5" :max="20" />
